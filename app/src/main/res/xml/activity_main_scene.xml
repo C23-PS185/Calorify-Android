@@ -6,15 +6,28 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
-        motion:duration="1000"
+        motion:duration="5000"
         motion:autoTransition="animateToEnd">
+<!--        Source: https://medium.com/geekculture/learn-motion-layout-in-android-using-twitter-splash-screen-9c38160c46d -->
         <KeyFrameSet>
-            <KeyAttribute
-                motion:framePosition="0"
-                motion:motionTarget="@id/imageView" />
-            <KeyAttribute
-                motion:framePosition="500"
-                motion:motionTarget="@id/imageView" />
+            <KeyFrameSet>
+                <KeyAttribute
+                    android:alpha="1"
+                    motion:framePosition="10"
+                    motion:motionTarget="@+id/imageView" />
+
+                <KeyAttribute
+                    android:alpha="0"
+                    motion:framePosition="50"
+                    motion:motionTarget="@+id/imageView" />
+
+                <KeyAttribute
+                    android:alpha="0"
+                    motion:framePosition="100"
+                    motion:motionTarget="@+id/imageView" />
+
+
+            </KeyFrameSet>
         </KeyFrameSet>
     </Transition>
 
@@ -53,8 +66,9 @@
             android:id="@+id/imageView"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="48dp"
+            android:layout_height="300dp"
+            android:alpha="0"
+            motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent" />
         <Constraint
