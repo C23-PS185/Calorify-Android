@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Calorify</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_et_invalid">Wrong email format</string>
+    <string name="pass_et_invalid">Password must be at least 8 characters long</string>
+</resources>
