@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="primary_500">#006AF5</color>
+
     <color name="blue_200">#98D1FE</color>
     <color name="blue_500">#3D9CDC</color>
     <color name="blue_700">#003CB0</color>
@@ -8,5 +11,6 @@
     <color name="orange_700">#B03100</color>
     <color name="black">#000000</color>
     <color name="neutral_500">#667085</color>
+    <color name="neutral_700">#344054</color>
     <color name="white">#FFFFFF</color>
 </resources>
