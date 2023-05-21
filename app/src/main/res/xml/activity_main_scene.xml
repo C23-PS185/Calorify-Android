@@ -17,7 +17,7 @@
 
             <KeyAttribute
                 android:alpha="0"
-                motion:framePosition="50"
+                motion:framePosition="20"
                 motion:motionTarget="@+id/imageView" />
 
             <KeyAttribute
@@ -56,6 +56,34 @@
             android:layout_marginEnd="64dp"
             motion:layout_constraintTop_toTopOf="@+id/menu3"
             android:id="@+id/menu4" />
+        <Constraint
+            android:id="@+id/logoMenu1"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintVertical_bias="0.3"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:alpha="0" />
+        <Constraint
+            android:id="@+id/titleMenu1"
+            motion:layout_constraintEnd_toEndOf="@+id/logoMenu1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/logoMenu1"
+            motion:layout_constraintStart_toStartOf="@+id/logoMenu1"
+            android:layout_marginTop="16dp"
+            android:alpha="0" />
+        <Constraint
+            android:id="@+id/descMenu1"
+            motion:layout_constraintEnd_toEndOf="@+id/titleMenu1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="@+id/titleMenu1"
+            android:layout_marginTop="8dp"
+            motion:layout_constraintTop_toBottomOf="@+id/titleMenu1"
+            android:alpha="0" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
