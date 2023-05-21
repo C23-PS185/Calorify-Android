@@ -8,27 +8,24 @@
         motion:constraintSetStart="@id/start"
         motion:duration="5000"
         motion:autoTransition="animateToEnd">
-<!--        Source: https://medium.com/geekculture/learn-motion-layout-in-android-using-twitter-splash-screen-9c38160c46d -->
+
         <KeyFrameSet>
-            <KeyFrameSet>
-                <KeyAttribute
-                    android:alpha="1"
-                    motion:framePosition="10"
-                    motion:motionTarget="@+id/imageView" />
+            <KeyAttribute
+                android:alpha="1"
+                motion:framePosition="10"
+                motion:motionTarget="@+id/imageView" />
 
-                <KeyAttribute
-                    android:alpha="0"
-                    motion:framePosition="50"
-                    motion:motionTarget="@+id/imageView" />
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@+id/imageView" />
 
-                <KeyAttribute
-                    android:alpha="0"
-                    motion:framePosition="100"
-                    motion:motionTarget="@+id/imageView" />
-
-
-            </KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="100"
+                motion:motionTarget="@+id/imageView" />
         </KeyFrameSet>
+
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -362,14 +359,16 @@
         <Constraint
             android:id="@+id/button"
             motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             android:alpha="1"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/descMenu4"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
         <Constraint
             motion:layout_constraintEnd_toEndOf="@+id/logoMenu4"
             android:layout_width="0dp"
