@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.commit
 import com.calorify.app.R
 import com.calorify.app.databinding.FragmentRegisterBinding
 import com.calorify.app.ui.activity.MainActivity
@@ -45,6 +46,10 @@ class RegisterFragment : Fragment() {
             signIn()
         }
 
+        binding.tvLogin.setOnClickListener {
+            switchToLogin()
+        }
+
         // Configure Google Sign In
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -76,6 +81,19 @@ class RegisterFragment : Fragment() {
             }
         }
     }
+
+    private fun switchToLogin() {
+        val mLoginFragment = LoginFragment()
+        val mFragmentManager = parentFragmentManager
+
+        mFragmentManager.commit {
+            replace(
+                R.id.frame_container, mLoginFragment, LoginFragment::class.java.simpleName
+            )
+            addToBackStack(null)
+        }
+    }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)

@@ -219,12 +219,14 @@
                 android:text="Belum mendaftar?" />
 
             <TextView
-                android:id="@+id/tvLogin"
+                android:id="@+id/tvRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Daftar sekarang"
-                android:textColor="@color/primary_500" />
+                android:textColor="@color/primary_500"
+                android:clickable="true"
+                android:focusable="true" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
