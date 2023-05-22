@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         if (firebaseUser == null) {
             // Not signed in, launch the Login activity
-            startActivity(Intent(this, AuthActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
             return
         }
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun signOut() {
         auth.signOut()
-        startActivity(Intent(this, AuthActivity::class.java))
+        startActivity(Intent(this, RegisterActivity::class.java))
         finish()
     }
 }

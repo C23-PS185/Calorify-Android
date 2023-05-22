@@ -1,18 +1,15 @@
-package com.calorify.app.ui.fragment
+package com.calorify.app.ui.activity
 
 import android.app.Activity
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.commit
 import com.calorify.app.R
-import com.calorify.app.databinding.FragmentRegisterBinding
-import com.calorify.app.ui.activity.MainActivity
+import com.calorify.app.databinding.ActivityLoginBinding
+import com.calorify.app.databinding.ActivityRegisterBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -23,31 +20,26 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class RegisterFragment : Fragment() {
+class RegisterActivity : AppCompatActivity() {
 
-    private var _binding: FragmentRegisterBinding? = null
+    private var _binding: ActivityRegisterBinding? = null
     private val binding get() = _binding!!
-    private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentRegisterBinding.inflate(layoutInflater)
-        return binding.root
-    }
+    private lateinit var googleSignInClient: GoogleSignInClient
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         binding.registerButtonGmail.setOnClickListener {
             signIn()
         }
 
-        binding.tvLogin.setOnClickListener {
-            switchToLogin()
+        binding.tvLogin.setOnClickListener{
+            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+            startActivity(intent)
         }
 
         // Configure Google Sign In
@@ -56,11 +48,11 @@ class RegisterFragment : Fragment() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
         // Initialize Firebase Auth
         auth = Firebase.auth
-    }
 
+    }
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         resultLauncher.launch(signInIntent)
@@ -81,23 +73,10 @@ class RegisterFragment : Fragment() {
             }
         }
     }
-
-    private fun switchToLogin() {
-        val mLoginFragment = LoginFragment()
-        val mFragmentManager = parentFragmentManager
-
-        mFragmentManager.commit {
-            replace(
-                R.id.frame_container, mLoginFragment, LoginFragment::class.java.simpleName
-            )
-            addToBackStack(null)
-        }
-    }
-
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
@@ -112,14 +91,12 @@ class RegisterFragment : Fragment() {
     }
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null){
-            startActivity(Intent(requireActivity(), MainActivity::class.java))
-            requireActivity().finish()
+            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+            finish()
         }
     }
 
     companion object {
-        private const val TAG = "LoginActivity"
+        private const val TAG = "RegisterActivity"
     }
-
-
 }

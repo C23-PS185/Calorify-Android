@@ -16,7 +16,7 @@ class OnboardingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.button.setOnClickListener{
-            startActivity(Intent(this, AuthActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }
