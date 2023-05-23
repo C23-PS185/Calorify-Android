@@ -5,10 +5,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import com.calorify.app.R
 import com.calorify.app.databinding.ActivityLoginBinding
-import com.calorify.app.databinding.ActivityMainBinding
+import com.calorify.app.viewmodel.LoginViewModel
+import com.calorify.app.viewmodel.ViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -18,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.calorify.app.helper.Result
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,14 +31,27 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
+    private val loginViewModel by viewModels<LoginViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.loginButtonGmail.setOnClickListener {
+            signIn()
+        }
+
+        binding.loginButton.setOnClickListener {
+            authentication()
+        }
+
         binding.tvRegister.setOnClickListener{
             val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         // Configure Google Sign In
@@ -84,8 +102,43 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null){
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
             finish()
+        }
+    }
+
+    private fun authentication() {
+        binding.apply {
+            val etEmail = emailEditTextLayout.editText?.text.toString()
+            val etPassword = passEditTextLayout.editText?.text.toString()
+            val isValid = emailEditTextLayout.error == null && binding.passEditTextLayout.error == null
+
+            when {
+                etEmail.isEmpty() -> {
+                    emailEditTextLayout.error = resources.getString(R.string.email_empty)
+                }
+                etPassword.isEmpty() -> {
+                    passEditTextLayout.error = resources.getString(R.string.password_empty)
+                }
+                isValid -> {
+                    auth.signInWithEmailAndPassword(etEmail, etPassword)
+                        .addOnCompleteListener(this@LoginActivity) { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithEmailAndPassword:success")
+                                val user = auth.currentUser
+                                updateUI(user)
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "signInWithEmailAndPassword:failure", task.exception)
+                                Toast.makeText(this@LoginActivity, "Login Gagal. Harap gunakan email dan password yang sesuai.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                }
+            }
         }
     }
 

@@ -5,10 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.calorify.app.R
-import com.calorify.app.databinding.ActivityLoginBinding
 import com.calorify.app.databinding.ActivityRegisterBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -40,6 +38,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.tvLogin.setOnClickListener{
             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         // Configure Google Sign In
@@ -91,7 +90,9 @@ class RegisterActivity : AppCompatActivity() {
     }
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null){
-            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
             finish()
         }
     }

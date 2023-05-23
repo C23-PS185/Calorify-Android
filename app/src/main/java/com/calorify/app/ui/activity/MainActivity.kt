@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun signOut() {
         auth.signOut()
-        startActivity(Intent(this, RegisterActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 }

@@ -14,18 +14,22 @@ class Repository(private val apiService: ApiService, private val preference: Use
     fun login(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.login(email, password)
+            val requestBody = mapOf(
+                "email" to email,
+                "password" to password
+            )
+            val response = apiService.login(requestBody)
 
             when {
                 response.error -> emit(Result.Error(response.message))
                 else -> {
-                    val user = UserModel(
-                        name = response.loginResult.name,
-                        userId = response.loginResult.userId,
-                        token = response.loginResult.token
-                    )
-                    preference.saveUser(user)
-                    ApiConfig.token = response.loginResult.token
+//                    val user = UserModel(
+//                        name = response.loginResult.name,
+//                        userId = response.loginResult.userId,
+//                        token = response.loginResult.token
+//                    )
+//                    preference.saveUser(user)
+//                    ApiConfig.token = response.loginResult.token
                     emit(Result.Success(response))
                 }
             }
