@@ -133,10 +133,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Konfirmasi Kata Sandi"
-            android:textSize="14dp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="Konfirmasi Kata Sandi"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passEditTextLayout" />
@@ -231,10 +231,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/registerButtonGmail"
             app:layout_constraintStart_toStartOf="@+id/registerButtonGmail"
-            app:layout_constraintTop_toBottomOf="@+id/registerButtonGmail">
+            app:layout_constraintTop_toBottomOf="@+id/registerButtonGmail"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:layout_width="wrap_content"
