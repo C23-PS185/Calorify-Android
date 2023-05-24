@@ -28,7 +28,7 @@ class ApiConfig {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:3000/api/")
+                .baseUrl("https://backend-dot-calorify-app.et.r.appspot.com/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

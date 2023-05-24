@@ -7,7 +7,7 @@ import com.calorify.app.helper.Result
 import com.calorify.app.repository.Repository
 
 class LoginViewModel(private val repository: Repository) : ViewModel() {
-    fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
-        return repository.login(email, password)
-    }
+//    fun login(email: String, password: String): LiveData<Result<LoginResponse>> {
+//        return repository.login(email, password)
+//    }
 }
