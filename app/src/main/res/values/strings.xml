@@ -17,4 +17,8 @@
     <string name="desc_onboard_img_2">Gambar untuk Aman dan Tepercaya</string>
     <string name="desc_onboard_img_3">Gambar untuk Pintar dan Terkini</string>
     <string name="desc_onboard_img_4">Gambar untuk Selalu Ada di Dekatmu</string>
+    <string name="fill_email">Mohon isi email</string>
+    <string name="fill_pass">Mohon isi kata sandi\n</string>
+    <string name="fill_confirm_pass">Ketik ulang kata sandi</string>
+    <string name="confirm_pass_not_match">Kata sandi tidak sama</string>
 </resources>
