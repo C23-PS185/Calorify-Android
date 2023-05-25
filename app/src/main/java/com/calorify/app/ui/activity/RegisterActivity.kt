@@ -102,7 +102,7 @@ class RegisterActivity : AppCompatActivity() {
                     when (result) {
                         is Result.Success -> {
                             binding.progressBar.visibility = View.GONE
-                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                            val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
                             startActivity(intent)
                         }
 

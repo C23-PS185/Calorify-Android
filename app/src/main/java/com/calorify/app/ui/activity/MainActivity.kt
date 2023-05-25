@@ -28,10 +28,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
             return
+        } else {
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+            return
         }
-        binding.btnLogout.setOnClickListener{
-            signOut()
-        }
+//        binding.btnLogout.setOnClickListener{
+//            signOut()
+//        }
     }
     private fun signOut() {
         auth.signOut()
