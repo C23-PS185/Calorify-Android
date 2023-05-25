@@ -2,6 +2,25 @@
     <string name="app_name">Calorify</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="email_et_invalid">Wrong email format</string>
-    <string name="pass_et_invalid">Password must be at least 8 characters long</string>
+    <string name="email_et_invalid">Masukkan email dengan format yang valid</string>
+    <string name="pass_et_invalid">Password kurang dari 8 karakter</string>
+    <string name="email_empty">Masukkan email</string>
+    <string name="password_empty">Masukkan password</string>
+    <string name="onboarding_title_1">Gampang digunakan</string>
+    <string name="onboarding_desc_1">Hidup sehat menjadi menyenangkan dengan Calorify! Atur kalori harian dengan mudah dan jadilah versi terbaik dirimu!</string>
+    <string name="onboarding_title_2">Aman dan Tepercaya</string>
+    <string name="onboarding_desc_2">Sahabat terpercaya untuk perjalananmu dalam mengatur kalori harian. Yuk nikmati saran personal yang aman dari Calorify!</string>
+    <string name="onboarding_title_3">Pintar dan Terkini</string>
+    <string name="onboarding_desc_3">Temukan keajaiban teknologi dengan Calorify! Nikmati pengalaman mengatur kalori yang pintar dengan bantuan kecerdasan artifisial!</string>
+    <string name="onboarding_title_4">Selalu Ada Di Dekatmu</string>
+    <string name="onboarding_desc_4">Dengan Calorify, pengaturan kalori harian dapat dilakukan kapanpun dan dimanapun. Yuk hidup sehat dengan Calorify!</string>
+    <string name="join_now">Bergabung Sekarang</string>
+    <string name="desc_onboard_img_1">Gambar untuk Gampang Digunakan</string>
+    <string name="desc_onboard_img_2">Gambar untuk Aman dan Tepercaya</string>
+    <string name="desc_onboard_img_3">Gambar untuk Pintar dan Terkini</string>
+    <string name="desc_onboard_img_4">Gambar untuk Selalu Ada di Dekatmu</string>
+    <string name="fill_email">Mohon isi email</string>
+    <string name="fill_pass">Mohon isi kata sandi\n</string>
+    <string name="fill_confirm_pass">Ketik ulang kata sandi</string>
+    <string name="confirm_pass_not_match">Kata sandi tidak sama</string>
 </resources>

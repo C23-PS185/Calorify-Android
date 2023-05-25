@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "499717584237",
+    "project_id": "calorify-app",
+    "storage_bucket": "calorify-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499717584237:android:bbdb3d570189c3abde1664",
+        "android_client_info": {
+          "package_name": "com.calorify.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "499717584237-qt5rhvtl9qeegtimkd0fs3k03elkr8k4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.calorify.app",
+            "certificate_hash": "ee810a8400e2f88960bdae7685fa16393d534af3"
+          }
+        },
+        {
+          "client_id": "499717584237-kt11g66fi065iemrk4j8hb9lve232pto.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB_FdqRVCfhuzpMfVWg3Z13nkG3dtWJGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "499717584237-kt11g66fi065iemrk4j8hb9lve232pto.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

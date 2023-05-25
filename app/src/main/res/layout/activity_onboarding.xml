@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/activity_main_scene"
+    tools:context=".ui.activity.OnboardingActivity">
+
+    <ImageView
+        android:id="@+id/logoMenu1"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:src="@drawable/onboarding1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        android:contentDescription="@string/desc_onboard_img_1" />
+
+    <TextView
+        android:id="@+id/titleMenu1"
+        style="@style/TextContent.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center_horizontal"
+        android:text="@string/onboarding_title_1"
+        app:layout_constraintEnd_toEndOf="@+id/logoMenu1"
+        app:layout_constraintStart_toStartOf="@+id/logoMenu1"
+        app:layout_constraintTop_toBottomOf="@+id/logoMenu1"
+        tools:ignore="VisualLintOverlap" />
+
+    <TextView
+        android:id="@+id/descMenu1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center_horizontal"
+        android:text="@string/onboarding_desc_1"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/titleMenu1"
+        app:layout_constraintStart_toStartOf="@+id/titleMenu1"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu1"
+        tools:ignore="VisualLintOverlap" />
+
+    <ImageView
+        android:id="@+id/logoMenu2"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        android:src="@drawable/onboarding2"
+        android:contentDescription="@string/desc_onboard_img_2"/>
+
+    <TextView
+        android:id="@+id/titleMenu2"
+        style="@style/TextContent.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/logoMenu2"
+        app:layout_constraintStart_toStartOf="@+id/logoMenu2"
+        app:layout_constraintTop_toBottomOf="@+id/logoMenu2"
+        android:text="@string/onboarding_title_2"
+        tools:ignore="VisualLintOverlap" />
+
+    <TextView
+        android:id="@+id/descMenu2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/titleMenu2"
+        app:layout_constraintStart_toStartOf="@+id/titleMenu2"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu2"
+        android:text="@string/onboarding_desc_2"
+        tools:ignore="VisualLintOverlap" />
+
+    <ImageView
+        android:id="@+id/logoMenu3"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:src="@drawable/onboarding3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        android:contentDescription="@string/desc_onboard_img_3"/>
+
+    <TextView
+        android:id="@+id/titleMenu3"
+        style="@style/TextContent.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/logoMenu3"
+        app:layout_constraintStart_toStartOf="@+id/logoMenu3"
+        app:layout_constraintTop_toBottomOf="@+id/logoMenu3"
+        android:text="@string/onboarding_title_3"
+        tools:ignore="VisualLintOverlap" />
+
+    <TextView
+        android:id="@+id/descMenu3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/titleMenu3"
+        app:layout_constraintStart_toStartOf="@+id/titleMenu3"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu3"
+        android:text="@string/onboarding_desc_3"
+        tools:ignore="VisualLintOverlap" />
+
+    <ImageView
+        android:id="@+id/logoMenu4"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:src="@drawable/onboarding4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        android:contentDescription="@string/desc_onboard_img_4"/>
+
+    <TextView
+        android:id="@+id/titleMenu4"
+        style="@style/TextContent.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/inter_bold"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/logoMenu4"
+        app:layout_constraintStart_toStartOf="@+id/logoMenu4"
+        app:layout_constraintTop_toBottomOf="@+id/logoMenu4"
+        android:text="@string/onboarding_title_4" />
+
+    <TextView
+        android:id="@+id/descMenu4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/titleMenu4"
+        app:layout_constraintStart_toStartOf="@+id/titleMenu4"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu4"
+        android:text="@string/onboarding_desc_4" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/menu1"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="32dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintEnd_toStartOf="@+id/menu2"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/blue_500" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/menu2"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintBottom_toBottomOf="@+id/menu1"
+        app:layout_constraintEnd_toStartOf="@+id/menu3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/menu1"
+        app:layout_constraintTop_toTopOf="@+id/menu1"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/blue_500" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/menu3"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintBottom_toBottomOf="@+id/menu2"
+        app:layout_constraintEnd_toStartOf="@+id/menu4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/menu2"
+        app:layout_constraintTop_toTopOf="@+id/menu2"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/blue_500" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/menu4"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="32dp"
+        app:altSrc="@drawable/ic_circle_full_24"
+        app:layout_constraintBottom_toBottomOf="@+id/menu3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/menu3"
+        app:layout_constraintTop_toTopOf="@+id/menu3"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_circle_24"
+        app:tint="@color/blue_500" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button"
+        android:layout_marginBottom="32dp"
+        android:alpha="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:backgroundTint="@color/blue_500"
+        android:text="@string/join_now"
+        android:fontFamily="@font/inter_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cornerRadius="12dp" />
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/calorify_logo_nobg" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
