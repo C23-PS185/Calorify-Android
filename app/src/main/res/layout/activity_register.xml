@@ -175,7 +175,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="46dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/primary_500"
+            android:backgroundTint="@color/blue_500"
             android:text="Daftar"
             android:fontFamily="@font/inter_medium"
             android:textStyle="bold"
@@ -250,7 +250,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Masuk"
-                android:textColor="@color/primary_500" />
+                android:textColor="@color/blue_500" />
         </LinearLayout>
 
         <ProgressBar

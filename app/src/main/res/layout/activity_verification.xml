@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Kirim Ulang"
-            android:textColor="@color/primary_500"
+            android:textColor="@color/blue_500"
             app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -95,7 +95,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="48dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/primary_500"
+            android:backgroundTint="@color/blue_500"
             android:fontFamily="@font/inter_medium"
             android:text="Saya Sudah Verifikasi"
             android:textAllCaps="false"

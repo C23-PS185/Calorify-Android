@@ -19,7 +19,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:text="Lupa kata sandi?"
-            android:textColor="@color/primary_500"
+            android:textColor="@color/blue_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -148,7 +148,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="108dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/primary_500"
+            android:backgroundTint="@color/blue_500"
             android:fontFamily="@font/inter_medium"
             android:text="Masuk"
             android:textAllCaps="false"
@@ -224,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="Daftar sekarang"
-                android:textColor="@color/primary_500"
+                android:textColor="@color/blue_500"
                 android:clickable="true"
                 android:focusable="true" />
         </LinearLayout>
