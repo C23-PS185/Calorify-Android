@@ -47,6 +47,7 @@ import coil.compose.AsyncImage
 import com.calorify.app.R
 import com.calorify.app.repository.LogRepository
 import com.calorify.app.ui.component.CustomButton
+import com.calorify.app.ui.component.HomeHeader
 import com.calorify.app.ui.component.ListLog
 import com.calorify.app.ui.component.LogHeader
 import com.calorify.app.ui.component.LogListItem
@@ -68,13 +69,16 @@ class HomeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.padding(16.dp)
-                    ){
-                        PieChart()
-                        CustomButton(R.drawable.ic_add_circle_outline_24, text = "Tambahkan Log Kalori", onClick = {})
-                        ListLog(navigateToDetail = {})
+                    Column () {
+                        HomeHeader(name = "Melati", photo = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY")
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(16.dp)
+                        ){
+                            PieChart()
+                            CustomButton(R.drawable.ic_add_circle_outline_24, text = "Tambahkan Log Kalori", onClick = {})
+                            ListLog(navigateToDetail = {})
+                        }
                     }
                 }
             }

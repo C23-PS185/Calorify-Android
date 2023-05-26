@@ -53,9 +53,17 @@ fun PieChart() {
                 ),
                 fontSize = 16.sp
             )
+            Text(
+                text = "Kebutuhan kalori total: 1288 kal",
+                fontFamily = FontFamily(
+                    Font(resId = R.font.inter_regular),
+                ),
+                fontSize = 14.sp,
+                modifier = Modifier.padding(8.dp)
+            )
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(horizontal = 8.dp)
                     .height(160.dp)
                     .width(280.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
