@@ -6,10 +6,8 @@ import android.widget.LinearLayout
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Text
@@ -26,7 +24,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
 import com.calorify.app.data.local.PieChartData
 import com.calorify.app.data.local.getPieChartData
-import com.calorify.app.ui.theme.Black
 import com.calorify.app.ui.theme.Blue200
 import com.calorify.app.ui.theme.Blue700
 import com.calorify.app.ui.theme.CalorifyTheme

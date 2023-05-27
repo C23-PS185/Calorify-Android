@@ -39,9 +39,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.SplashActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.activity.MainActivity"
             android:exported="false" />
     </application>

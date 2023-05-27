@@ -1,9 +1,8 @@
 package com.calorify.app.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.calorify.app.R
+import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -29,17 +28,15 @@ class MainActivity : AppCompatActivity() {
             finish()
             return
         } else {
-            startActivity(Intent(this, HomeActivity::class.java))
-            finish()
-            return
+            if (firebaseUser.isEmailVerified) {
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+                return
+            } else {
+                startActivity(Intent(this, VerificationActivity::class.java))
+                finish()
+                return
+            }
         }
-//        binding.btnLogout.setOnClickListener{
-//            signOut()
-//        }
-    }
-    private fun signOut() {
-        auth.signOut()
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
     }
 }

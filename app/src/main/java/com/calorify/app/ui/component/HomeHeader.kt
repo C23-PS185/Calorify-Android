@@ -25,7 +25,6 @@ import coil.compose.AsyncImage
 import com.calorify.app.R
 import com.calorify.app.ui.theme.Blue500
 import com.calorify.app.ui.theme.CalorifyTheme
-import com.calorify.app.ui.theme.Orange500
 
 @Composable
 fun HomeHeader(

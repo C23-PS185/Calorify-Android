@@ -1,7 +1,5 @@
 package com.calorify.app.viewmodel
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.calorify.app.model.LogKalori
 import com.calorify.app.repository.LogRepository

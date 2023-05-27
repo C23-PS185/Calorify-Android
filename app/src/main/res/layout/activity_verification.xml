@@ -78,18 +78,19 @@
             tools:text="00:00" />
 
         <TextView
-            android:id="@+id/tvLogin"
+            android:id="@+id/tvResend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Kirim Ulang"
             android:textColor="@color/blue_500"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="@+id/textView4"
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/registerButton"
+            android:id="@+id/verificationButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
@@ -104,6 +105,6 @@
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/tvResend" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
