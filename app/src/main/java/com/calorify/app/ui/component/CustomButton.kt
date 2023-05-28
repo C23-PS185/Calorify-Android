@@ -1,5 +1,7 @@
 package com.calorify.app.ui.component
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -11,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
@@ -32,35 +35,40 @@ fun CustomButton(
     modifier: Modifier = Modifier
         .fillMaxWidth()
         .padding(16.dp)
-        .height(48.dp)) {
-    Button(
-        onClick = onClick,
-        modifier = modifier,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Blue500,
-            contentColor = White
-        ),
-        shape = MaterialTheme.shapes.medium
+        .height(48.dp)
+) {
+    Box(
+        modifier = modifier
+            .clip(shape = MaterialTheme.shapes.medium)
     ) {
-        IconButton(
+        Button(
             onClick = onClick,
-            modifier = Modifier
+            modifier = Modifier.fillMaxSize(),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Blue500,
+                contentColor = White
+            )
         ) {
-            Icon(
-                imageVector = ImageVector.vectorResource(id = icon), // Replace with your icon resource
-                contentDescription = "Left Icon"
+            IconButton(
+                onClick = onClick,
+                modifier = Modifier
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = icon),
+                    contentDescription = "Left Icon"
+                )
+            }
+            Text(
+                text = text,
+                style = MaterialTheme.typography.button.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp,
+                    fontFamily = FontFamily(
+                        Font(resId = R.font.inter_semibold)
+                    ),
+                )
             )
         }
-        Text(
-            text = text,
-            style = MaterialTheme.typography.button.copy(
-                fontWeight = FontWeight.Bold,
-                fontSize = 14.sp,
-                fontFamily = FontFamily(
-                    Font(resId = R.font.inter_semibold),
-                ),
-            )
-        )
     }
 }
 

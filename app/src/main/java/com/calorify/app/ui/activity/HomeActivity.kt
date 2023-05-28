@@ -7,16 +7,30 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.calorify.app.R
+import com.calorify.app.ui.component.BottomBar
 import com.calorify.app.ui.component.CustomButton
 import com.calorify.app.ui.component.HomeHeader
 import com.calorify.app.ui.component.ListLog
 import com.calorify.app.ui.component.PieChart
+import com.calorify.app.ui.navigation.Screen
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -33,23 +47,75 @@ class HomeActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colors.background
                 ) {
-                    Column () {
-                        HomeHeader(name = "Melati", photo = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY")
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.padding(16.dp)
-                        ){
-                            PieChart()
-                            CustomButton(R.drawable.ic_add_circle_outline_24, text = "Tambahkan Log Kalori", onClick = {signOut()})
-                            ListLog(navigateToDetail = {})
-                        }
-                    }
+                    CalorifyNavigation()
                 }
             }
         }
     }
+
+    @Composable
+    fun HomeScreen(){
+        Column () {
+            HomeHeader(name = "Melati", photo = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY")
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(16.dp)
+            ){
+                PieChart()
+                CustomButton(R.drawable.ic_add_circle_outline_24, text = "Tambahkan Log Kalori", onClick = {signOut()})
+                ListLog(navigateToDetail = {})
+            }
+        }
+    }
+
+    @Composable
+    fun CalorifyNavigation(
+        modifier: Modifier = Modifier,
+        navController: NavHostController = rememberNavController(),
+    ) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+
+        Scaffold(
+//            topBar = {
+//                if (currentRoute == Screen.DetailRecipe.route) {
+//
+//                    TopBar(
+//                        onBackClick = {navController.navigateUp()}
+//                    )
+//                }
+//            },
+            bottomBar = {
+//                if (currentRoute != Screen.DetailRecipe.route) {
+//                    BottomBar(navController)
+//                }
+                BottomBar(navController)
+            },
+            modifier = modifier
+        ) { innerPadding ->
+            NavHost(
+                navController = navController,
+                startDestination = Screen.Home.route,
+                modifier = Modifier.padding(innerPadding)
+            ) {
+                composable(Screen.Home.route) {
+                    HomeScreen()
+                }
+                composable(Screen.Scan.route) {
+                    HomeScreen()
+                }
+                composable(Screen.History.route) {
+                    HomeScreen()
+                }
+                composable(Screen.Profile.route) {
+                    HomeScreen()
+                }
+            }
+        }
+    }
+
 
     private fun signOut() {
         auth.signOut()
