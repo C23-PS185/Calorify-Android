@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             return
         } else {
             if (firebaseUser.isEmailVerified) {
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, AssessmentActivity::class.java))
                 finish()
                 return
             } else {

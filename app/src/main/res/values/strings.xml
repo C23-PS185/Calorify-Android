@@ -138,4 +138,24 @@
         <item>12:03</item>
         <item>12:03</item>
     </string-array>
+
+    <string-array name="status_fisik">
+        <item>Tidak dapat bergerak</item>
+        <item>Dapat bergerak tetapi terbatas</item>
+        <item>Dapat bergerak bebas</item>
+    </string-array>
+    <string-array name="status_stressor">
+        <item>Tidak ada penyebab stres</item>
+        <item>Peradangan saluran cerna, kanker,  bedah efektif, trauma, demam, operasi, cidera kepala ringan</item>
+        <item>Sepsis, bedah tulang, luka bakar, penyakit hati</item>
+        <item>HIV/Aids, komplikasi, bedah multisistem, TB Paru + komplikasi</item>
+        <item>Luka kepala berat</item>
+    </string-array>
+    <string-array name="tujuan_kesehatan">
+        <item>Menurunkan berat badan ekstrim</item>
+        <item>Menurunkan berat badan</item>
+        <item>Mempertahankan berat badan</item>
+        <item>Menaikkan berat badan</item>
+        <item>Menaikkan berat badan ekstrim</item>
+    </string-array>
 </resources>
