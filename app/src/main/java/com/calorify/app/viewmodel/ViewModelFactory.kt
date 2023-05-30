@@ -5,17 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.calorify.app.data.local.UserPreference
 import com.calorify.app.di.Injection
-import com.calorify.app.repository.Repository
+import com.calorify.app.repository.AssessmentRepository
 
 class ViewModelFactory private constructor(
-    private val repository: Repository,
-    private val preference: UserPreference
+    private val repository: AssessmentRepository
 ) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-//            modelClass.isAssignableFrom(RegisterViewModel::class.java) ->
-//                RegisterViewModel(repository) as T
+            modelClass.isAssignableFrom(AssessmentViewModel::class.java) ->
+                AssessmentViewModel(repository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
@@ -26,8 +25,7 @@ class ViewModelFactory private constructor(
         private var instance: ViewModelFactory? = null
         fun getInstance(context: Context): ViewModelFactory = instance ?: synchronized(this) {
             instance ?: ViewModelFactory(
-                Injection.provideRepository(context),
-                Injection.providePreferences(context)
+                Injection.provideAssessmentRepository(context),
             )
         }.also { instance = it }
     }

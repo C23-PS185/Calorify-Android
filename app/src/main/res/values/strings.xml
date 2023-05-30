@@ -29,6 +29,30 @@
     <string name="menu_scan">Riwayat Log</string>
     <string name="menu_history">Scan Kalori</string>
     <string name="menu_profile">Profil</string>
+    <string name="asesmen_diri">Asesmen Diri</string>
+    <string name="jargon_asesmen">Sebelum berpetualang bersama, Yuk isi informasi asesmen diri kamu terlebih dahulu agar Calorify dapat mengenalmu lebih baik</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="name_et_hint">Masukkan nama lengkap kamu</string>
+    <string name="birth_et_hint">Masukkan tanggal lahir kamu</string>
+    <string name="tanggal_lahir">Tanggal Lahir</string>
+    <string name="jenis_kelamin">Jenis Kelamin</string>
+    <string name="berat_badan">Berat Badan</string>
+    <string name="perempuan">Perempuan</string>
+    <string name="laki_laki">Laki-Laki</string>
+    <string name="weight_et_hint">Masukkan berat badan kamu (kg)</string>
+    <string name="tinggi_badan">Tinggi Badan</string>
+    <string name="height_et_hint">Masukkan tinggi badan kamu (cm)</string>
+    <string name="activity_dd_hint">Pilih status yang paling sesuai</string>
+    <string name="stressor_ed_hint">Pilih status yang paling sesuai</string>
+    <string name="health_dd_hint">Pilih tujuan kesehatanmu</string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="name_et_invalid">Mohon isi nama lengkap</string>
+    <string name="birth_et_invalid">Mohon isi tanggal lahir</string>
+    <string name="weight_et_invalid">Mohon isi berat badan</string>
+    <string name="height_et_invalid">Mohon isi tinggi badan</string>
+    <string name="dd_height_et_invalid">Mohon isi status aktivitas</string>
+    <string name="dd_stressor_et_invalid">Mohon isi status stressor</string>
+    <string name="dd_helth_et_invalid">Mohon isi tujuan kesehatan</string>
 
     <string-array name="data_id">
         <item>1</item>
@@ -138,7 +162,7 @@
         <item>12:03</item>
         <item>12:03</item>
     </string-array>
-    <string-array name="status_fisik">
+    <string-array name="status_ativitas">
         <item>Tidak dapat bergerak</item>
         <item>Dapat bergerak tetapi terbatas</item>
         <item>Dapat bergerak bebas</item>
