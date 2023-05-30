@@ -1,19 +1,49 @@
 package com.calorify.app.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import com.calorify.app.R
-import com.calorify.app.databinding.ActivityLoginBinding
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.databinding.ActivityVerificationBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class VerificationActivity : AppCompatActivity() {
 
-    private var _binding: ActivityVerificationBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityVerificationBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var currentUser: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityVerificationBinding.inflate(layoutInflater)
+        binding = ActivityVerificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = Firebase.auth
+        currentUser = auth.currentUser!!
+
+        currentUser.sendEmailVerification()
+
+        binding.verificationButton.setOnClickListener {
+            currentUser.reload().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    currentUser = auth.currentUser!!
+                    if (currentUser.isEmailVerified) {
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this, "Emailmu belum terverifikasi.", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(this, "Gagal mengambil data pengguna.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        binding.tvResend.setOnClickListener {
+            currentUser.sendEmailVerification()
+        }
     }
 }

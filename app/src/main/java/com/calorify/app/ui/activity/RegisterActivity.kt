@@ -2,18 +2,13 @@ package com.calorify.app.ui.activity
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
-import com.calorify.app.data.remote.request.RegisterRequest
 import com.calorify.app.databinding.ActivityRegisterBinding
-import com.calorify.app.viewmodel.RegisterViewModel
-import com.calorify.app.viewmodel.ViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -23,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.calorify.app.helper.Result
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -32,10 +26,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-
-    private val registerViewModel by viewModels<RegisterViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,32 +82,20 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             isValid -> {
-                val body = RegisterRequest(
-                    email = etEmail,
-                    password = etPass,
-                    passwordConfirmation = etConfirmPass
-                )
-                registerViewModel.setRegisterInfo(body)
-                registerViewModel.register().observe(this) { result ->
-                    when (result) {
-                        is Result.Success -> {
-                            binding.progressBar.visibility = View.GONE
-                            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                            startActivity(intent)
-                        }
-
-                        is Result.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.registerButton.isEnabled = true
-                            Toast.makeText(this@RegisterActivity, result.error, Toast.LENGTH_SHORT).show()
-                        }
-
-                        is Result.Loading -> {
-                            binding.progressBar.visibility = View.VISIBLE
-                            binding.registerButton.isEnabled = false
+                auth.createUserWithEmailAndPassword(etEmail, etPass)
+                    .addOnCompleteListener(this@RegisterActivity) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmailAndPassword:success")
+                            val user = auth.currentUser
+                            updateUI(user)
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmailAndPassword:failure", task.exception)
+                            Toast.makeText(this@RegisterActivity, "Login Gagal. Harap gunakan email dan password yang sesuai.", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
-                }
             }
         }
     }
@@ -160,7 +138,7 @@ class RegisterActivity : AppCompatActivity() {
     }
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null){
-            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+            val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             finish()

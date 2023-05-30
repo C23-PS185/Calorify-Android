@@ -1,17 +1,15 @@
 package com.calorify.app.data.remote.retrofit
 
-import com.calorify.app.data.remote.request.RegisterRequest
-import com.calorify.app.data.remote.response.LoginResponse
-import com.calorify.app.data.remote.response.RegisterResponse
-import com.google.gson.annotations.JsonAdapter
+import com.calorify.app.data.remote.request.AssessmentRequest
+import com.calorify.app.data.remote.response.AssessmentResponse
+import okhttp3.RequestBody
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface ApiService {
+
     @Headers("Content-Type: application/json")
-    @POST("register")
-    suspend fun register(@Body body: RegisterRequest) : RegisterResponse
+    @POST("add-user-data")
+    suspend fun uploadAssessment(@Body body: AssessmentRequest) : AssessmentResponse
 }
