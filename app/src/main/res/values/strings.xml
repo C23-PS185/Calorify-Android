@@ -138,7 +138,6 @@
         <item>12:03</item>
         <item>12:03</item>
     </string-array>
-
     <string-array name="status_fisik">
         <item>Tidak dapat bergerak</item>
         <item>Dapat bergerak tetapi terbatas</item>
