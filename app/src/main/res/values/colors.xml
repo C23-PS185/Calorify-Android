@@ -10,4 +10,5 @@
     <color name="neutral_500">#667085</color>
     <color name="neutral_700">#344054</color>
     <color name="white">#FFFFFF</color>
+    <color name="gray">#666666</color>
 </resources>
