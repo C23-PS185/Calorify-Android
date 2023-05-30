@@ -4,12 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -48,14 +46,14 @@ fun BottomBar(
                 title = stringResource(R.string.menu_scan),
                 icon = R.drawable.ic_navbar_history,
                 selectedIcon = R.drawable.ic_navbar_history_active,
-                screen = Screen.Scan,
+                screen = Screen.History,
                 contentDescription = "scan_calorie",
             ),
             NavigationItem(
                 title = stringResource(R.string.menu_history),
                 icon = R.drawable.ic_navbar_scan,
                 selectedIcon = R.drawable.ic_navbar_scan_active,
-                screen = Screen.History,
+                screen = Screen.Scan,
                 contentDescription = "history_log",
             ),
             NavigationItem(

@@ -138,4 +138,5 @@
         <item>12:03</item>
         <item>12:03</item>
     </string-array>
+    <string name="title_activity_riwayat_log">RiwayatLogActivity</string>
 </resources>
