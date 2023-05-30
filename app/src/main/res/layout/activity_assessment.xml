@@ -19,7 +19,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:text="Asesmen Diri"
+            android:text="@string/asesmen_diri"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -36,7 +36,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:text="Sebelum berpetualang bersama, Yuk isi informasi asesmen diri kamu terlebih dahulu agar Calorify dapat mengenalmu lebih baik"
+            android:text="@string/jargon_asesmen"
             android:textSize="14sp"
             android:textColor="@color/neutral_500"
             android:fontFamily="@font/inter_medium"
@@ -51,7 +51,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Nama Lengkap"
+            android:text="@string/nama_lengkap"
             android:textSize="14sp"
             android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
-                android:hint="Masukkan nama lengkap kamu"
+                android:hint="@string/name_et_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvName"
                 android:autofillHints="Isi nama lengkap" />
@@ -91,7 +91,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Tanggal Lahir"
+            android:text="@string/tanggal_lahir"
             android:textSize="14sp"
             android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
@@ -114,13 +114,12 @@
 
             <EditText
                 android:id="@+id/etBirth"
-                app:passwordToggleEnabled="true"
                 android:inputType="datetime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
-                android:hint="Masukkan tanggal lahir kamu"
+                android:hint="@string/birth_et_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvBirth"
                 android:autofillHints="Isi tanggal lahir" />
@@ -133,7 +132,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Jenis Kelamin"
+            android:text="@string/jenis_kelamin"
             android:textSize="14sp"
             android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
@@ -160,7 +159,7 @@
                 android:onClick="onRadioButtonClicked"
                 android:buttonTint="@color/blue_500"
                 android:paddingEnd="19dp"
-                android:text="Perempuan" />
+                android:text="@string/perempuan" />
 
             <RadioButton
                 android:id="@+id/radio_male"
@@ -168,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/blue_500"
                 android:onClick="onRadioButtonClicked"
-                android:text="Laki-Laki" />
+                android:text="@string/laki_laki" />
         </RadioGroup>
 
         <TextView
@@ -178,7 +177,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Berat Badan"
+            android:text="@string/berat_badan"
             android:textSize="14sp"
             android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
@@ -201,13 +200,11 @@
 
             <EditText
                 android:id="@+id/etWeight"
-                app:passwordToggleEnabled="true"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
-                android:hint="Masukkan berat badan kamu (kg)"
+                android:hint="@string/weight_et_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvWeight" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -219,7 +216,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Tinggi Badan"
+            android:text="@string/tinggi_badan"
             android:textSize="14sp"
             android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
@@ -242,13 +239,11 @@
 
             <EditText
                 android:id="@+id/etHeight"
-                app:passwordToggleEnabled="true"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
-                android:hint="Masukkan tinggi badan kamu (cm)"
+                android:hint="@string/height_et_hint"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvHeight"
                 android:autofillHints="Isi tinggi badan" />
@@ -283,14 +278,14 @@
             app:startIconDrawable="@drawable/ic_barbell">
 
             <AutoCompleteTextView
-                android:id="@+id/dropDownHeight"
+                android:id="@+id/dropDownActivity"
                 android:inputType="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
                 android:textColor="@color/gray"
-                android:text="Pilih status yang paling sesuai"/>
+                android:text="@string/activity_dd_hint"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -329,7 +324,7 @@
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
                 android:textColor="@color/gray"
-                android:text="Pilih status yang paling sesuai"/>
+                android:text="@string/stressor_ed_hint"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -369,12 +364,12 @@
                 android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
                 android:textColor="@color/gray"
-                android:text="Pilih tujuan kesehatanmu"/>
+                android:text="@string/health_dd_hint"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/registerButton"
+            android:id="@+id/buttonConfirm"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
@@ -383,7 +378,7 @@
             android:layout_marginBottom="24dp"
             android:backgroundTint="@color/blue_500"
             android:fontFamily="@font/inter_medium"
-            android:text="Daftar"
+            android:text="@string/lanjutkan"
             android:textAllCaps="false"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -393,6 +388,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dropDownLayoutKesehatan" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
