@@ -24,7 +24,7 @@ fun LogHeader(
 ) {
     Surface(
         color = Orange500,
-        modifier = modifier
+        modifier = modifier.padding(horizontal = 16.dp)
     ) {
         Text(
             text = title,

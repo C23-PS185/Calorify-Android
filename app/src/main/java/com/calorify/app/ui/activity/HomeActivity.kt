@@ -81,7 +81,7 @@ class HomeActivity : ComponentActivity() {
                     HomeScreen()
                 }
                 composable(Screen.History.route) {
-                    HistoryLogScreen()
+                    HistoryLogScreen(navigateToDetail = {})
                 }
                 composable(Screen.Scan.route) {
                     ScanCalorieScreen()
