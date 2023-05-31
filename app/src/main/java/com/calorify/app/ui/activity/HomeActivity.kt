@@ -12,18 +12,26 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.calorify.app.repository.LogRepository
 import com.calorify.app.ui.component.BottomBar
+import com.calorify.app.ui.component.TopBar
 import com.calorify.app.ui.navigation.Screen
+import com.calorify.app.ui.screen.DetailScreen
 import com.calorify.app.ui.screen.HistoryLogScreen
 import com.calorify.app.ui.screen.HomeScreen
 import com.calorify.app.ui.screen.ProfileScreen
 import com.calorify.app.ui.screen.ScanCalorieScreen
 import com.calorify.app.ui.theme.CalorifyTheme
+import com.calorify.app.viewmodel.ViewModelFactory2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -56,19 +64,17 @@ class HomeActivity : ComponentActivity() {
         val currentRoute = navBackStackEntry?.destination?.route
 
         Scaffold(
-//            topBar = {
-//                if (currentRoute == Screen.DetailRecipe.route) {
-//
-//                    TopBar(
-//                        onBackClick = {navController.navigateUp()}
-//                    )
-//                }
-//            },
+            topBar = {
+                if (currentRoute == Screen.DetailLog.route) {
+                    TopBar(
+                        onBackClick = {navController.navigateUp()}
+                    )
+                }
+            },
             bottomBar = {
-//                if (currentRoute != Screen.DetailRecipe.route) {
-//                    BottomBar(navController)
-//                }
-                BottomBar(navController)
+                if (currentRoute != Screen.DetailLog.route) {
+                    BottomBar(navController)
+                }
             },
             modifier = modifier
         ) { innerPadding ->
@@ -78,16 +84,31 @@ class HomeActivity : ComponentActivity() {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Home.route) {
-                    HomeScreen()
+                    HomeScreen( navigateToDetail = { logId ->
+                        navController.navigate(Screen.DetailLog.createRoute(logId))
+                    })
                 }
                 composable(Screen.History.route) {
-                    HistoryLogScreen(navigateToDetail = {})
+                    HistoryLogScreen( navigateToDetail = { logId ->
+                        navController.navigate(Screen.DetailLog.createRoute(logId))
+                    })
                 }
                 composable(Screen.Scan.route) {
                     ScanCalorieScreen()
                 }
                 composable(Screen.Profile.route) {
                     ProfileScreen()
+                }
+                composable(
+                    route = Screen.DetailLog.route,
+                    arguments = listOf(navArgument("logId") { type = NavType.IntType }),
+                ) {
+                    val id = it.arguments?.getInt("logId") ?: 0
+                    DetailScreen(
+                        viewModel = viewModel(factory = ViewModelFactory2(LogRepository(
+                            LocalContext.current), id)
+                        )
+                    )
                 }
             }
         }
