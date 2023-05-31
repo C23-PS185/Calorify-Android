@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.calorify.app.R
-import com.calorify.app.model.LogKalori
 import com.calorify.app.repository.LogRepository
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.ListLogViewModel

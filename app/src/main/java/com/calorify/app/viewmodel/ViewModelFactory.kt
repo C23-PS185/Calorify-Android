@@ -3,7 +3,6 @@ package com.calorify.app.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.calorify.app.data.local.UserPreference
 import com.calorify.app.di.Injection
 import com.calorify.app.repository.AssessmentRepository
 
