@@ -31,7 +31,7 @@ fun LogListItem(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = modifier.padding(horizontal = 16.dp)
     ) {
         AsyncImage(
             model = photoUrl,

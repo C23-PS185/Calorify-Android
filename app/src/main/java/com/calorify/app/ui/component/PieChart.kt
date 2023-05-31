@@ -36,6 +36,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 
+// Reference: https://www.geeksforgeeks.org/pie-chart-in-android-using-jetpack-compose/
 @Composable
 fun PieChart() {
     Column() {
@@ -92,39 +93,32 @@ fun PieChart() {
     }
 }
 
-// on below line we are creating a update pie
-// chart function to update data in pie chart.
+
 fun updatePieChartWithData(
-    // on below line we are creating a variable
-    // for pie chart and data for our list of data.
+
     chart: PieChart,
     data: List<PieChartData>
 ) {
-    // on below line we are creating
-    // array list for the entries.
+
     val entries = ArrayList<PieEntry>()
 
-    // on below line we are running for loop for
-    // passing data from list into entries list.
+
     for (i in data.indices) {
         val item = data[i]
         entries.add(PieEntry(item.value ?: 0.toFloat(), item.status ?: ""))
     }
 
-    // on below line we are creating
-    // a variable for pie data set.
+
     val ds = PieDataSet(entries, "")
 
-    // on below line we are specifying color
-    // int the array list from colors.
+
     ds.colors = arrayListOf(
         Orange200.toArgb(),
         Blue200.toArgb(),
     )
-    // on below line we are specifying position for value
+
     ds.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
 
-    // on below line we are specifying position for value inside the slice.
     ds.xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
 
     ds.sliceSpace = 2f
