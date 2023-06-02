@@ -55,7 +55,6 @@ fun LogListItem(
                 fontFamily = FontFamily(
                     Font(resId = R.font.inter_regular),
                 ),
-
             )
             Text(
                 text = "$calorie kal",

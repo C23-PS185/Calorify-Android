@@ -97,7 +97,7 @@ class HomeActivity : ComponentActivity() {
                     ScanCalorieScreen()
                 }
                 composable(Screen.Profile.route) {
-                    ProfileScreen()
+                    ProfileScreen(name = "Melati", photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY", email = "melati@gmail.com", onSignOut = { signOut() })
                 }
                 composable(
                     route = Screen.DetailLog.route,

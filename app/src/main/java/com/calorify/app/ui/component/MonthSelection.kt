@@ -44,8 +44,8 @@ fun MonthSelection() {
         )
 
         var expanded by remember { mutableStateOf(false) }
-        var selectedMonth by remember { mutableStateOf("Mei 2023") }
-        val months = listOf("Januari 2023", "Februari 2023", "Maret 2023", "April 2023", "Mei 2023", "Juni 2023") // Add other months
+        var selectedMonth by remember { mutableStateOf("Mei") }
+        val months = listOf("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember") // Add other months
 
         OutlinedTextField(
             value = selectedMonth,
