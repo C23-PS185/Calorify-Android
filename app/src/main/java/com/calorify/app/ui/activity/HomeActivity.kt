@@ -25,11 +25,15 @@ import com.calorify.app.repository.LogRepository
 import com.calorify.app.ui.component.BottomBar
 import com.calorify.app.ui.component.TopBar
 import com.calorify.app.ui.navigation.Screen
+import com.calorify.app.ui.screen.ChangePasswordScreen
 import com.calorify.app.ui.screen.DetailScreen
 import com.calorify.app.ui.screen.HistoryLogScreen
 import com.calorify.app.ui.screen.HomeScreen
+import com.calorify.app.ui.screen.MyProfileScreen
+import com.calorify.app.ui.screen.PremiumSubscriptionScreen
 import com.calorify.app.ui.screen.ProfileScreen
 import com.calorify.app.ui.screen.ScanCalorieScreen
+import com.calorify.app.ui.screen.SelfAssessmentScreen
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.ViewModelFactory2
 import com.google.firebase.auth.FirebaseAuth
@@ -65,14 +69,14 @@ class HomeActivity : ComponentActivity() {
 
         Scaffold(
             topBar = {
-                if (currentRoute == Screen.DetailLog.route) {
+                if (currentRoute in listOf(Screen.DetailLog.route, Screen.MyProfile.route, Screen.ChangePassword.route, Screen.SelfAssessment.route, Screen.PremiumSubscription.route) ) {
                     TopBar(
                         onBackClick = {navController.navigateUp()}
                     )
                 }
             },
             bottomBar = {
-                if (currentRoute != Screen.DetailLog.route) {
+                if (currentRoute !in listOf(Screen.DetailLog.route, Screen.MyProfile.route, Screen.ChangePassword.route, Screen.SelfAssessment.route, Screen.PremiumSubscription.route)) {
                     BottomBar(navController)
                 }
             },
@@ -97,7 +101,15 @@ class HomeActivity : ComponentActivity() {
                     ScanCalorieScreen()
                 }
                 composable(Screen.Profile.route) {
-                    ProfileScreen(name = "Melati", photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY", email = "melati@gmail.com", onSignOut = { signOut() })
+                    ProfileScreen(
+                        name = "Melati",
+                        photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
+                        email = "melati@gmail.com",
+                        onMyProfileClick = { navController.navigate(Screen.MyProfile.route)},
+                        onChangePasswordClick = { navController.navigate(Screen.ChangePassword.route)},
+                        onSelfAssessmentClick = { navController.navigate(Screen.SelfAssessment.route)},
+                        onPremiumSubscriptionClick = { navController.navigate(Screen.PremiumSubscription.route)},
+                        onSignOut = { signOut() })
                 }
                 composable(
                     route = Screen.DetailLog.route,
@@ -109,6 +121,18 @@ class HomeActivity : ComponentActivity() {
                             LocalContext.current), id)
                         )
                     )
+                }
+                composable(Screen.MyProfile.route) {
+                    MyProfileScreen()
+                }
+                composable(Screen.ChangePassword.route) {
+                    ChangePasswordScreen()
+                }
+                composable(Screen.SelfAssessment.route) {
+                    SelfAssessmentScreen()
+                }
+                composable(Screen.PremiumSubscription.route) {
+                    PremiumSubscriptionScreen()
                 }
             }
         }

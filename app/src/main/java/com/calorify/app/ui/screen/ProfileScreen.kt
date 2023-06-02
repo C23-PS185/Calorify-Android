@@ -39,6 +39,10 @@ fun ProfileScreen(
     photoUrl : String,
     name: String,
     email: String,
+    onMyProfileClick: () -> Unit,
+    onChangePasswordClick: () -> Unit,
+    onSelfAssessmentClick: () -> Unit,
+    onPremiumSubscriptionClick: () -> Unit,
     onSignOut: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -79,10 +83,10 @@ fun ProfileScreen(
                 modifier = Modifier
                     .padding(bottom = 16.dp)
             )
-            ProfileMenu(icon = R.drawable.ic_people, description = "Icon profile", text = "Profil Saya", onClick = {})
-            ProfileMenu(icon = R.drawable.ic_confirm_lock, description = "Icon password", text = "Ubah Kata Sandi", onClick = {})
-            ProfileMenu(icon = R.drawable.ic_weight, description = "Icon Weight", text = "Hasil Asesmen Diri", onClick = {})
-            ProfileMenu(icon = R.drawable.ic_grey_star, description = "Icon Subsription", text = "Berlangganan Premium", onClick = {})
+            ProfileMenu(icon = R.drawable.ic_people, description = "Icon profile", text = "Profil Saya", onClick = onMyProfileClick)
+            ProfileMenu(icon = R.drawable.ic_confirm_lock, description = "Icon password", text = "Ubah Kata Sandi", onClick = onChangePasswordClick)
+            ProfileMenu(icon = R.drawable.ic_weight, description = "Icon Weight", text = "Hasil Asesmen Diri", onClick = onSelfAssessmentClick)
+            ProfileMenu(icon = R.drawable.ic_grey_star, description = "Icon Subsription", text = "Berlangganan Premium", onClick = onPremiumSubscriptionClick)
             ProfileMenu(icon = R.drawable.ic_logout, description = "Icon Logout", text = "Keluar", onClick = onSignOut)
 
         }
@@ -141,6 +145,6 @@ fun ProfileMenu(
 @Composable
 fun ProfileScreenPreview() {
     CalorifyTheme {
-        ProfileScreen("", "Melati", "melati@gmail.com", {})
+        ProfileScreen("", "Melati", "melati@gmail.com", {}, {}, {}, {}, {})
     }
 }
