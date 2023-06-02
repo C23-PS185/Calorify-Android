@@ -22,12 +22,11 @@ class AssessmentResultActivity : AppCompatActivity() {
     }
 
     private lateinit var userID: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityAssessmentResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        
         userID = intent.getStringExtra(EXTRA_USER_ID).toString()
 
         showAssessmentResult()

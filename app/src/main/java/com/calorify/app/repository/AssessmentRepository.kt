@@ -1,12 +1,12 @@
 package com.calorify.app.repository
 
 import androidx.lifecycle.LiveData
-import com.calorify.app.helper.Result
 import androidx.lifecycle.liveData
 import com.calorify.app.data.remote.request.AssessmentRequest
 import com.calorify.app.data.remote.response.AssessmentResponse
 import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.data.remote.retrofit.ApiService
+import com.calorify.app.helper.Result
 
 class AssessmentRepository(private val apiService: ApiService) {
 

@@ -97,7 +97,7 @@
                     android:fontFamily="@font/inter_bold"
                     android:text="@string/tv_height"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_weight" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_weight" /
 
                 <TextView
                     android:id="@+id/tv_height_value"
@@ -186,11 +186,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_height_value" />
-
-
-
-
-
 
                 </LinearLayout>
 
@@ -345,6 +340,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_ads" />
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonBeranda"

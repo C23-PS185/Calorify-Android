@@ -53,6 +53,10 @@
     <string name="dd_height_et_invalid">Mohon isi status aktivitas</string>
     <string name="dd_stressor_et_invalid">Mohon isi status stressor</string>
     <string name="dd_helth_et_invalid">Mohon isi tujuan kesehatan</string>
+    <string name="search_log">Cari makanan atau tanggal</string>
+    <string name="no_data_img">Ilustrasi tidak ada data</string>
+    <string name="data_not_found">Tidak ada data ditemukan</string>
+    <string name="back">Kembali</string>
 
     <string-array name="data_id">
         <item>1</item>
@@ -142,13 +146,13 @@
         <item>1 Januari 2023</item>
         <item>1 Januari 2023</item>
         <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
+        <item>2 Januari 2023</item>
+        <item>2 Januari 2023</item>
+        <item>3 Januari 2023</item>
+        <item>4 Januari 2023</item>
+        <item>5 Januari 2023</item>
+        <item>5 Januari 2023</item>
+        <item>5 Januari 2023</item>
     </string-array>
     <string-array name="data_created_at_time">
         <item>12:03</item>
