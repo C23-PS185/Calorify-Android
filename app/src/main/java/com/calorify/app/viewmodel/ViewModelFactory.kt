@@ -15,6 +15,9 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(AssessmentViewModel::class.java) ->
                 AssessmentViewModel(repository) as T
 
+            modelClass.isAssignableFrom(AssessmentResultViewModel::class.java) ->
+                AssessmentResultViewModel(repository) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

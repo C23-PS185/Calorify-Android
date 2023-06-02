@@ -185,4 +185,19 @@
         <item>Menaikkan berat badan</item>
         <item>Menaikkan berat badan ekstrim</item>
     </string-array>
+
+    <string name="weight_value">%s kg</string>
+    <string name="height_value">%s cm</string>
+    <string name="tv_thank_assessment">Terima kasih telah mengisi Asesmen Diri!</string>
+    <string name="tv_base_answer">Berdasarkan jawaban yang kamu berikan,</string>
+    <string name="tv_weight">Berat Badan</string>
+    <string name="tv_height">Tinggi Badan</string>
+    <string name="tv_index_bmi">Index BMI</string>
+    <string name="tv_tujuan_kesehatan">Tujuan Kesehatan</string>
+    <string name="tv_to_achieve">Untuk mencapai tujuan kesehatan yang kamu ingin capai, kami merekomendasikan ini untuk kamu!</string>
+    <string name="tv_calorie">Asupan Kalori Harian</string>
+    <string name="tv_ads">Atau ikut program berbayar Calorify untuk mendapatkan personalisasi diet dari Ahli Gizi berlisensi untuk mencapai tujuan kamu dengan lebih cepat!</string>
+    <string name="text_upgrade_now">Upgrade Sekarang</string>
+    <string name="text_beranda">Pergi ke Beranda</string>
+    <string name="tv_kal">kal</string>
 </resources>
