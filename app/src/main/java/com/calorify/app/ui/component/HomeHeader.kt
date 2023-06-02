@@ -16,7 +16,6 @@ fun HomeHeader(){
             modifier = Modifier.padding(16.dp)
         ){
             PieChart()
-            CustomButton(R.drawable.ic_add_circle_outline_24, text = "Tambahkan Log Kalori", onClick = {})
         }
     }
 }

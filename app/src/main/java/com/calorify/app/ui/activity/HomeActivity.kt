@@ -123,7 +123,14 @@ class HomeActivity : ComponentActivity() {
                     )
                 }
                 composable(Screen.MyProfile.route) {
-                    MyProfileScreen()
+                    MyProfileScreen(
+                        name = "Melati Eka Putri",
+                        photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
+                        email = "melati@gmail.com",
+                        birthDate = "25 Maret 2002",
+                        age = 21,
+                        gender = "Perempuan",
+                    )
                 }
                 composable(Screen.ChangePassword.route) {
                     ChangePasswordScreen()
