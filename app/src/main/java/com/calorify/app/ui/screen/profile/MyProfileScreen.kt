@@ -1,4 +1,4 @@
-package com.calorify.app.ui.screen
+package com.calorify.app.ui.screen.profile
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,6 +35,7 @@ fun MyProfileScreen(
     birthDate: String,
     age: Int,
     gender: String,
+    onButtonClick: () -> Unit,
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -71,7 +72,7 @@ fun MyProfileScreen(
                 ProfileRow(title = "Jenis Kelamin", value = gender)
             }
         }
-        CustomButton(icon = R.drawable.ic_pencil, text = "Ubah Profil", onClick = { /*TODO*/ })
+        CustomButton(icon = R.drawable.ic_pencil, text = "Ubah Profil", onClick = onButtonClick)
     }
 }
 
@@ -108,6 +109,6 @@ fun ProfileRow(
 @Composable
 fun MyProfileScreenPreview() {
     CalorifyTheme {
-        MyProfileScreen("", "Melati Eka Putri", "melati@gmail.com",  "25 Maret 2002", 21, "Perempuan")
+        MyProfileScreen("", "Melati Eka Putri", "melati@gmail.com",  "25 Maret 2002", 21, "Perempuan", {})
     }
 }

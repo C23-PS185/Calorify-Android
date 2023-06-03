@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.AssessmentResultActivity">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -196,26 +195,33 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
                     android:fontFamily="@font/inter_bold"
                     android:text="@string/tv_tujuan_kesehatan"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_index_bmi" />
 
                 <TextView
                     android:id="@+id/tv_tujuan_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:textAlignment="viewEnd"
+                    android:ellipsize="end"
                     android:fontFamily="@font/inter_regular"
+                    android:maxLines="2"
+                    android:singleLine="false"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_tujuan_kesehatan"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/tv_tujuan_kesehatan"
                     app:layout_constraintTop_toTopOf="@+id/tv_tujuan_kesehatan"
-                    tools:text="menurunkan berat badan" />
+                    tools:text="Mempertahankan berat badan" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -309,9 +315,9 @@
             android:id="@+id/button_do_assessment"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="48dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="12dp"
             android:backgroundTint="@color/blue_500"
             android:fontFamily="@font/inter_medium"
             android:text="@string/do_assessment"

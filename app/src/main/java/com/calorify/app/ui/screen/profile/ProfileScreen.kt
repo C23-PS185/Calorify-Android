@@ -1,6 +1,5 @@
-package com.calorify.app.ui.screen
+package com.calorify.app.ui.screen.profile
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
@@ -43,7 +41,7 @@ fun ProfileScreen(
     email: String,
     onMyProfileClick: () -> Unit,
     onChangePasswordClick: () -> Unit,
-    onSelfAssessmentClick: () -> Unit,
+    onSelfAssessmentResultClick: () -> Unit,
     onPremiumSubscriptionClick: () -> Unit,
     onSignOut: () -> Unit,
     modifier: Modifier = Modifier,
@@ -87,7 +85,7 @@ fun ProfileScreen(
             )
             ProfileMenu(icon = R.drawable.ic_people, description = "Icon profile", text = "Profil Saya", onClick = onMyProfileClick)
             ProfileMenu(icon = R.drawable.ic_confirm_lock, description = "Icon password", text = "Ubah Kata Sandi", onClick = onChangePasswordClick)
-            ProfileMenu(icon = R.drawable.ic_weight, description = "Icon Weight", text = "Hasil Asesmen Diri", onClick = onSelfAssessmentClick)
+            ProfileMenu(icon = R.drawable.ic_weight, description = "Icon Weight", text = "Hasil Asesmen Diri", onClick = onSelfAssessmentResultClick)
             ProfileMenu(icon = R.drawable.ic_grey_star, description = "Icon Subsription", text = "Berlangganan Premium", onClick = onPremiumSubscriptionClick)
             ProfileMenu(icon = R.drawable.ic_logout, description = "Icon Logout", text = "Keluar", onClick = onSignOut)
 

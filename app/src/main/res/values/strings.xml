@@ -205,4 +205,6 @@
     <string name="assessment_result_title">Hasil Asesmen Diri</string>
     <string name="tv_assessment_desc">Berdasarkan jawaban yang kamu berikan pada asesmen terakhir,</string>
     <string name="do_assessment">Lakukan Asesmen Diri</string>
+    <string name="ubah_profil">Ubah Profil</string>
+    <string name="simpan">Simpan</string>
 </resources>
