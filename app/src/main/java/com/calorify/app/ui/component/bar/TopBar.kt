@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.bar
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon

@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.header
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
