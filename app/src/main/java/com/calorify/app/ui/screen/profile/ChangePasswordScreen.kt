@@ -1,7 +1,6 @@
 package com.calorify.app.ui.screen.profile
 
 import android.view.LayoutInflater
-import android.widget.TextView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
