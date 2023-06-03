@@ -1,15 +1,15 @@
 package com.calorify.app.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.AssessmentResultResponse
-import com.calorify.app.helper.Result
 import com.calorify.app.databinding.ActivityAssessmentResultBinding
+import com.calorify.app.helper.Result
 import com.calorify.app.viewmodel.AssessmentResultViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
 
