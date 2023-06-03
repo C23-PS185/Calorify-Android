@@ -1,25 +1,26 @@
 package com.calorify.app.ui.screen
 
-import android.view.LayoutInflater
-import android.widget.TextView
+import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
@@ -28,19 +29,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import coil.compose.AsyncImage
 import com.calorify.app.R
-import com.calorify.app.ui.component.CustomButton
-import com.calorify.app.ui.component.SubscriptionCard
-import com.calorify.app.ui.navigation.Screen
+import com.calorify.app.ui.component.button.CustomButton
+import com.calorify.app.ui.component.card.SubscriptionCard
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.Neutral500
-import com.calorify.app.ui.theme.Shapes
-import com.calorify.app.ui.theme.White
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun PremiumSubscriptionScreen() {
+    var selectedCard by remember { mutableStateOf(-1) }
+
+    val context = LocalContext.current
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(16.dp)
@@ -73,11 +77,22 @@ fun PremiumSubscriptionScreen() {
             modifier = Modifier.padding(8.dp)
         )
         Row(){
-            SubscriptionCard(numberOfMonth = 12, price = "Rp50.000,00")
-            SubscriptionCard(numberOfMonth = 3, price = "Rp75.000,00")
-            SubscriptionCard(numberOfMonth = 1, price = "Rp100.000,00")
+            SubscriptionCard(discountValue = 50, numberOfMonth = 12, price = "Rp50.000,00", selectedCard = selectedCard, onCardSelected = { card ->
+                selectedCard = card
+            })
+            SubscriptionCard(discountValue = 25, numberOfMonth = 3, price = "Rp75.000,00", selectedCard = selectedCard, onCardSelected = { card ->
+                selectedCard = card
+            })
+            SubscriptionCard(numberOfMonth = 1, price = "Rp100.000,00", selectedCard = selectedCard, onCardSelected = { card ->
+                selectedCard = card
+            })
         }
-        CustomButton(icon = R.drawable.ic_star, text = "Berlangganan Sekarang", onClick = { /*TODO*/ })
+        CustomButton(icon = R.drawable.ic_star, text = "Berlangganan Sekarang", onClick = {
+            CoroutineScope(Dispatchers.Main).launch {
+                // Show the toast message
+                Toast.makeText(context, "Tunggu fitur ini pada pengembangan selanjutnya", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
 

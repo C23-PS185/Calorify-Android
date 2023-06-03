@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.graph
 
 import android.graphics.Typeface
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.input
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

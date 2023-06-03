@@ -22,8 +22,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.calorify.app.repository.LogRepository
-import com.calorify.app.ui.component.BottomBar
-import com.calorify.app.ui.component.TopBar
+import com.calorify.app.ui.component.bar.BottomBar
+import com.calorify.app.ui.component.bar.TopBar
 import com.calorify.app.ui.navigation.Screen
 import com.calorify.app.ui.screen.ChangePasswordScreen
 import com.calorify.app.ui.screen.DetailScreen
