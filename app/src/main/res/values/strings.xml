@@ -201,4 +201,8 @@
     <string name="text_beranda">Pergi ke Beranda</string>
     <string name="tv_kal">kal</string>
     <string name="my_photo">Foto User</string>
+    <string name="change_password">Ubah Kata Sandi</string>
+    <string name="assessment_result_title">Hasil Asesmen Diri</string>
+    <string name="tv_assessment_desc">Berdasarkan jawaban yang kamu berikan pada asesmen terakhir,</string>
+    <string name="do_assessment">Lakukan Asesmen Diri</string>
 </resources>

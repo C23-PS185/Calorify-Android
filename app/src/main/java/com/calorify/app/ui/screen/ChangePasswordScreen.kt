@@ -13,8 +13,7 @@ fun ChangePasswordScreen() {
     AndroidView(
         modifier = Modifier.fillMaxSize(),
         factory = { context ->
-            val view = LayoutInflater.from(context).inflate(R.layout.scan_calorie_screen, null)
-            view.findViewById<TextView>(R.id.tv_title).text = "Ubah Password"
+            val view = LayoutInflater.from(context).inflate(R.layout.change_password_screen, null)
             view
         }
     )
