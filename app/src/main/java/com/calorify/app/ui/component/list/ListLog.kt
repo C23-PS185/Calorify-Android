@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.list
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -39,6 +39,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.calorify.app.R
 import com.calorify.app.repository.LogRepository
+import com.calorify.app.ui.component.button.ScrollToTopButton
+import com.calorify.app.ui.component.header.HistoryLogHeader
+import com.calorify.app.ui.component.header.HomeHeader
+import com.calorify.app.ui.component.header.LogHeader
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.ListLogViewModel
 import com.calorify.app.viewmodel.ViewModelFactory2

@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.button
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape

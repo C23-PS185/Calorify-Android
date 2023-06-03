@@ -2,6 +2,7 @@ package com.calorify.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+val Blue50 = Color(0xFFF1F9FE)
 val Blue200 = Color(0xFF98D1FE)
 val Blue500 = Color(0xFF006AF5)
 val Blue700 = Color(0xFF003CB0)

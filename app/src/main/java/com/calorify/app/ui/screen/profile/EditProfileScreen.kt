@@ -102,8 +102,6 @@ fun EditProfileScreen(
                 binding.etName.setText(name)
                 binding.etBirth.setText(birthDate)
 
-
-
                 if (gender == "Perempuan") {
                     binding.radioFemale.isChecked = true
                 } else {
