@@ -28,7 +28,7 @@ import com.calorify.app.ui.navigation.Screen
 import com.calorify.app.ui.screen.DetailScreen
 import com.calorify.app.ui.screen.HistoryLogScreen
 import com.calorify.app.ui.screen.HomeScreen
-import com.calorify.app.ui.screen.ScanCalorieScreen
+import com.calorify.app.ui.screen.scan.ScanCalorieScreen
 import com.calorify.app.ui.screen.profile.ChangePasswordScreen
 import com.calorify.app.ui.screen.profile.EditProfileScreen
 import com.calorify.app.ui.screen.profile.MyProfileScreen
@@ -36,6 +36,7 @@ import com.calorify.app.ui.screen.profile.PremiumSubscriptionScreen
 import com.calorify.app.ui.screen.profile.ProfileScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentResultScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentScreen
+import com.calorify.app.ui.screen.scan.ScanResultScreen
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.ViewModelFactory2
 import com.google.firebase.auth.FirebaseAuth
@@ -101,7 +102,10 @@ class HomeActivity : ComponentActivity() {
                     })
                 }
                 composable(Screen.Scan.route) {
-                    ScanCalorieScreen()
+                    ScanCalorieScreen(this@HomeActivity,onScanResultClick = { navController.navigate(Screen.ScanResult.route)})
+                }
+                composable(Screen.ScanResult.route) {
+                    ScanResultScreen()
                 }
                 composable(Screen.Profile.route) {
                     ProfileScreen(

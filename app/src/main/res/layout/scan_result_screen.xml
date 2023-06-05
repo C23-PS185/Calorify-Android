@@ -16,7 +16,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
-            android:text="Scan Kalori"
+            android:text="Scan Result Kalori"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -44,32 +44,64 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/inter_regular"
             android:gravity="center"
-            android:text="Silakan scan atau masukkan gambar makananmu dari galeri"
+            android:text="Nasi Goreng"
             android:textColor="@color/neutral_500"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ic_scan" />
+
+        <LinearLayout
+            android:id="@+id/ll_kalori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ads">
+
+            <TextView
+                android:id="@+id/tv_food_kal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:gravity="center"
+                android:text="200 kal"
+                android:textColor="@color/neutral_500"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_porsi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:gravity="center"
+                android:text="/porsi"
+                android:textColor="@color/neutral_500"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_scan"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="56dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/blue_500"
             android:fontFamily="@font/inter_medium"
-            android:text="Scan Makanan"
+            android:text="Tambahkan ke Log Kalori"
             android:textAllCaps="false"
             android:textSize="14sp"
             android:textStyle="bold"
             app:cornerRadius="12dp"
-            app:icon="@drawable/ic_scan_butt"
-            app:iconGravity="textStart"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_ads" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_kalori" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_gallery"
@@ -80,14 +112,12 @@
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/primary_50"
             android:fontFamily="@font/inter_medium"
-            android:text="Ambil Gambar dari Galeri"
+            android:text="Kembali ke Beranda"
             android:textAllCaps="false"
             android:textColor="@color/primary_700"
             android:textSize="14sp"
             android:textStyle="bold"
             app:cornerRadius="12dp"
-            app:icon="@drawable/ic_image"
-            app:iconTint="@color/primary_700"
             app:iconGravity="textStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

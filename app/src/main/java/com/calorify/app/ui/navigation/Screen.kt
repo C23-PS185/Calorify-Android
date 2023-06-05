@@ -3,6 +3,7 @@ package com.calorify.app.ui.navigation
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Scan : Screen("scan")
+    object ScanResult : Screen("scanResult")
     object History : Screen("history")
     object Profile : Screen("profile")
     object MyProfile : Screen("myProfile")

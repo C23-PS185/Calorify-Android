@@ -1,19 +1,19 @@
-package com.calorify.app.ui.screen
+package com.calorify.app.ui.screen.scan
 
 import android.view.LayoutInflater
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import com.calorify.app.R
+import com.calorify.app.databinding.ScanResultScreenBinding
 
 @Composable
-fun ScanCalorieScreen() {
+fun ScanResultScreen() {
     AndroidView(
         modifier = Modifier.fillMaxSize(),
         factory = { context ->
-            val view = LayoutInflater.from(context).inflate(R.layout.scan_calorie_screen, null)
-            view
+            val binding = ScanResultScreenBinding.inflate(LayoutInflater.from(context))
+            binding.root
         }
     )
 }
