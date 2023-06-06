@@ -1,6 +1,7 @@
 package com.calorify.app.ui.screen.scan
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,9 +11,14 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -63,6 +69,20 @@ fun ScanCalorieScreen(
 
     var photoBitmap by remember { mutableStateOf<Bitmap?>(null) }
 
+    val launcherIntentCamera = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) {
+        result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val myFile = File(currentPhotoPath)
+
+            myFile.let { file ->
+                getFile = file
+                photoBitmap = BitmapFactory.decodeFile(file.path)
+            }
+        }
+    }
+
     AndroidView(
         modifier = Modifier.fillMaxSize(),
         factory = { context ->
@@ -70,26 +90,24 @@ fun ScanCalorieScreen(
 
             binding.buttonScan.setOnClickListener {
                 if (hasCamPermission) {
-                    val result = launchCameraIntent(context)
-                    if (result != null) {
-                        photoBitmap = result
-                    }
+                    launchCameraIntent(context, launcherIntentCamera)
                 }
             }
             binding.root
         },
            update = { view ->
-                val imageView = view.findViewById<ImageView>(R.id.imageView)
+                val imageView = view.findViewById<ImageView>(R.id.imageScan)
+                val textDesc = view.findViewById<TextView>(R.id.tv_description)
                 if (photoBitmap != null) {
+                    Log.d("TES", "ScanCalorieScreen: $photoBitmap")
                     imageView.setImageBitmap(photoBitmap)
+                    textDesc.visibility = View.GONE
                 }
-//               val binding = ScanCalorieScreenBinding.inflate(LayoutInflater.from(context))
-//               binding.icScan.setImageBitmap(photoBitmap)
             }
     )
 }
 
-private fun launchCameraIntent(context: Context): Bitmap? {
+private fun launchCameraIntent(context: Context, launcherIntentCamera: ManagedActivityResultLauncher<Intent, ActivityResult>) {
     val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
     // Create a file to save the image
     val photoFile: File? = try {
@@ -105,15 +123,8 @@ private fun launchCameraIntent(context: Context): Bitmap? {
             "com.calorify.app",
             it
         )
-        // Set the output file URI for the camera intent
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-        // Launch the camera intent
-        context.startActivity(takePictureIntent)
-
         currentPhotoPath = it.absolutePath
-        val myFile = File(currentPhotoPath)
-        getFile = myFile
-        return BitmapFactory.decodeFile(myFile.path)
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+        launcherIntentCamera.launch(takePictureIntent)
     }
-    return null
 }
