@@ -38,7 +38,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 
 // Reference: https://www.geeksforgeeks.org/pie-chart-in-android-using-jetpack-compose/
 @Composable
-fun PieChart() {
+fun PieChart(calorieNeeded: Float, calorieFulfilled: Float) {
     Column() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -52,7 +52,7 @@ fun PieChart() {
                 fontSize = 16.sp
             )
             Text(
-                text = "Kebutuhan kalori total: 1288 kal",
+                text = "Kebutuhan kalori total: $calorieNeeded kal",
                 fontFamily = FontFamily(
                     Font(resId = R.font.inter_regular),
                 ),
@@ -67,7 +67,9 @@ fun PieChart() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Crossfade(targetState = getPieChartData) { pieChartData ->
+                val dataNeeded = PieChartData("Kalori Dibutuhkan", calorieNeeded)
+                val dataFulfilled = PieChartData("Kalori terpenuhi", calorieFulfilled)
+                Crossfade(targetState = listOf(dataNeeded, dataFulfilled)) { pieChartData ->
                     AndroidView(factory = { context ->
                         PieChart(context).apply {
                             layoutParams = LinearLayout.LayoutParams(
@@ -151,12 +153,4 @@ fun updatePieChartWithData(
 
 
     chart.invalidate()
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PieChatPreview() {
-    CalorifyTheme {
-        PieChart()
-    }
 }

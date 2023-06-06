@@ -49,10 +49,10 @@ fun HistoryLogHeader(
             )
             MonthSelection()
             LineGraph()
-            SearchBar(
-                query = query,
-                onQueryChange = viewModel::search,
-            )
+//            SearchBar(
+//                query = query,
+//                onQueryChange = viewModel::search,
+//            )
         }
     }
 }

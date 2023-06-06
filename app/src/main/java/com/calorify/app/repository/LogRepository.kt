@@ -38,9 +38,9 @@ class LogRepository(private val context: Context) {
         }
     }
 
-    fun getLogKaloriById(id: Int): LogKalori {
+    fun getLogKaloriById(id: String): LogKalori {
         return listLogKalori.first {
-            it.logId == id
+            it.logId.toString() == id
         }
     }
 }

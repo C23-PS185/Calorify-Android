@@ -57,6 +57,7 @@ import com.calorify.app.ui.screen.profile.SelfAssessmentResultScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentScreen
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.AssessmentResultViewModel
+import com.calorify.app.viewmodel.ListLogViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
 import com.calorify.app.viewmodel.ViewModelFactory2
 import com.google.firebase.auth.FirebaseAuth
@@ -75,6 +76,10 @@ class HomeActivity : ComponentActivity() {
     private lateinit var userData: DataUser
 
     private val assessmentResultViewModel by viewModels<AssessmentResultViewModel> {
+        ViewModelFactory.getInstance(application)
+    }
+
+    private val listLogViewModel by viewModels<ListLogViewModel> {
         ViewModelFactory.getInstance(application)
     }
 
@@ -114,8 +119,13 @@ class HomeActivity : ComponentActivity() {
                     }
 
                     is Result.Error -> {
-                        startActivity(Intent(this, AssessmentActivity::class.java))
-                        finish()
+                        if (result.error == "Data not found") {
+                            startActivity(Intent(this, AssessmentActivity::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Pengambilan data gagal. Harap cek koneksimu!", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
                 }
             }
@@ -152,7 +162,10 @@ class HomeActivity : ComponentActivity() {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Home.route) {
-                    HomeScreen( navigateToDetail = { logId ->
+                    HomeScreen(
+                        listLogViewModel = listLogViewModel,
+                        calorieNeeded = userData.userCalorieIntake!!,
+                        navigateToDetail = { logId ->
                         navController.navigate(Screen.DetailLog.createRoute(logId))
                     })
                 }
@@ -177,9 +190,9 @@ class HomeActivity : ComponentActivity() {
                 }
                 composable(
                     route = Screen.DetailLog.route,
-                    arguments = listOf(navArgument("logId") { type = NavType.IntType }),
+                    arguments = listOf(navArgument("logId") { type = NavType.StringType }),
                 ) {
-                    val id = it.arguments?.getInt("logId") ?: 0
+                    val id = it.arguments?.getString("logId") ?: ""
                     DetailScreen(
                         viewModel = viewModel(factory = ViewModelFactory2(LogRepository(
                             LocalContext.current), id)

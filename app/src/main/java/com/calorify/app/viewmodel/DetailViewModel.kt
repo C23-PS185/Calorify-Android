@@ -6,7 +6,7 @@ import com.calorify.app.repository.LogRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class DetailViewModel(private val repository: LogRepository, private val logId: Int) :
+class DetailViewModel(private val repository: LogRepository, private val logId: String) :
     ViewModel() {
     private val _logKalori = MutableStateFlow(
         repository.getLogKaloriById(logId)

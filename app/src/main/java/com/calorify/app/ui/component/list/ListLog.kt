@@ -28,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,33 +37,32 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.calorify.app.R
-import com.calorify.app.repository.LogRepository
+import com.calorify.app.repository.Repository
 import com.calorify.app.ui.component.button.ScrollToTopButton
 import com.calorify.app.ui.component.header.HistoryLogHeader
 import com.calorify.app.ui.component.header.HomeHeader
 import com.calorify.app.ui.component.header.LogHeader
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.ListLogViewModel
+import com.calorify.app.viewmodel.ViewModelFactory
 import com.calorify.app.viewmodel.ViewModelFactory2
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListLog(
+    calorieNeeded: Float,
     groupedBy: String,
     modifier: Modifier = Modifier,
-    viewModel: ListLogViewModel = viewModel(
-        factory = ViewModelFactory2(
-            LogRepository(
-                LocalContext.current
-            )
-        )
-    ),
-    navigateToDetail: (Int) -> Unit,
+    listLogViewModel: ListLogViewModel,
+    navigateToDetail: (String) -> Unit,
 ) {
-    val groupedLogEatTime by viewModel.groupedEatTimeLogKalori.collectAsState()
 
-    val groupedLogDate by viewModel.groupedDateLogKalori.collectAsState()
+    val groupedLogEatTime by listLogViewModel.groupedEatTimeLogKalori.collectAsState()
+
+    val groupedLogDate by listLogViewModel.groupedDateLogKalori.collectAsState()
+
+    val calorieFulfilled by listLogViewModel.calorieFulfilled.collectAsState()
 
     var groupedLog = if (groupedBy == "date") {
         groupedLogDate
@@ -91,7 +89,7 @@ fun ListLog(
                 if (groupedBy == "date"){
                     HistoryLogHeader()
                 } else {
-                    HomeHeader()
+                    HomeHeader(calorieNeeded = calorieNeeded, calorieFulfilled = calorieFulfilled)
                 }
                 if (groupedLog.isNullOrEmpty()) {
                     AsyncImage(
@@ -120,10 +118,10 @@ fun ListLog(
                 }
                 items(logs, key = { it.logId }) { log ->
                     LogListItem(
-                        title = log.title,
-                        photoUrl = log.photo,
-                        calorie = log.totalCalories,
-                        time = log.createdAtTime,
+                        title = log.foodName!!,
+                        photoUrl = "https://firebasestorage.googleapis.com/v0/b/calorify-app.appspot.com/o/food_images%2Fapple%20pie.jpg?alt=media&token=b88fd136-bae7-4521-87b1-3434c5ffc567&_gl=1*10llus1*_ga*NzU5NDgzNTY3LjE2ODQ1MTE3Mjk.*_ga_CW55HF8NVT*MTY4NjAzNzkwNy4xNi4xLjE2ODYwNDAxMTQuMC4wLjA.",
+                        calorie = log.foodCalories!!,
+                        time = log.createdAt!!,
                         modifier = Modifier
                             .fillMaxWidth()
                             .animateItemPlacement(tween(durationMillis = 100))
@@ -151,13 +149,5 @@ fun ListLog(
                 }
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ListLogPreview() {
-    CalorifyTheme {
-        ListLog("date", navigateToDetail = {})
     }
 }

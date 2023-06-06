@@ -6,14 +6,14 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.calorify.app.data.local.UserPreference
 import com.calorify.app.data.remote.retrofit.ApiConfig
-import com.calorify.app.repository.AssessmentRepository
+import com.calorify.app.repository.Repository
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 object Injection {
-    fun provideAssessmentRepository(context: Context): AssessmentRepository {
+    fun provideRepository(context: Context): Repository {
         val apiService = ApiConfig.getApiService()
-        return AssessmentRepository.getInstance(apiService)
+        return Repository.getInstance(apiService)
     }
 
     fun providePreferences(context: Context): UserPreference {
