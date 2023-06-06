@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,7 +31,7 @@ fun LogListItem(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = modifier.padding(horizontal = 16.dp)
     ) {
         AsyncImage(
             model = photoUrl,
@@ -55,7 +55,6 @@ fun LogListItem(
                 fontFamily = FontFamily(
                     Font(resId = R.font.inter_regular),
                 ),
-
             )
             Text(
                 text = "$calorie kal",

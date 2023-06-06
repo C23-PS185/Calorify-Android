@@ -34,7 +34,7 @@ class LogRepository(private val context: Context) {
 
     fun searchLogKalori(query: String): List<LogKalori>{
         return getLogKalori().filter {
-            it.title.contains(query, ignoreCase = true)
+            it.title.contains(query, ignoreCase = true) or it.createdAtDate.contains(query, ignoreCase = true)
         }
     }
 

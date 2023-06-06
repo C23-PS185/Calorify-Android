@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.header
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +27,7 @@ import com.calorify.app.ui.theme.Blue500
 import com.calorify.app.ui.theme.CalorifyTheme
 
 @Composable
-fun HomeHeader(
+fun HomeStickyHeader(
     name: String,
     photo: String,
     modifier: Modifier = Modifier
@@ -76,8 +76,8 @@ fun HomeHeader(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeHeaderPreview() {
+fun HomeStickyHeaderPreview() {
     CalorifyTheme {
-        HomeHeader(name = "John", photo = "")
+        HomeStickyHeader(name = "John", photo = "")
     }
 }

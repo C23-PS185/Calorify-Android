@@ -1,17 +1,18 @@
 package com.calorify.app.ui.activity
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
 import com.calorify.app.data.remote.request.AssessmentRequest
-import com.calorify.app.helper.Result
 import com.calorify.app.databinding.ActivityAssessmentBinding
+import com.calorify.app.helper.Result
 import com.calorify.app.viewmodel.AssessmentViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
@@ -53,10 +54,10 @@ class AssessmentActivity : AppCompatActivity() {
         dropDownStressor()
         dropDownKesehatan()
 
-        uploudAssessment()
+        uploadAssessment()
     }
 
-    private fun uploudAssessment() {
+    private fun uploadAssessment() {
         binding.buttonConfirm.setOnClickListener {
             binding.apply {
                 val etName = etName.text.toString()
@@ -96,15 +97,18 @@ class AssessmentActivity : AppCompatActivity() {
                     }
 
                     dropDownHeight == null -> {
-                        binding.dropDownActivity.error = resources.getString(R.string.dd_height_et_invalid)
+                        binding.dropDownActivity.error =
+                            resources.getString(R.string.dd_height_et_invalid)
                     }
 
                     dropDownStressor == null -> {
-                        binding.dropDownStressor.error = resources.getString(R.string.dd_stressor_et_invalid)
+                        binding.dropDownStressor.error =
+                            resources.getString(R.string.dd_stressor_et_invalid)
                     }
 
                     dropDownKesehatan == null -> {
-                        binding.dropDownKesehatan.error = resources.getString(R.string.dd_helth_et_invalid)
+                        binding.dropDownKesehatan.error =
+                            resources.getString(R.string.dd_helth_et_invalid)
                     }
 
                     isValid -> {
@@ -132,11 +136,17 @@ class AssessmentActivity : AppCompatActivity() {
                                     is Result.Success -> {
                                         progressBar.visibility = View.GONE
                                         buttonConfirm.isEnabled = false
+
                                         Toast.makeText(
                                             this@AssessmentActivity,
                                             "Success",
                                             Toast.LENGTH_SHORT
                                         ).show()
+
+                                        intent = Intent(this@AssessmentActivity, AssessmentResultActivity::class.java)
+                                        intent.putExtra(AssessmentResultActivity.EXTRA_USER_ID, userid)
+                                        startActivity(intent)
+                                        finish()
                                     }
 
                                     is Result.Error -> {

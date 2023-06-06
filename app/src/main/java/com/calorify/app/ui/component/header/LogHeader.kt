@@ -1,4 +1,4 @@
-package com.calorify.app.ui.component
+package com.calorify.app.ui.component.header
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,7 +24,7 @@ fun LogHeader(
 ) {
     Surface(
         color = Orange500,
-        modifier = modifier
+        modifier = modifier.padding(horizontal = 16.dp)
     ) {
         Text(
             text = title,

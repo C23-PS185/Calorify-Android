@@ -53,6 +53,10 @@
     <string name="dd_height_et_invalid">Mohon isi status aktivitas</string>
     <string name="dd_stressor_et_invalid">Mohon isi status stressor</string>
     <string name="dd_helth_et_invalid">Mohon isi tujuan kesehatan</string>
+    <string name="search_log">Cari makanan atau tanggal</string>
+    <string name="no_data_img">Ilustrasi tidak ada data</string>
+    <string name="data_not_found">Tidak ada data ditemukan</string>
+    <string name="back">Kembali</string>
 
     <string-array name="data_id">
         <item>1</item>
@@ -142,13 +146,13 @@
         <item>1 Januari 2023</item>
         <item>1 Januari 2023</item>
         <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
+        <item>2 Januari 2023</item>
+        <item>2 Januari 2023</item>
+        <item>3 Januari 2023</item>
+        <item>4 Januari 2023</item>
+        <item>5 Januari 2023</item>
+        <item>5 Januari 2023</item>
+        <item>5 Januari 2023</item>
     </string-array>
     <string-array name="data_created_at_time">
         <item>12:03</item>
@@ -181,4 +185,26 @@
         <item>Menaikkan berat badan</item>
         <item>Menaikkan berat badan ekstrim</item>
     </string-array>
+
+    <string name="weight_value">%s kg</string>
+    <string name="height_value">%s cm</string>
+    <string name="tv_thank_assessment">Terima kasih telah mengisi Asesmen Diri!</string>
+    <string name="tv_base_answer">Berdasarkan jawaban yang kamu berikan,</string>
+    <string name="tv_weight">Berat Badan</string>
+    <string name="tv_height">Tinggi Badan</string>
+    <string name="tv_index_bmi">Index BMI</string>
+    <string name="tv_tujuan_kesehatan">Tujuan Kesehatan</string>
+    <string name="tv_to_achieve">Untuk mencapai tujuan kesehatan yang kamu ingin capai, kami merekomendasikan ini untuk kamu!</string>
+    <string name="tv_calorie">Asupan Kalori Harian</string>
+    <string name="tv_ads">Atau ikut program berbayar Calorify untuk mendapatkan personalisasi diet dari Ahli Gizi berlisensi untuk mencapai tujuan kamu dengan lebih cepat!</string>
+    <string name="text_upgrade_now">Upgrade Sekarang</string>
+    <string name="text_beranda">Pergi ke Beranda</string>
+    <string name="tv_kal">kal</string>
+    <string name="my_photo">Foto User</string>
+    <string name="change_password">Ubah Kata Sandi</string>
+    <string name="assessment_result_title">Hasil Asesmen Diri</string>
+    <string name="tv_assessment_desc">Berdasarkan jawaban yang kamu berikan pada asesmen terakhir,</string>
+    <string name="do_assessment">Lakukan Asesmen Diri</string>
+    <string name="ubah_profil">Ubah Profil</string>
+    <string name="simpan">Simpan</string>
 </resources>

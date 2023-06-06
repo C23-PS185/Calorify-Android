@@ -3,7 +3,6 @@ package com.calorify.app.viewmodel
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.calorify.app.data.local.UserPreference
 import com.calorify.app.di.Injection
 import com.calorify.app.repository.AssessmentRepository
 
@@ -15,6 +14,9 @@ class ViewModelFactory private constructor(
         return when {
             modelClass.isAssignableFrom(AssessmentViewModel::class.java) ->
                 AssessmentViewModel(repository) as T
+
+            modelClass.isAssignableFrom(AssessmentResultViewModel::class.java) ->
+                AssessmentResultViewModel(repository) as T
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
