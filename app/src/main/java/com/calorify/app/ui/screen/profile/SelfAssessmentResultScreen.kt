@@ -13,6 +13,11 @@ import com.calorify.app.ui.theme.CalorifyTheme
 
 @Composable
 fun SelfAssessmentResultScreen(
+    weight: String,
+    height: String,
+    indexBmi: Float,
+    weightGoal: String,
+    calorie: Float,
     onDoAssessmentClick: () -> Unit,
 ) {
     AndroidView(
@@ -22,11 +27,11 @@ fun SelfAssessmentResultScreen(
         factory = { context ->
         val binding = AssessmentResultScreenBinding.inflate(LayoutInflater.from(context))
 
-            binding.tvWeightValue.text = "60 kg"
-            binding.tvHeightValue.text = "162 cm"
-            binding.tvIndexBmiValue.text = "20.2"
-            binding.tvTujuanValue.text = "Mempertahankan berat badan"
-            binding.tvCaloryValue.text = "2455"
+            binding.tvWeightValue.text = "$weight kg"
+            binding.tvHeightValue.text = "$height cm"
+            binding.tvIndexBmiValue.text = indexBmi.toString()
+            binding.tvTujuanValue.text = weightGoal
+            binding.tvCaloryValue.text = calorie.toString()
             binding.buttonDoAssessment.setOnClickListener{
                 onDoAssessmentClick()
             }
@@ -34,12 +39,4 @@ fun SelfAssessmentResultScreen(
 
         binding.root
     })
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SelfAssessmentResultScreenPreview() {
-    CalorifyTheme {
-        SelfAssessmentResultScreen {}
-    }
 }
