@@ -26,13 +26,13 @@ data class DataUser(
     val createdAt: String? = null,
 
     @field:SerializedName("userCalorieIntake")
-    val userCalorieIntake: Int? = null,
+    val userCalorieIntake: Float? = null,
 
     @field:SerializedName("weightGoal")
     val weightGoal: Int? = null,
 
     @field:SerializedName("userBMI")
-    val userBMI: Int? = null,
+    val userBMI: Float? = null,
 
     @field:SerializedName("birthDate")
     val birthDate: String? = null,
