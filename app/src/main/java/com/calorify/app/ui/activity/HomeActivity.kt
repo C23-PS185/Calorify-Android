@@ -114,7 +114,8 @@ class HomeActivity : ComponentActivity() {
                     }
 
                     is Result.Error -> {
-                        Toast.makeText(this@HomeActivity, "Error", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, AssessmentActivity::class.java))
+                        finish()
                     }
                 }
             }
