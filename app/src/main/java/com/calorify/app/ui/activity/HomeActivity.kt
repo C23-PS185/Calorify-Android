@@ -1,32 +1,20 @@
 package com.calorify.app.ui.activity
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ProgressIndicatorDefaults
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -37,7 +25,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.DataUser
-import com.calorify.app.databinding.AssessmentResultScreenBinding
 import com.calorify.app.helper.Result
 import com.calorify.app.repository.LogRepository
 import com.calorify.app.ui.component.bar.BottomBar
@@ -59,14 +46,17 @@ import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.AssessmentResultViewModel
 import com.calorify.app.viewmodel.ListLogViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
-import com.calorify.app.viewmodel.ViewModelFactory2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
-import java.util.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
+import java.util.Locale
 import java.util.concurrent.TimeUnit
+
 
 class HomeActivity : ComponentActivity() {
 
@@ -88,6 +78,7 @@ class HomeActivity : ComponentActivity() {
         auth = Firebase.auth
         currentUser = auth.currentUser!!
         userId = currentUser.uid
+        listLogViewModel.fetchData(userId, formatDate(LocalDate.now()))
         addUserData()
     }
 
@@ -163,6 +154,7 @@ class HomeActivity : ComponentActivity() {
             ) {
                 composable(Screen.Home.route) {
                     HomeScreen(
+                        firstName = userData.fullName!!.substringBefore(" "),
                         listLogViewModel = listLogViewModel,
                         calorieNeeded = userData.userCalorieIntake!!,
                         navigateToDetail = { logId ->
@@ -194,9 +186,8 @@ class HomeActivity : ComponentActivity() {
                 ) {
                     val id = it.arguments?.getString("logId") ?: ""
                     DetailScreen(
-                        viewModel = viewModel(factory = ViewModelFactory2(LogRepository(
-                            LocalContext.current), id)
-                        )
+                        logId = id,
+                        viewModel = listLogViewModel,
                     )
                 }
                 composable(Screen.MyProfile.route) {
@@ -263,6 +254,12 @@ class HomeActivity : ComponentActivity() {
     private fun convertStatusKesehatan(id: Int) : String {
         val statusKesehatanValue = resources.getStringArray(R.array.tujuan_kesehatan)
         return statusKesehatanValue[id]
+    }
+
+    private fun formatDate(date: LocalDate): String {
+
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        return date.format(formatter)
     }
 }
 

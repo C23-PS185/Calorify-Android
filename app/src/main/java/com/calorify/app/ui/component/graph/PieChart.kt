@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
 import com.calorify.app.data.local.PieChartData
-import com.calorify.app.data.local.getPieChartData
 import com.calorify.app.ui.theme.Blue200
 import com.calorify.app.ui.theme.Blue700
 import com.calorify.app.ui.theme.CalorifyTheme
@@ -68,8 +67,14 @@ fun PieChart(calorieNeeded: Float, calorieFulfilled: Float) {
                 verticalArrangement = Arrangement.Center
             ) {
                 val dataNeeded = PieChartData("Kalori Dibutuhkan", calorieNeeded)
-                val dataFulfilled = PieChartData("Kalori terpenuhi", calorieFulfilled)
-                Crossfade(targetState = listOf(dataNeeded, dataFulfilled)) { pieChartData ->
+                val dataFulfilled = PieChartData("Kalori Terpenuhi", calorieFulfilled)
+                Crossfade(targetState =
+                if (calorieFulfilled == 0F) {
+                    listOf(dataNeeded)
+                } else {
+                    listOf(dataFulfilled, dataNeeded)
+                }
+                ) { pieChartData ->
                     AndroidView(factory = { context ->
                         PieChart(context).apply {
                             layoutParams = LinearLayout.LayoutParams(
@@ -114,27 +119,33 @@ fun updatePieChartWithData(
     val ds = PieDataSet(entries, "")
 
 
-    ds.colors = arrayListOf(
-        Orange200.toArgb(),
-        Blue200.toArgb(),
-    )
+    if (data.size == 1){
+        ds.colors = arrayListOf(
+            Blue200.toArgb(),
+        )
+        ds.setValueTextColors(listOf(
+            Blue700.toArgb(),
+        ))
+    } else {
+        ds.colors = arrayListOf(
+            Orange200.toArgb(),
+            Blue200.toArgb(),
+        )
+        ds.setValueTextColors(listOf(
+            Orange700.toArgb(),
+            Blue700.toArgb(),
+        ))
+    }
 
     ds.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-
     ds.xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-
     ds.sliceSpace = 2f
 
     ds.valueTextSize = 20f
 
     ds.valueTypeface = Typeface.DEFAULT_BOLD
 
-    val colors = listOf(
-        Orange700.toArgb(),
-        Blue700.toArgb(),
-    )
-    
-    ds.setValueTextColors(colors)
+
     ds.valueFormatter = object : ValueFormatter() {
         override fun getFormattedValue(value: Float): String {
             return "${value.toInt()} kal"

@@ -31,21 +31,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.calorify.app.R
-import com.calorify.app.repository.Repository
 import com.calorify.app.ui.component.button.ScrollToTopButton
 import com.calorify.app.ui.component.header.HistoryLogHeader
 import com.calorify.app.ui.component.header.HomeHeader
 import com.calorify.app.ui.component.header.LogHeader
-import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.ListLogViewModel
-import com.calorify.app.viewmodel.ViewModelFactory
-import com.calorify.app.viewmodel.ViewModelFactory2
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -87,7 +81,7 @@ fun ListLog(
         ) {
             item {
                 if (groupedBy == "date"){
-                    HistoryLogHeader()
+                    HistoryLogHeader(viewModel = listLogViewModel)
                 } else {
                     HomeHeader(calorieNeeded = calorieNeeded, calorieFulfilled = calorieFulfilled)
                 }
@@ -121,7 +115,7 @@ fun ListLog(
                         title = log.foodName!!,
                         photoUrl = "https://firebasestorage.googleapis.com/v0/b/calorify-app.appspot.com/o/food_images%2Fapple%20pie.jpg?alt=media&token=b88fd136-bae7-4521-87b1-3434c5ffc567&_gl=1*10llus1*_ga*NzU5NDgzNTY3LjE2ODQ1MTE3Mjk.*_ga_CW55HF8NVT*MTY4NjAzNzkwNy4xNi4xLjE2ODYwNDAxMTQuMC4wLjA.",
                         calorie = log.foodCalories!!,
-                        time = log.createdAt!!,
+                        time = log.createdAtTime!!,
                         modifier = Modifier
                             .fillMaxWidth()
                             .animateItemPlacement(tween(durationMillis = 100))

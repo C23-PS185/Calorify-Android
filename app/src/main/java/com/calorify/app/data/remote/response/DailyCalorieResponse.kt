@@ -16,8 +16,11 @@ data class LogItem(
 
 	val logId: String = UUID.randomUUID().toString(),
 
-	@field:SerializedName("createdAt")
-	val createdAt: String? = null,
+	@field:SerializedName("createdAtDate")
+	val createdAtDate: String? = null,
+
+	@field:SerializedName("createdAtTime")
+	val createdAtTime: String? = null,
 
 	@field:SerializedName("foodName")
 	val foodName: String? = null,
@@ -45,4 +48,7 @@ data class Data(
 
 	@field:SerializedName("breakfast")
 	val breakfast: List<LogItem?>? = null,
+
+	@field:SerializedName("others")
+	val others: List<LogItem?>? = null,
 )
