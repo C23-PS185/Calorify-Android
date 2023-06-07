@@ -105,7 +105,7 @@ class HomeActivity : ComponentActivity() {
                     ScanCalorieScreen(this@HomeActivity,onScanResultClick = { navController.navigate(Screen.ScanResult.route)})
                 }
                 composable(Screen.ScanResult.route) {
-                    ScanResultScreen()
+                    ScanResultScreen(onScanClick = { navController.navigate(Screen.Home.route)})
                 }
                 composable(Screen.Profile.route) {
                     ProfileScreen(

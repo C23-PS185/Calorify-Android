@@ -26,10 +26,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageScan"
+            android:id="@+id/imageScanResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="60dp"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/ic_scan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/inter_regular"
             android:gravity="center"
@@ -50,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageScan" />
+            app:layout_constraintTop_toBottomOf="@+id/imageScanResult" />
 
         <LinearLayout
             android:id="@+id/ll_kalori"
@@ -85,7 +87,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_scan"
+            android:id="@+id/button_add_kal"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
@@ -104,7 +106,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ll_kalori" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_gallery"
+            android:id="@+id/button_beranda"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
@@ -122,6 +124,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_scan" />
+            app:layout_constraintTop_toBottomOf="@+id/button_add_kal" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
