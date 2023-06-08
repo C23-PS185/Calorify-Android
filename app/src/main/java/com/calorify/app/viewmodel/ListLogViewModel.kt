@@ -48,7 +48,7 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
                             if (dailyCalorieResponse.error == true) {
                                 emitErrorState("Data not found")
                             } else {
-                                _calorieFulfilled.value = dailyCalorieResponse.data?.totalCalories!!
+                                _calorieFulfilled.value = dailyCalorieResponse.data?.totalDailyCalories!!
                                 updateGroupedEatTimeLogKalori(dailyCalorieResponse)
                                 updateGroupedDateLogKalori(dailyCalorieResponse)
                             }

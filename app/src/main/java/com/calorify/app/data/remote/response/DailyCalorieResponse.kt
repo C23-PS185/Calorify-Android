@@ -31,14 +31,17 @@ data class LogItem(
 	@field:SerializedName("fnbType")
 	val fnbType: String? = null,
 
+	@field:SerializedName("imageUrl")
+	val imageUrl: String? = "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png",
+
 	@field:SerializedName("eatTime")
 	var eatTime: String? = null
 )
 
 data class Data(
 
-	@field:SerializedName("totalCalories")
-	val totalCalories: Float? = null,
+	@field:SerializedName("totalDailyCalories")
+	val totalDailyCalories: Float? = null,
 
 	@field:SerializedName("dinner")
 	val dinner: List<LogItem?>? = null,

@@ -113,7 +113,7 @@ fun ListLog(
                 items(logs, key = { it.logId }) { log ->
                     LogListItem(
                         title = log.foodName!!,
-                        photoUrl = "https://firebasestorage.googleapis.com/v0/b/calorify-app.appspot.com/o/food_images%2Fapple%20pie.jpg?alt=media&token=b88fd136-bae7-4521-87b1-3434c5ffc567&_gl=1*10llus1*_ga*NzU5NDgzNTY3LjE2ODQ1MTE3Mjk.*_ga_CW55HF8NVT*MTY4NjAzNzkwNy4xNi4xLjE2ODYwNDAxMTQuMC4wLjA.",
+                        photoUrl = log.imageUrl!!,
                         calorie = log.foodCalories!!,
                         time = log.createdAtTime!!,
                         modifier = Modifier
