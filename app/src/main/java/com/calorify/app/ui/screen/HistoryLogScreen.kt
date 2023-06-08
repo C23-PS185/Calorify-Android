@@ -10,7 +10,7 @@ import com.calorify.app.ui.component.list.ListLog
 
 @Composable
 fun HistoryLogScreen(
-    navigateToDetail: (Int) -> Unit,
+    navigateToDetail: (String) -> Unit,
     modifier: Modifier = Modifier
 ){
     Column (modifier = modifier) {
@@ -18,7 +18,7 @@ fun HistoryLogScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding()
         ){
-            ListLog("date", navigateToDetail = navigateToDetail)
+//            ListLog("date", navigateToDetail = navigateToDetail)
         }
     }
 }

@@ -55,7 +55,7 @@
     <string name="dd_helth_et_invalid">Mohon isi tujuan kesehatan</string>
     <string name="search_log">Cari makanan atau tanggal</string>
     <string name="no_data_img">Ilustrasi tidak ada data</string>
-    <string name="data_not_found">Tidak ada data ditemukan</string>
+    <string name="data_not_found">Tidak ada data log ditemukan</string>
     <string name="back">Kembali</string>
 
     <string-array name="data_id">
