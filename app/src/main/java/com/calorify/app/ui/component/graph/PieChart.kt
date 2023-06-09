@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -25,7 +24,6 @@ import com.calorify.app.R
 import com.calorify.app.data.local.PieChartData
 import com.calorify.app.ui.theme.Blue200
 import com.calorify.app.ui.theme.Blue700
-import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.Orange200
 import com.calorify.app.ui.theme.Orange700
 import com.github.mikephil.charting.charts.PieChart
@@ -37,7 +35,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 
 // Reference: https://www.geeksforgeeks.org/pie-chart-in-android-using-jetpack-compose/
 @Composable
-fun PieChart(calorieNeeded: Float, calorieFulfilled: Float) {
+fun PieChart(calorieNeeded: Int, calorieFulfilled: Int) {
     Column() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,7 +67,7 @@ fun PieChart(calorieNeeded: Float, calorieFulfilled: Float) {
                 val dataNeeded = PieChartData("Kalori Dibutuhkan", calorieNeeded)
                 val dataFulfilled = PieChartData("Kalori Terpenuhi", calorieFulfilled)
                 Crossfade(targetState =
-                if (calorieFulfilled == 0F) {
+                if (calorieFulfilled == 0) {
                     listOf(dataNeeded)
                 } else {
                     listOf(dataFulfilled, dataNeeded)
@@ -112,7 +110,7 @@ fun updatePieChartWithData(
 
     for (i in data.indices) {
         val item = data[i]
-        entries.add(PieEntry(item.value ?: 0.toFloat(), item.status ?: ""))
+        entries.add(PieEntry(item.value!!.toFloat() ?: 0.toFloat(), item.status ?: ""))
     }
 
 

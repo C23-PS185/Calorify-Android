@@ -12,7 +12,7 @@ import com.calorify.app.viewmodel.ListLogViewModel
 @Composable
 fun HomeScreen(
     firstName: String,
-    calorieNeeded: Float,
+    calorieNeeded: Int,
     listLogViewModel: ListLogViewModel,
     navigateToDetail: (String) -> Unit,
     modifier: Modifier = Modifier){

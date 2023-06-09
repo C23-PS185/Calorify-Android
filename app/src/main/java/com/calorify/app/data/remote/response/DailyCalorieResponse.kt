@@ -41,7 +41,7 @@ data class LogItem(
 data class Data(
 
 	@field:SerializedName("totalDailyCalories")
-	val totalDailyCalories: Float? = null,
+	val totalDailyCalories: Int? = null,
 
 	@field:SerializedName("dinner")
 	val dinner: List<LogItem?>? = null,

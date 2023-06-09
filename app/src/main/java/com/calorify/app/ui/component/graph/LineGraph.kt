@@ -1,6 +1,7 @@
 package com.calorify.app.ui.component.graph
 
 import android.graphics.Typeface
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.compose.animation.Crossfade
@@ -17,29 +18,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
-import com.calorify.app.data.local.LineChartData
-import com.calorify.app.data.local.getLineChartData
 import com.calorify.app.ui.theme.Blue200
 import com.calorify.app.ui.theme.Blue700
-import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.Neutral500
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 
 
 @Composable
-fun LineGraph() {
+fun LineGraph(
+    monthlyCalorieFulFilled: Map<String, Int>,
+) {
     Column() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,7 +48,9 @@ fun LineGraph() {
                 fontFamily = FontFamily(Font(R.font.inter_medium)),
                 fontSize = 14.sp,
                 color = Neutral500,
-                modifier = Modifier.padding(horizontal = 16.dp).align(Alignment.Start)
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .align(Alignment.Start)
             )
             Column(
                 modifier = Modifier
@@ -60,7 +60,7 @@ fun LineGraph() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Crossfade(targetState = getLineChartData) { lineChartData ->
+                Crossfade(targetState = monthlyCalorieFulFilled) { lineChartData ->
                     AndroidView(factory = { context ->
                         LineChart(context).apply {
                             layoutParams = LinearLayout.LayoutParams(
@@ -72,6 +72,7 @@ fun LineGraph() {
                     },
                         modifier = Modifier
                             .wrapContentSize(), update = {
+                            Log.d("LINECHART", "LineGraph: $lineChartData")
                             updateLineChartWithData(it, lineChartData)
                         })
                 }
@@ -90,14 +91,14 @@ fun LineGraph() {
 
 fun updateLineChartWithData(
     chart: LineChart,
-    data: List<LineChartData>
+    data: Map<String, Int>,
 ) {
 
     val entries = ArrayList<Entry>()
 
-    for (i in data.indices) {
+    for (i in data.keys) {
         val item = data[i]
-        entries.add(Entry(i.toFloat(), item.value ?: 0.toFloat()))
+        entries.add(Entry(i.toFloat(), item?.toFloat() ?: 0.toFloat()))
     }
 
     val ds = LineDataSet(entries, "")
@@ -128,7 +129,7 @@ fun updateLineChartWithData(
     yAxisLeft.textSize = 12f
 
     val xAxis = chart.xAxis
-    xAxis.valueFormatter = IndexAxisValueFormatter(data.map { it.date + "/5" })
+
     xAxis.position = XAxis.XAxisPosition.BOTTOM
     xAxis.mAxisRange = data.size.toFloat()
     xAxis.granularity = 1f
@@ -166,12 +167,4 @@ fun updateLineChartWithData(
     })
 
     chart.invalidate()
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LineGraphPreview() {
-    CalorifyTheme {
-        LineGraph()
-    }
 }

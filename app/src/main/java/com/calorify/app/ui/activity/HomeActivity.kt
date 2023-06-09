@@ -14,8 +14,6 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -26,7 +24,6 @@ import androidx.navigation.navArgument
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.DataUser
 import com.calorify.app.helper.Result
-import com.calorify.app.repository.LogRepository
 import com.calorify.app.ui.component.bar.BottomBar
 import com.calorify.app.ui.component.bar.TopBar
 import com.calorify.app.ui.navigation.Screen
@@ -73,13 +70,19 @@ class HomeActivity : ComponentActivity() {
         ViewModelFactory.getInstance(application)
     }
 
+    val dateMonth = formatDate(LocalDate.now())
+    val date = dateMonth.subSequence(0,2).toString()
+    val month = dateMonth.subSequence(3, dateMonth.length).toString()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         currentUser = auth.currentUser!!
         userId = currentUser.uid
-        listLogViewModel.fetchData(userId, formatDate(LocalDate.now()))
-        addUserData()
+        listLogViewModel.fetchDailyData(this, userId, dateMonth) {
+            listLogViewModel.fetchMonthlyData(this, userId, month, date)
+            addUserData()
+        }
     }
 
     private fun addUserData(){
@@ -162,7 +165,7 @@ class HomeActivity : ComponentActivity() {
                     })
                 }
                 composable(Screen.History.route) {
-                    HistoryLogScreen( navigateToDetail = { logId ->
+                    HistoryLogScreen( month = month.substring(0,2), listLogViewModel = listLogViewModel, navigateToDetail = { logId ->
                         navController.navigate(Screen.DetailLog.createRoute(logId))
                     })
                 }
