@@ -57,115 +57,6 @@
     <string name="no_data_img">Ilustrasi tidak ada data</string>
     <string name="data_not_found">Tidak ada data log ditemukan</string>
     <string name="back">Kembali</string>
-
-    <string-array name="data_id">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-    </string-array>
-    <string-array name="data_title">
-        <item>Nasi Goreng</item>
-        <item>Mie Goreng</item>
-        <item>Chicken Parmesan</item>
-        <item>Sate Ayam</item>
-        <item>Spaghetti Carbonara</item>
-        <item>Nasi Lemak</item>
-        <item>Beef Rendang</item>
-        <item>Sushi</item>
-        <item>Tiramisu</item>
-        <item>Tom Yum Goong</item>
-    </string-array>
-    <string-array name="data_photo">
-        <item>https://cdn1-production-images-kly.akamaized.net/KxuztQKl3tnUN0Fw5iAwKsnX_u0=/0x148:1920x1230/640x360/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/3093328/original/069244600_1585909700-fried-2509089_1920.jpg</item>
-        <item>https://awsimages.detik.net.id/community/media/visual/2022/05/24/resep-bakmi-goreng-spesial-ala-restoran-chinese-food_43.jpeg?w=1200</item>
-        <item>https://assets.bonappetit.com/photos/5ea8f0df16738800085ad5d2/1:1/w_2560%2Cc_limit/Chicken-Parmesean-Recipe-Lede.jpg</item>
-        <item>https://kbu-cdn.com/dk/wp-content/uploads/sate-ayam.jpg</item>
-        <item>https://www.allrecipes.com/thmb/PsYaA1-R6zBfW5AH8QRnA4t02QU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/11973-spaghetti-carbonara-mfs-043-2b5e74565db24e789aa790adfa87e18d.jpg</item>
-        <item>https://i0.wp.com/resepkoki.id/wp-content/uploads/2017/02/Resep-Nasi-lemak.jpg?fit=1920%2C1920;ssl=1</item>
-        <item>https://cdn0-production-images-kly.akamaized.net/YHppKTMNcRz87-cP2Wrg5Ye8mFc=/1x112:1000x675/1200x675/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/3245094/original/043061400_1600750232-shutterstock_1786027046.jpg</item>
-        <item>https://lh5.googleusercontent.com/5VQaj4zWVnrACbuTcDr1UchSGwvtTAkaVUaF22sGnjpOtXgYtCRqKQ1PT6s754M4Z8bAVx6PFN4UlYBVfTQaDt9w2VkCrz-qt_01XLaMctLay4rOz7Q96LsWAsFNnOEQP2xTs6fy5bL9BShS6RjIWDwntHBqrggpFIu9Wj5C1I-pNoNdw0J4pJnSKWA</item>
-        <item>https://img.kurio.network/_dhhCZechQXEv7EwVlw4DmlLT4U=/1200x1200/filters:quality(80)/https://kurio-img.kurioapps.com/20/12/04/a24d67ad-96c8-4fa2-9187-b221e8a06934.jpg</item>
-        <item>https://i2.wp.com/seonkyounglongest.com/wp-content/uploads/2021/03/Tom-Yum-07-mini.jpg?fit=1000%2C667;ssl=1</item>
-    </string-array>
-    <string-array name="data_category">
-        <item>Makanan</item>
-        <item>Makanan</item>
-        <item>Makanan</item>
-        <item>Makanan</item>
-        <item>Makanan</item>
-        <item>Makanan</item>
-        <item>Makanan</item>
-        <item>Makanan</item>
-        <item>Makanan</item>
-        <item>Makanan</item>
-    </string-array>
-    <string-array name="data_eat_time">
-        <item>Sarapan</item>
-        <item>Sarapan</item>
-        <item>Makan Siang</item>
-        <item>Makan Malam</item>
-        <item>Makan Siang</item>
-        <item>Makan Siang</item>
-        <item>Lain-Lain</item>
-        <item>Lain-Lain</item>
-        <item>Lain-Lain</item>
-        <item>Sarapan</item>
-    </string-array>
-    <string-array name="data_portion">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="data_total_calories">
-        <item>200</item>
-        <item>300</item>
-        <item>120</item>
-        <item>200</item>
-        <item>300</item>
-        <item>120</item>
-        <item>300</item>
-        <item>120</item>
-        <item>200</item>
-        <item>300</item>
-    </string-array>
-    <string-array name="data_created_at_date">
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>1 Januari 2023</item>
-        <item>2 Januari 2023</item>
-        <item>2 Januari 2023</item>
-        <item>3 Januari 2023</item>
-        <item>4 Januari 2023</item>
-        <item>5 Januari 2023</item>
-        <item>5 Januari 2023</item>
-        <item>5 Januari 2023</item>
-    </string-array>
-    <string-array name="data_created_at_time">
-        <item>12:03</item>
-        <item>12:03</item>
-        <item>12:03</item>
-        <item>12:03</item>
-        <item>12:03</item>
-        <item>12:03</item>
-        <item>12:03</item>
-        <item>12:03</item>
-        <item>12:03</item>
-        <item>12:03</item>
-    </string-array>
     <string-array name="status_ativitas">
         <item>Tidak dapat bergerak</item>
         <item>Dapat bergerak tetapi terbatas</item>
@@ -207,4 +98,6 @@
     <string name="do_assessment">Lakukan Asesmen Diri</string>
     <string name="ubah_profil">Ubah Profil</string>
     <string name="simpan">Simpan</string>
+    <string name="title_no_connection">Tidak ada internet</string>
+    <string name="desc_no_connection">Perangkatmu tidak terhubung ke internet saat ini. Jangan khawatir, kamu bisa coba lagi nanti.</string>
 </resources>

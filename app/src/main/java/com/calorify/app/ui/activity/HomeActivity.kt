@@ -24,6 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.DataUser
+import com.calorify.app.helper.NetworkManager
 import com.calorify.app.helper.Result
 import com.calorify.app.ui.component.bar.BottomBar
 import com.calorify.app.ui.component.bar.TopBar
@@ -83,11 +84,18 @@ class HomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
-        currentUser = auth.currentUser!!
-        userId = currentUser.uid
-        listLogViewModel.fetchMonthlyData(true, this, userId, month=month, year=year, date=date)
-        addUserData()
+        if(NetworkManager.isConnectedToNetwork(this)){
+            auth = Firebase.auth
+            currentUser = auth.currentUser!!
+            userId = currentUser.uid
+            listLogViewModel.fetchMonthlyData(true, this, userId, month=month, year=year, date=date)
+            addUserData()
+        } else {
+            val i = Intent(this, NoConnectionActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(i)
+            finish()
+        }
     }
 
     private fun addUserData(){
