@@ -12,10 +12,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -26,7 +25,6 @@ import androidx.navigation.navArgument
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.DataUser
 import com.calorify.app.helper.Result
-import com.calorify.app.repository.LogRepository
 import com.calorify.app.ui.component.bar.BottomBar
 import com.calorify.app.ui.component.bar.TopBar
 import com.calorify.app.ui.navigation.Screen
@@ -50,6 +48,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -73,12 +75,18 @@ class HomeActivity : ComponentActivity() {
         ViewModelFactory.getInstance(application)
     }
 
+    val dateMonthYear = formatDate(LocalDate.now())
+    val date = dateMonthYear.subSequence(0,2).toString()
+    val monthYear = dateMonthYear.subSequence(3, dateMonthYear.length).toString()
+    val month = monthYear.substring(0,2)
+    val year = monthYear.substring(3,7)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         currentUser = auth.currentUser!!
         userId = currentUser.uid
-        listLogViewModel.fetchData(userId, formatDate(LocalDate.now()))
+        listLogViewModel.fetchMonthlyData(true, this, userId, month=month, year=year, date=date)
         addUserData()
     }
 
@@ -162,7 +170,7 @@ class HomeActivity : ComponentActivity() {
                     })
                 }
                 composable(Screen.History.route) {
-                    HistoryLogScreen( navigateToDetail = { logId ->
+                    HistoryLogScreen( month = month, listLogViewModel = listLogViewModel, navigateToDetail = { logId ->
                         navController.navigate(Screen.DetailLog.createRoute(logId))
                     })
                 }

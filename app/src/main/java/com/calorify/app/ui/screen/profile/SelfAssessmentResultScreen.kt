@@ -18,7 +18,7 @@ fun SelfAssessmentResultScreen(
     height: String,
     indexBmi: Float,
     weightGoal: String,
-    calorie: Float,
+    calorie: Int,
     onDoAssessmentClick: () -> Unit,
 ) {
     AndroidView(

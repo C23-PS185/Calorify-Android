@@ -4,6 +4,7 @@ import com.calorify.app.data.remote.request.AssessmentRequest
 import com.calorify.app.data.remote.response.AssessmentResponse
 import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.data.remote.response.DailyCalorieResponse
+import com.calorify.app.data.remote.response.MonthlyCalorieResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -19,6 +20,6 @@ interface ApiService {
     @GET("user-data/{userId}")
     suspend fun getUserResult(@Path("userId") userId: String) : AssessmentResultResponse
 
-    @GET("daily-calorielog/{userId}/{date}")
-    suspend fun getDailyCalorieLog(@Path("userId") userId: String, @Path("date") date: String) : DailyCalorieResponse
+    @GET("monthly-calorielog/{userId}/{month}")
+    suspend fun getMonthlyCalorieLog(@Path("userId") userId: String, @Path("month") month: String) : MonthlyCalorieResponse
 }

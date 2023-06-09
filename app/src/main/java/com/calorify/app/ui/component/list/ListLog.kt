@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.calorify.app.R
+import com.calorify.app.data.local.FoodDict
 import com.calorify.app.ui.component.button.ScrollToTopButton
 import com.calorify.app.ui.component.header.HistoryLogHeader
 import com.calorify.app.ui.component.header.HomeHeader
@@ -45,7 +46,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListLog(
-    calorieNeeded: Float,
+    month: String = "",
+    calorieNeeded: Int = 0,
     groupedBy: String,
     modifier: Modifier = Modifier,
     listLogViewModel: ListLogViewModel,
@@ -57,6 +59,8 @@ fun ListLog(
     val groupedLogDate by listLogViewModel.groupedDateLogKalori.collectAsState()
 
     val calorieFulfilled by listLogViewModel.calorieFulfilled.collectAsState()
+
+    val monthlyCalorieFulfilled by listLogViewModel.monthlyCalorieFullfiled.collectAsState()
 
     var groupedLog = if (groupedBy == "date") {
         groupedLogDate
@@ -81,7 +85,7 @@ fun ListLog(
         ) {
             item {
                 if (groupedBy == "date"){
-                    HistoryLogHeader(viewModel = listLogViewModel)
+                    HistoryLogHeader(groupedLog.isNullOrEmpty(), month, monthlyCalorieFulfilled, viewModel = listLogViewModel)
                 } else {
                     HomeHeader(calorieNeeded = calorieNeeded, calorieFulfilled = calorieFulfilled)
                 }
@@ -112,7 +116,7 @@ fun ListLog(
                 }
                 items(logs, key = { it.logId }) { log ->
                     LogListItem(
-                        title = log.foodName!!,
+                        title = FoodDict.wordMap[log.foodName!!] ?: log.foodName,
                         photoUrl = log.imageUrl!!,
                         calorie = log.foodCalories!!,
                         time = log.createdAtTime!!,

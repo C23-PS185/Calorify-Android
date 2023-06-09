@@ -3,16 +3,21 @@ package com.calorify.app.viewmodel
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.calorify.app.data.local.MonthDict
 import com.calorify.app.data.remote.response.DailyCalorieResponse
+import com.calorify.app.data.remote.response.Data
 import com.calorify.app.data.remote.response.LogItem
+import com.calorify.app.data.remote.response.MonthlyCalorieResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import com.calorify.app.helper.Result
-import com.calorify.app.model.LogKalori
 import com.calorify.app.repository.Repository
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.forEach
 
 class ListLogViewModel(private val repository: Repository) : ViewModel() {
     private val _groupedEatTimeLogKalori = MutableStateFlow<Map<String, List<LogItem>>>(emptyMap())
@@ -21,36 +26,63 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
     private val _groupedDateLogKalori = MutableStateFlow<Map<String, List<LogItem>>>(emptyMap())
     val groupedDateLogKalori: StateFlow<Map<String, List<LogItem>>> get() = _groupedDateLogKalori
 
-    private val _calorieFulfilled = MutableStateFlow<Float>(0f)
-    val calorieFulfilled: StateFlow<Float> get() = _calorieFulfilled
+    private val _allLogKalori = MutableStateFlow<Map<String, List<LogItem>>>(emptyMap())
+
+    private val _calorieFulfilled = MutableStateFlow<Int>(0)
+    val calorieFulfilled: StateFlow<Int> get() = _calorieFulfilled
+
+    private val _monthlyCalorieFullfiled = MutableStateFlow<Map<String, Int>>(emptyMap())
+    val monthlyCalorieFullfiled: StateFlow<Map<String, Int>> get() = _monthlyCalorieFullfiled
 
     private val _query = mutableStateOf("")
     val query: State<String> get() = _query
 
-//    fun search(newQuery: String) {
-//        _query.value = newQuery
-//        updateGroupedDateLogKalori(repository.searchLogKalori(_query.value))
-//    }
+    fun search(newQuery: String) {
+        _groupedDateLogKalori.value = _allLogKalori.value
+        _query.value = newQuery
+        if(_query.value != ""){
+            val filteredGroupedDateLogKalori = _groupedDateLogKalori.value.mapValues { (_, logItems) ->
+                logItems.filter {
+                    it.foodName!!.contains(newQuery, ignoreCase = true) or it.createdAtDate!!.contains(newQuery, ignoreCase = true)
+                }
+            }
+            _groupedDateLogKalori.value = filteredGroupedDateLogKalori
+        }
+    }
 
-    fun fetchData(userId: String, date: String) {
+    fun changeMonth(newMonth: String) {
+        Log.d("MONTH", "changeMonth: $newMonth")
+        val numOfMonth = MonthDict.monthMapToNum[newMonth]
+        fetchMonthlyData(false, lifecycleOwner, userId, month=numOfMonth!!, date=date, year=year)
+    }
+
+    private lateinit var lifecycleOwner : LifecycleOwner
+    var userId = ""
+    var date = ""
+    var year = ""
+
+    fun fetchMonthlyData(isChangeListLogHome: Boolean, lifecycleOwner: LifecycleOwner, userId: String, year: String, month: String, date: String) {
+        this.lifecycleOwner = lifecycleOwner
+        this.userId = userId
+        this.date = date
+        this.year = year
+        val monthYear = "$month-$year"
+
         viewModelScope.launch {
             emitLoadingState()
 
             try {
-                val dummyUserId = "YgblzDZfAUQlukFlGxsdCtt2jKE3"
-                val dummyDate = "06-06-2023"
-                val response = repository.getDailyCalorie(userId, date)
+                val response = repository.getMonthlyCalorie(userId, monthYear)
 
-                response.observeForever { result ->
+                response.observe(lifecycleOwner) { result ->
                     result?.let { result ->
                         if (result is Result.Success) {
-                            val dailyCalorieResponse = result.data
-                            if (dailyCalorieResponse.error == true) {
+                            val monthlyCalorieResponse = result.data
+                            if (monthlyCalorieResponse.error == true) {
                                 emitErrorState("Data not found")
                             } else {
-                                _calorieFulfilled.value = dailyCalorieResponse.data?.totalDailyCalories!!
-                                updateGroupedEatTimeLogKalori(dailyCalorieResponse)
-                                updateGroupedDateLogKalori(dailyCalorieResponse)
+                                Log.d("DATA", "fetchMonthlyData: $monthlyCalorieResponse")
+                                updateGroupedDateLogKalori(monthlyCalorieResponse, monthYear, date, isChangeListLogHome)
                             }
                         } else if (result is Result.Error) {
                             emitErrorState(
@@ -80,10 +112,10 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
         // Handle the error state here as needed
     }
 
-    private fun updateGroupedEatTimeLogKalori(data: DailyCalorieResponse) {
+    private fun updateGroupedEatTimeLogKalori(data: Data) {
         val groupedEatTimeLog = mutableMapOf<String, List<LogItem>>()
 
-        data.data?.breakfast?.let { logItems ->
+        data.breakfast?.let { logItems ->
             logItems.forEach { logItem ->
                 if (logItem != null) {
                     logItem.eatTime = "Sarapan"
@@ -92,7 +124,7 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
             groupedEatTimeLog["Sarapan"] = logItems as List<LogItem>
         }
 
-        data.data?.lunch?.let { logItems ->
+        data.lunch?.let { logItems ->
             logItems.forEach { logItem ->
                 if (logItem != null) {
                     logItem.eatTime = "Makan Siang"
@@ -101,7 +133,7 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
             groupedEatTimeLog["Makan Siang"] = logItems as List<LogItem>
         }
 
-        data.data?.dinner?.let { logItems ->
+        data.dinner?.let { logItems ->
             logItems.forEach { logItem ->
                 if (logItem != null) {
                     logItem.eatTime = "Makan Malam"
@@ -112,7 +144,7 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
 
         Log.d("TES", "updateGroupedEatTimeLogKalori: ${groupedEatTimeLog["Makan Malam"]!!.forEach { logItem -> logItem.foodName }}")
 
-        data.data?.others?.let { logItems ->
+        data.others?.let { logItems ->
             logItems.forEach { logItem ->
                 if (logItem != null) {
                     logItem.eatTime = "Lain-Lain"
@@ -121,31 +153,66 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
             groupedEatTimeLog["Lain-Lain"] = logItems as List<LogItem>
         }
 
+        _calorieFulfilled.value = data.totalDailyCalories!!
         _groupedEatTimeLogKalori.value = groupedEatTimeLog
     }
 
-    private fun updateGroupedDateLogKalori(data: DailyCalorieResponse) {
+    private fun updateGroupedDateLogKalori(data: MonthlyCalorieResponse, monthYear: String, date: String, isChangeListLogHome: Boolean) {
 
-        val allLog = mutableListOf<LogItem>()
+        val groupedDateLog = mutableMapOf<String, List<LogItem>>()
+        val monthlyCalorie = mutableMapOf<String, Int>()
 
-        data.data?.breakfast?.let { logItems ->
-            allLog.addAll(logItems as List<LogItem>)
-        }
-        data.data?.lunch?.let { logItems ->
-            allLog.addAll(logItems as List<LogItem>)
-        }
-        data.data?.dinner?.let { logItems ->
-            allLog.addAll(logItems as List<LogItem>)
-        }
-        data.data?.others?.let { logItems ->
-            allLog.addAll(logItems as List<LogItem>)
+        data.monthlyLog.let {dailyCalorieList ->
+            dailyCalorieList?.forEach {dailyCalorie ->
+                if (dailyCalorie?.date == date && isChangeListLogHome){
+                    updateGroupedEatTimeLogKalori(dailyCalorie.data!!)
+                }
+
+                val allLog = mutableListOf<LogItem>()
+
+                dailyCalorie?.data?.breakfast?.let { logItems ->
+                    logItems.forEach { logItem ->
+                        if (logItem != null) {
+                            logItem.eatTime = "Sarapan"
+                        }
+                    }
+                    allLog.addAll(logItems as List<LogItem>)
+                }
+
+                dailyCalorie?.data?.lunch?.let { logItems ->
+                    logItems.forEach { logItem ->
+                        if (logItem != null) {
+                            logItem.eatTime = "Makan Siang"
+                        }
+                    }
+                    allLog.addAll(logItems as List<LogItem>)
+                }
+
+                dailyCalorie?.data?.dinner?.let { logItems ->
+                    logItems.forEach { logItem ->
+                        if (logItem != null) {
+                            logItem.eatTime = "Makan Malam"
+                        }
+                    }
+                    allLog.addAll(logItems as List<LogItem>)
+                }
+
+                dailyCalorie?.data?.others?.let { logItems ->
+                    logItems.forEach { logItem ->
+                        if (logItem != null) {
+                            logItem.eatTime = "Lain-Lain"
+                        }
+                    }
+                    allLog.addAll(logItems as List<LogItem>)
+                }
+                groupedDateLog["${dailyCalorie?.date}-${monthYear}"] = allLog
+                monthlyCalorie[dailyCalorie?.date!!] = dailyCalorie.data?.totalDailyCalories!!
+            }
         }
 
-        // Group the log by createdAtDate
-        val groupedDateLog = allLog
-            .groupBy { it.createdAtDate!! }
-
+        _monthlyCalorieFullfiled.value = monthlyCalorie
         _groupedDateLogKalori.value = groupedDateLog
+        _allLogKalori.value = groupedDateLog
     }
 
     fun getLogItemById(logItemId: String): LogItem? {
@@ -154,8 +221,6 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
         _groupedDateLogKalori.value.forEach { (_, logItems) ->
             allLogItems.addAll(logItems)
         }
-
-        Log.d("TES", "getLogItemById: ${allLogItems.find { it.logId == logItemId }}")
 
         return allLogItems.find { it.logId == logItemId }
     }

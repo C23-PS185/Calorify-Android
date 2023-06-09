@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import com.calorify.app.ui.component.graph.PieChart
 
 @Composable
-fun HomeHeader(calorieNeeded: Float, calorieFulfilled: Float){
+fun HomeHeader(calorieNeeded: Int, calorieFulfilled: Int){
     Column () {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

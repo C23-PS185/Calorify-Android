@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.calorify.app.R
+import com.calorify.app.data.local.FoodDict
 import com.calorify.app.data.remote.response.LogItem
 import com.calorify.app.repository.LogRepository
 import com.calorify.app.ui.theme.CalorifyTheme
@@ -55,7 +56,7 @@ fun DetailScreen(
 
     if (logKalori != null) {
         DetailContent(
-            logKalori.foodName!!,
+            FoodDict.wordMap[logKalori.foodName!!] ?: logKalori.foodName,
             logKalori.imageUrl!!,
             logKalori.fnbType!!,
             logKalori.eatTime!!,

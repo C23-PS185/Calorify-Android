@@ -6,6 +6,7 @@ import com.calorify.app.data.remote.request.AssessmentRequest
 import com.calorify.app.data.remote.response.AssessmentResponse
 import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.data.remote.response.DailyCalorieResponse
+import com.calorify.app.data.remote.response.MonthlyCalorieResponse
 import com.calorify.app.data.remote.retrofit.ApiService
 import com.calorify.app.helper.Result
 
@@ -49,10 +50,10 @@ class Repository(private val apiService: ApiService) {
         }
     }
 
-    fun getDailyCalorie(userId: String, date: String): LiveData<Result<DailyCalorieResponse>> = liveData {
+    fun getMonthlyCalorie(userId: String, month: String): LiveData<Result<MonthlyCalorieResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.getDailyCalorieLog(userId, date)
+            val response = apiService.getMonthlyCalorieLog(userId, month)
             if (response.error == true) {
                 emit(Result.Error("Data not found"))
             } else {
