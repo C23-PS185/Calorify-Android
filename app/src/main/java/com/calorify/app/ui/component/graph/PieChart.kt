@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -24,6 +25,7 @@ import com.calorify.app.R
 import com.calorify.app.data.local.PieChartData
 import com.calorify.app.ui.theme.Blue200
 import com.calorify.app.ui.theme.Blue700
+import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.Orange200
 import com.calorify.app.ui.theme.Orange700
 import com.github.mikephil.charting.charts.PieChart

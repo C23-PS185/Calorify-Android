@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.calorify.app.R
+import com.calorify.app.data.local.FoodDict
 import com.calorify.app.ui.component.button.ScrollToTopButton
 import com.calorify.app.ui.component.header.HistoryLogHeader
 import com.calorify.app.ui.component.header.HomeHeader
@@ -114,7 +115,7 @@ fun ListLog(
                 }
                 items(logs, key = { it.logId }) { log ->
                     LogListItem(
-                        title = log.foodName!!,
+                        title = FoodDict.wordMap[log.foodName!!] ?: log.foodName,
                         photoUrl = log.imageUrl!!,
                         calorie = log.foodCalories!!,
                         time = log.createdAtTime!!,
