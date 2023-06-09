@@ -75,19 +75,19 @@ class HomeActivity : ComponentActivity() {
         ViewModelFactory.getInstance(application)
     }
 
-    val dateMonth = formatDate(LocalDate.now())
-    val date = dateMonth.subSequence(0,2).toString()
-    val month = dateMonth.subSequence(3, dateMonth.length).toString()
+    val dateMonthYear = formatDate(LocalDate.now())
+    val date = dateMonthYear.subSequence(0,2).toString()
+    val monthYear = dateMonthYear.subSequence(3, dateMonthYear.length).toString()
+    val month = monthYear.substring(0,2)
+    val year = monthYear.substring(3,7)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         currentUser = auth.currentUser!!
         userId = currentUser.uid
-        listLogViewModel.fetchDailyData(this, userId, dateMonth) {
-            listLogViewModel.fetchMonthlyData(this, userId, month, date)
-            addUserData()
-        }
+        listLogViewModel.fetchMonthlyData(true, this, userId, month=month, year=year, date=date)
+        addUserData()
     }
 
     private fun addUserData(){
@@ -170,7 +170,7 @@ class HomeActivity : ComponentActivity() {
                     })
                 }
                 composable(Screen.History.route) {
-                    HistoryLogScreen( month = month.substring(0,2), listLogViewModel = listLogViewModel, navigateToDetail = { logId ->
+                    HistoryLogScreen( month = month, listLogViewModel = listLogViewModel, navigateToDetail = { logId ->
                         navController.navigate(Screen.DetailLog.createRoute(logId))
                     })
                 }

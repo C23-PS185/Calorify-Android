@@ -50,25 +50,6 @@ class Repository(private val apiService: ApiService) {
         }
     }
 
-    fun getDailyCalorie(userId: String, date: String): LiveData<Result<DailyCalorieResponse>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getDailyCalorieLog(userId, date)
-            if (response.error == true) {
-                emit(Result.Error("Data not found"))
-            } else {
-                emit(Result.Success(response))
-            }
-        } catch (e: Exception) {
-            val message = e.message.toString()
-            if (message == "") {
-                emit(Result.Error("Snap, There is something wrong"))
-            } else {
-                emit(Result.Error(message))
-            }
-        }
-    }
-
     fun getMonthlyCalorie(userId: String, month: String): LiveData<Result<MonthlyCalorieResponse>> = liveData {
         emit(Result.Loading)
         try {

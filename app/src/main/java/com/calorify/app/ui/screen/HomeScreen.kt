@@ -22,7 +22,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding()
         ){
-            ListLog(calorieNeeded = calorieNeeded, "eat time", navigateToDetail = navigateToDetail, listLogViewModel = listLogViewModel)
+            ListLog(calorieNeeded = calorieNeeded, groupedBy =  "eat time", navigateToDetail = navigateToDetail, listLogViewModel = listLogViewModel)
         }
     }
 }

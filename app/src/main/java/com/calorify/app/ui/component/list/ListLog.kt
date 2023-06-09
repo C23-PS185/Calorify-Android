@@ -46,6 +46,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListLog(
+    month: String = "",
     calorieNeeded: Int = 0,
     groupedBy: String,
     modifier: Modifier = Modifier,
@@ -84,7 +85,7 @@ fun ListLog(
         ) {
             item {
                 if (groupedBy == "date"){
-                    HistoryLogHeader(monthlyCalorieFulfilled, viewModel = listLogViewModel)
+                    HistoryLogHeader(groupedLog.isNullOrEmpty(), month, monthlyCalorieFulfilled, viewModel = listLogViewModel)
                 } else {
                     HomeHeader(calorieNeeded = calorieNeeded, calorieFulfilled = calorieFulfilled)
                 }

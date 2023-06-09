@@ -21,7 +21,7 @@ fun HistoryLogScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding()
         ){
-            ListLog(groupedBy = "date", listLogViewModel = listLogViewModel, navigateToDetail = navigateToDetail)
+            ListLog(month, groupedBy = "date", listLogViewModel = listLogViewModel, navigateToDetail = navigateToDetail)
         }
     }
 }
