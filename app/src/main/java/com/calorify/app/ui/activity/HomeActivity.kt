@@ -36,6 +36,7 @@ import com.calorify.app.ui.screen.profile.PremiumSubscriptionScreen
 import com.calorify.app.ui.screen.profile.ProfileScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentResultScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentScreen
+import com.calorify.app.ui.screen.scan.ScanLogScreen
 import com.calorify.app.ui.screen.scan.ScanResultScreen
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.ViewModelFactory2
@@ -75,7 +76,7 @@ class HomeActivity : ComponentActivity() {
             topBar = {
                 if (currentRoute in childPage) {
                     TopBar(
-                        onBackClick = {navController.navigateUp()}
+                        onBackClick = { navController.navigateUp() }
                     )
                 }
             },
@@ -92,30 +93,37 @@ class HomeActivity : ComponentActivity() {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Home.route) {
-                    HomeScreen( navigateToDetail = { logId ->
+                    HomeScreen(navigateToDetail = { logId ->
                         navController.navigate(Screen.DetailLog.createRoute(logId))
                     })
                 }
                 composable(Screen.History.route) {
-                    HistoryLogScreen( navigateToDetail = { logId ->
+                    HistoryLogScreen(navigateToDetail = { logId ->
                         navController.navigate(Screen.DetailLog.createRoute(logId))
                     })
                 }
                 composable(Screen.Scan.route) {
-                    ScanCalorieScreen(this@HomeActivity,onScanResultClick = { navController.navigate(Screen.ScanResult.route)})
+                    ScanCalorieScreen(
+                        this@HomeActivity,
+                        onScanResultClick = { navController.navigate(Screen.ScanResult.route) })
                 }
                 composable(Screen.ScanResult.route) {
-                    ScanResultScreen(onScanClick = { navController.navigate(Screen.Home.route)})
+                    ScanResultScreen(
+                        onBerandaClick = { navController.navigate(Screen.Home.route) },
+                        onScanLogClick = { navController.navigate(Screen.ScanLogResult.route) })
+                }
+                composable(Screen.ScanLogResult.route) {
+                    ScanLogScreen(onBerandaClick = { navController.navigate(Screen.Home.route) })
                 }
                 composable(Screen.Profile.route) {
                     ProfileScreen(
                         name = "Melati",
                         photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
                         email = "melati@gmail.com",
-                        onMyProfileClick = { navController.navigate(Screen.MyProfile.route)},
-                        onChangePasswordClick = { navController.navigate(Screen.ChangePassword.route)},
-                        onSelfAssessmentResultClick = { navController.navigate(Screen.SelfAssessmentResult.route)},
-                        onPremiumSubscriptionClick = { navController.navigate(Screen.PremiumSubscription.route)},
+                        onMyProfileClick = { navController.navigate(Screen.MyProfile.route) },
+                        onChangePasswordClick = { navController.navigate(Screen.ChangePassword.route) },
+                        onSelfAssessmentResultClick = { navController.navigate(Screen.SelfAssessmentResult.route) },
+                        onPremiumSubscriptionClick = { navController.navigate(Screen.PremiumSubscription.route) },
                         onSignOut = { signOut() })
                 }
                 composable(
@@ -124,8 +132,12 @@ class HomeActivity : ComponentActivity() {
                 ) {
                     val id = it.arguments?.getInt("logId") ?: 0
                     DetailScreen(
-                        viewModel = viewModel(factory = ViewModelFactory2(LogRepository(
-                            LocalContext.current), id)
+                        viewModel = viewModel(
+                            factory = ViewModelFactory2(
+                                LogRepository(
+                                    LocalContext.current
+                                ), id
+                            )
                         )
                     )
                 }
@@ -137,7 +149,7 @@ class HomeActivity : ComponentActivity() {
                         birthDate = "25 Maret 2002",
                         age = 21,
                         gender = "Perempuan",
-                        onButtonClick = { navController.navigate(Screen.EditProfile.route)}
+                        onButtonClick = { navController.navigate(Screen.EditProfile.route) }
                     )
                 }
                 composable(Screen.EditProfile.route) {
@@ -152,7 +164,7 @@ class HomeActivity : ComponentActivity() {
                     ChangePasswordScreen()
                 }
                 composable(Screen.SelfAssessmentResult.route) {
-                    SelfAssessmentResultScreen(onDoAssessmentClick = { navController.navigate(Screen.SelfAssessment.route)})
+                    SelfAssessmentResultScreen(onDoAssessmentClick = { navController.navigate(Screen.SelfAssessment.route) })
                 }
                 composable(Screen.SelfAssessment.route) {
                     SelfAssessmentScreen()

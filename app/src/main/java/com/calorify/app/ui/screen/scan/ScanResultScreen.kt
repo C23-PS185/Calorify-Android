@@ -12,16 +12,21 @@ import com.calorify.app.databinding.ScanResultScreenBinding
 
 @Composable
 fun ScanResultScreen(
-    onScanClick: () -> Unit,
+    onBerandaClick: () -> Unit,
+    onScanLogClick: () -> Unit
 ) {
     AndroidView(
         modifier = Modifier.fillMaxSize(),
         factory = { context ->
             val binding = ScanResultScreenBinding.inflate(LayoutInflater.from(context))
 
+            binding.buttonAddLog.setOnClickListener {
+                onScanLogClick()
+            }
+
             binding.buttonBeranda.setOnClickListener {
                 photoBitmap = null
-                onScanClick()
+                onBerandaClick()
             }
             binding.root
         },

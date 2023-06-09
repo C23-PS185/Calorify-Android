@@ -27,13 +27,12 @@
 
         <ImageView
             android:id="@+id/imageScanResult"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:minHeight="400dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_scan"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -88,7 +87,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_add_kal"
+            android:id="@+id/button_add_log"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
@@ -125,6 +124,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_add_kal" />
+            app:layout_constraintTop_toBottomOf="@+id/button_add_log" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
