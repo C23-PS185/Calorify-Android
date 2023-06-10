@@ -2,6 +2,7 @@ package com.calorify.app.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -45,6 +46,7 @@ import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.AssessmentResultViewModel
 import com.calorify.app.viewmodel.ListLogViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -226,7 +228,9 @@ class HomeActivity : ComponentActivity() {
                     )
                 }
                 composable(Screen.ChangePassword.route) {
-                    ChangePasswordScreen()
+                    ChangePasswordScreen { newPass, oldPass ->
+                        changePassword(newPass, oldPass)
+                    }
                 }
                 composable(Screen.SelfAssessmentResult.route) {
                     SelfAssessmentResultScreen(
@@ -276,6 +280,19 @@ class HomeActivity : ComponentActivity() {
 
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         return date.format(formatter)
+    }
+
+    private fun changePassword(newPass: String, oldPass: String) : String {
+        return try {
+            val credential = EmailAuthProvider.getCredential(currentUser.email!!, oldPass)
+            currentUser.reauthenticate(credential)
+            Log.d("PASSWORD", "changePassword: $newPass")
+            Log.d("USER", "changePassword: $currentUser")
+            currentUser.updatePassword(newPass)
+            "Ubah Kata Sandi Berhasil"
+        } catch (err: Error){
+            "Ubah Kata Sandi Gagal"
+        }
     }
 }
 
