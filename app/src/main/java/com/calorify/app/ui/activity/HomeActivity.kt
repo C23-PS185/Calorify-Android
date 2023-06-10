@@ -286,8 +286,6 @@ class HomeActivity : ComponentActivity() {
         return try {
             val credential = EmailAuthProvider.getCredential(currentUser.email!!, oldPass)
             currentUser.reauthenticate(credential)
-            Log.d("PASSWORD", "changePassword: $newPass")
-            Log.d("USER", "changePassword: $currentUser")
             currentUser.updatePassword(newPass)
             "Ubah Kata Sandi Berhasil"
         } catch (err: Error){
