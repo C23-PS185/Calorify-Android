@@ -20,7 +20,7 @@ data class DataUser(
     val userHeight: String? = null,
 
     @field:SerializedName("gender")
-    val gender: String? = null,
+    var gender: String? = null,
 
     @field:SerializedName("createdAt")
     val createdAt: String? = null,
@@ -35,11 +35,14 @@ data class DataUser(
     val userBMI: Float? = null,
 
     @field:SerializedName("birthDate")
-    val birthDate: String? = null,
+    var birthDate: String? = null,
 
     @field:SerializedName("fullName")
-    val fullName: String? = null,
+    var fullName: String? = null,
 
     @field:SerializedName("photoURL")
-    val photoURL: String? = null
+    var photoURL: String? = null,
+
+    @field:SerializedName("age")
+    var age: Int? = null
 )

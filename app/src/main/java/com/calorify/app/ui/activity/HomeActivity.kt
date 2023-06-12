@@ -26,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.DataUser
+import com.calorify.app.data.remote.response.Profil
 import com.calorify.app.helper.NetworkManager
 import com.calorify.app.helper.Result
 import com.calorify.app.ui.component.bar.BottomBar
@@ -233,7 +234,7 @@ class HomeActivity : ComponentActivity() {
                         photoUrl = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         email = currentUser.email!!,
                         birthDate = userData.birthDate!!,
-                        age = calculateAge(userData.birthDate!!),
+                        age = userData.age ?: 0,
                         gender = userData.gender!!,
                         onButtonClick = { navController.navigate(Screen.EditProfile.route)}
                     )
@@ -243,7 +244,20 @@ class HomeActivity : ComponentActivity() {
                         photoUrl = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         name = userData.fullName!!,
                         gender = userData.gender!!,
-                        birthDate = userData.birthDate!!
+                        birthDate = userData.birthDate!!,
+                        getString = {resId ->
+                            getStr(resId)
+                        },
+                        lifecycleOwner = this@HomeActivity,
+                        userId = userId,
+                        profileViewModel = profileViewModel,
+                        onSuccess = {profile ->
+                            updateUserProfile(profile)
+                        },
+                        moveToProfile = {
+                            navController.popBackStack()
+                        },
+                        context = this@HomeActivity,
                     )
                 }
                 composable(Screen.ChangePassword.route) {
@@ -296,19 +310,6 @@ class HomeActivity : ComponentActivity() {
         finish()
     }
 
-    private fun calculateAge(birthDate: String): Int {
-        val format = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val dateOfBirth = format.parse(birthDate)
-
-        val today = Calendar.getInstance().time
-        val diffInMillis = today.time - dateOfBirth.time
-
-        val ageInMillis = TimeUnit.MILLISECONDS.toDays(diffInMillis)
-        val age = (ageInMillis / 365).toInt()
-
-        return age
-    }
-
     private fun convertStatusKesehatan(id: Int) : String {
         val statusKesehatanValue = resources.getStringArray(R.array.tujuan_kesehatan)
         return statusKesehatanValue[id]
@@ -345,6 +346,16 @@ class HomeActivity : ComponentActivity() {
 
     private fun updateUserData(dataUser: DataUser) {
         this.userData = dataUser
+    }
+
+    private fun updateUserProfile(profile: Profil) {
+        this.userData.fullName = profile.fullName
+        this.userData.gender = profile.gender
+        if (profile.photoURL != null){
+            this.userData.photoURL = profile.photoURL
+        }
+        this.userData.birthDate = profile.birthDate
+        this.userData.age = profile.age
     }
 }
 
