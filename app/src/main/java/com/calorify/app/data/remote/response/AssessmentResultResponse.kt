@@ -38,5 +38,8 @@ data class DataUser(
     val birthDate: String? = null,
 
     @field:SerializedName("fullName")
-    val fullName: String? = null
+    val fullName: String? = null,
+
+    @field:SerializedName("photoURL")
+    val photoURL: String? = null
 )

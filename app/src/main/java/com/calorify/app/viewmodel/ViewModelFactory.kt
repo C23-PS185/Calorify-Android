@@ -21,6 +21,9 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(ListLogViewModel::class.java) ->
                 ListLogViewModel(repository) as T
 
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) ->
+                ProfileViewModel(repository) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

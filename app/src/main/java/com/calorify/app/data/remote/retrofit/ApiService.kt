@@ -1,14 +1,17 @@
 package com.calorify.app.data.remote.retrofit
 
 import com.calorify.app.data.remote.request.AssessmentRequest
+import com.calorify.app.data.remote.request.AssessmentUpdateRequest
 import com.calorify.app.data.remote.response.AssessmentResponse
 import com.calorify.app.data.remote.response.AssessmentResultResponse
+import com.calorify.app.data.remote.response.AssessmentUpdateResponse
 import com.calorify.app.data.remote.response.DailyCalorieResponse
 import com.calorify.app.data.remote.response.MonthlyCalorieResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -22,4 +25,10 @@ interface ApiService {
 
     @GET("monthly-calorielog/{userId}/{month}")
     suspend fun getMonthlyCalorieLog(@Path("userId") userId: String, @Path("month") month: String) : MonthlyCalorieResponse
+
+    @Headers("Content-Type: application/json")
+    @PUT("update-user-assessment/{userId}")
+    suspend fun uploadUpdatedAssessment(@Body body: AssessmentUpdateRequest, @Path("userId") userId: String) : AssessmentUpdateResponse
+
+
 }
