@@ -7,11 +7,16 @@ import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.data.remote.response.AssessmentUpdateResponse
 import com.calorify.app.data.remote.response.DailyCalorieResponse
 import com.calorify.app.data.remote.response.MonthlyCalorieResponse
+import com.calorify.app.data.remote.response.ProfileUpdateResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 
 interface ApiService {
@@ -30,5 +35,14 @@ interface ApiService {
     @PUT("update-user-assessment/{userId}")
     suspend fun uploadUpdatedAssessment(@Body body: AssessmentUpdateRequest, @Path("userId") userId: String) : AssessmentUpdateResponse
 
+    @Multipart
+    @PUT("user-data/{userId}")
+    suspend fun updateUserData(
+        @Path("userId") userId: String,
+        @Part("fullName") fullName: RequestBody?,
+        @Part("birthDate") birthDate: RequestBody?,
+        @Part("gender") gender: RequestBody?,
+        @Part image: MultipartBody.Part?
+    ): ProfileUpdateResponse
 
 }

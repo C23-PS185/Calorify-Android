@@ -77,7 +77,7 @@ class AssessmentActivity : AppCompatActivity() {
                 val dropDownStressor = stressorIndex
                 val dropDownKesehatan = weightIndex
                 val isValid =
-                    binding.etBirth.error == null && binding.etBirth.error == null && binding.etWeight.error == null && binding.etHeight.error == null && binding.dropDownActivity.error == null && binding.dropDownStressor.error == null && binding.dropDownKesehatan.error == null
+                    binding.etName.error == null && binding.etBirth.error == null && binding.etWeight.error == null && binding.etHeight.error == null && binding.dropDownActivity.error == null && binding.dropDownStressor.error == null && binding.dropDownKesehatan.error == null
 
                 when {
                     etName.isEmpty() -> {
