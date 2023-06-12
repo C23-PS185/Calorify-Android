@@ -19,9 +19,9 @@ import com.calorify.app.ui.theme.Blue500
 import com.calorify.app.ui.theme.CalorifyTheme
 
 @Composable
-fun RadioButtonType(modifier: Modifier = Modifier) {
+fun RadioButtonType(modifier: Modifier = Modifier, onRadioButtonSelected: (String) -> Unit) {
     val radioOptions = listOf("Makanan", "Minuman")
-    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0] ) }
+    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
     Row(modifier = modifier.fillMaxWidth()) {
         radioOptions.forEach { text ->
             Row(
@@ -32,12 +32,16 @@ fun RadioButtonType(modifier: Modifier = Modifier) {
                         selected = (text == selectedOption),
                         onClick = {
                             onOptionSelected(text)
+                            onRadioButtonSelected(text)
                         }
                     )
             ) {
                 RadioButton(
                     selected = (text == selectedOption),
-                    onClick = { onOptionSelected(text) },
+                    onClick = {
+                        onOptionSelected(text)
+                        onRadioButtonSelected(text)
+                    },
                     colors = RadioButtonDefaults.colors(
                         selectedColor = Color.Blue,
                         unselectedColor = Color.Black
@@ -57,6 +61,6 @@ fun RadioButtonType(modifier: Modifier = Modifier) {
 @Composable
 fun RadioButtonPreview() {
     CalorifyTheme {
-        RadioButtonType()
+
     }
 }

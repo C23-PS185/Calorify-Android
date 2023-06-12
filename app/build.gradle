@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.calorify.app"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -119,4 +119,6 @@ dependencies {
 
     // Chart
     implementation "com.github.PhilJay:MPAndroidChart:v3.1.0"
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
 }

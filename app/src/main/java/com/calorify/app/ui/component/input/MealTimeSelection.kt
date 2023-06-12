@@ -25,14 +25,18 @@ import androidx.compose.ui.unit.dp
 import com.calorify.app.ui.theme.CalorifyTheme
 
 @Composable
-fun MealTimeSelection(modifier: Modifier = Modifier) {
+fun MealTimeSelection(
+    modifier: Modifier = Modifier,
+    MealTimeSelected: String,
+    onMealSelected: (String) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedMealTime by remember { mutableStateOf("Sarapan") }
+    var selectedMealTime by remember { mutableStateOf(MealTimeSelected) }
     val mealTime = listOf("Sarapan", "Makan Siang", "Makan Malam", "Lain-Lain")
 
     OutlinedTextField(
         value = selectedMealTime,
-        onValueChange = { selectedMealTime = it },
+        onValueChange = { onMealSelected(selectedMealTime) },
         modifier = modifier.fillMaxWidth(),
         trailingIcon = {
             Icon(
@@ -51,15 +55,16 @@ fun MealTimeSelection(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Column {
-                mealTime.forEach { month ->
+                mealTime.forEach { mealTime ->
                     DropdownMenuItem(
                         onClick = {
-                            selectedMealTime = month
+                            selectedMealTime = mealTime
+                            onMealSelected(mealTime)
                             expanded = false
                         }
                     ) {
                         Text(
-                            text = month,
+                            text = mealTime,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(16.dp),
@@ -76,6 +81,6 @@ fun MealTimeSelection(modifier: Modifier = Modifier) {
 @Composable
 fun MealTimeSelectionPreview() {
     CalorifyTheme {
-        MealTimeSelection()
+
     }
 }

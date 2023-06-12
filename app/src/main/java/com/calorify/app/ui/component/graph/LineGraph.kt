@@ -1,6 +1,7 @@
 package com.calorify.app.ui.component.graph
 
 import android.graphics.Typeface
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.compose.animation.Crossfade
@@ -36,10 +37,13 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import kotlin.math.log
 
 
 @Composable
-fun LineGraph() {
+fun LineGraph(
+    monthlyCalorieFulFilled: Map<String, Int>,
+) {
     Column() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -50,7 +54,9 @@ fun LineGraph() {
                 fontFamily = FontFamily(Font(R.font.inter_medium)),
                 fontSize = 14.sp,
                 color = Neutral500,
-                modifier = Modifier.padding(horizontal = 16.dp).align(Alignment.Start)
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .align(Alignment.Start)
             )
             Column(
                 modifier = Modifier
@@ -60,7 +66,7 @@ fun LineGraph() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Crossfade(targetState = getLineChartData) { lineChartData ->
+                Crossfade(targetState = monthlyCalorieFulFilled) { lineChartData ->
                     AndroidView(factory = { context ->
                         LineChart(context).apply {
                             layoutParams = LinearLayout.LayoutParams(
@@ -72,6 +78,7 @@ fun LineGraph() {
                     },
                         modifier = Modifier
                             .wrapContentSize(), update = {
+                            Log.d("LINECHART", "LineGraph: $lineChartData")
                             updateLineChartWithData(it, lineChartData)
                         })
                 }
@@ -90,14 +97,14 @@ fun LineGraph() {
 
 fun updateLineChartWithData(
     chart: LineChart,
-    data: List<LineChartData>
+    data: Map<String, Int>,
 ) {
 
     val entries = ArrayList<Entry>()
 
-    for (i in data.indices) {
+    for (i in data.keys) {
         val item = data[i]
-        entries.add(Entry(i.toFloat(), item.value ?: 0.toFloat()))
+        entries.add(Entry(i.toFloat(), item?.toFloat() ?: 0.toFloat()))
     }
 
     val ds = LineDataSet(entries, "")
@@ -128,7 +135,7 @@ fun updateLineChartWithData(
     yAxisLeft.textSize = 12f
 
     val xAxis = chart.xAxis
-    xAxis.valueFormatter = IndexAxisValueFormatter(data.map { it.date + "/5" })
+
     xAxis.position = XAxis.XAxisPosition.BOTTOM
     xAxis.mAxisRange = data.size.toFloat()
     xAxis.granularity = 1f
@@ -166,12 +173,4 @@ fun updateLineChartWithData(
     })
 
     chart.invalidate()
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LineGraphPreview() {
-    CalorifyTheme {
-        LineGraph()
-    }
 }

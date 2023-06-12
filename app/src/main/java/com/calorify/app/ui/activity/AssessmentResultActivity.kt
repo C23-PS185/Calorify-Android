@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.databinding.ActivityAssessmentResultBinding
+import com.calorify.app.helper.NetworkManager
 import com.calorify.app.helper.Result
 import com.calorify.app.viewmodel.AssessmentResultViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
@@ -23,17 +24,24 @@ class AssessmentResultActivity : AppCompatActivity() {
 
     private lateinit var userID: String
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivityAssessmentResultBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        
-        userID = intent.getStringExtra(EXTRA_USER_ID).toString()
+        if(NetworkManager.isConnectedToNetwork(this)){
+            super.onCreate(savedInstanceState)
+            _binding = ActivityAssessmentResultBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        showAssessmentResult()
+            userID = intent.getStringExtra(EXTRA_USER_ID).toString()
 
-        binding.buttonBeranda.setOnClickListener{
-            intent = Intent(this@AssessmentResultActivity, HomeActivity::class.java)
-            startActivity(intent)
+            showAssessmentResult()
+
+            binding.buttonBeranda.setOnClickListener{
+                intent = Intent(this@AssessmentResultActivity, HomeActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            val i = Intent(this, NoConnectionActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(i)
+            finish()
         }
     }
 

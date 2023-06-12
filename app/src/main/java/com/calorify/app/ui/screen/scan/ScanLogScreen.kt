@@ -1,5 +1,7 @@
 package com.calorify.app.ui.screen.scan
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -13,43 +15,69 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonColors
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.calorify.app.R
+import com.calorify.app.helper.Result
+import com.calorify.app.data.remote.request.CalorieLogRequest
 import com.calorify.app.ui.component.button.CustomButton2
 import com.calorify.app.ui.component.input.MealTimeSelection
 import com.calorify.app.ui.component.input.RadioButtonType
 import com.calorify.app.ui.theme.Blue50
 import com.calorify.app.ui.theme.Blue500
 import com.calorify.app.ui.theme.Blue700
-import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.Neutral500
 import com.calorify.app.ui.theme.White
-import com.google.android.gms.common.SignInButton.ColorScheme
+import com.calorify.app.viewmodel.AddCalorieLogViewModel
 
 @Composable
 fun ScanLogScreen(
     onBerandaClick: () -> Unit,
+    viewModel: AddCalorieLogViewModel,
+    userId: String
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
+
+    var foodNameState by remember { mutableStateOf("Nasi Goreng") }
+    var fnbTypeState by remember { mutableStateOf("Makanan") }
+    var selectedMealTime by remember { mutableStateOf("Sarapan") }
+    var selectedMealTimeIndex by remember { mutableStateOf(0) }
+    var foodPortionState by remember { mutableStateOf("1") }
+    var foodCalorieState by remember { mutableStateOf("200") }
+    var foodCalorieStateTotal by remember { mutableStateOf(foodCalorieState) }
+
+    selectedMealTimeIndex = when (selectedMealTime) {
+        "Sarapan" -> 0
+        "Makan Siang" -> 1
+        "Makan Malam" -> 2
+        "Lain-Lain" -> 3
+        else -> 0
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -85,8 +113,8 @@ fun ScanLogScreen(
                 .align(Alignment.Start)
         )
         TextField(
-            value = "Nasi Goreng",
-            onValueChange = {},
+            value = foodNameState,
+            onValueChange = { foodNameState = it },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface,
                 disabledIndicatorColor = Color.Transparent,
@@ -112,7 +140,9 @@ fun ScanLogScreen(
             modifier = Modifier
                 .align(Alignment.Start)
         )
-        RadioButtonType(Modifier.padding(bottom = 8.dp))
+        RadioButtonType(Modifier.padding(bottom = 8.dp)) {
+            fnbTypeState = it
+        }
         Text(
             text = "Waktu Makan",
             fontFamily = FontFamily(
@@ -122,7 +152,13 @@ fun ScanLogScreen(
             modifier = Modifier
                 .align(Alignment.Start)
         )
-        MealTimeSelection(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+        MealTimeSelection(
+            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+            MealTimeSelected = selectedMealTime
+        ) { newMealTime ->
+            selectedMealTime = newMealTime
+            Log.d("MealTimeSelected", "selectedMealTime: $selectedMealTime")
+        }
         Text(
             text = "Banyak Porsi",
             fontFamily = FontFamily(
@@ -133,8 +169,14 @@ fun ScanLogScreen(
                 .align(Alignment.Start)
         )
         TextField(
-            value = "1",
-            onValueChange = {},
+            value = foodPortionState,
+            onValueChange = { newInput ->
+                foodPortionState = newInput
+                foodCalorieStateTotal = foodCalorieTotal(foodPortionState, foodCalorieState)
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number
+            ),
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface,
                 disabledIndicatorColor = Color.Transparent,
@@ -166,7 +208,7 @@ fun ScanLogScreen(
                 color = Neutral500
             )
             Text(
-                text = "400 Kal",
+                text = "$foodCalorieStateTotal kal",
                 fontFamily = FontFamily(
                     Font(resId = R.font.inter_semibold),
                 ),
@@ -174,12 +216,47 @@ fun ScanLogScreen(
                 color = Blue500
             )
         }
+
         Spacer(modifier = Modifier.height(16.dp))
         CustomButton2(
             text = "Simpan",
             color = Blue500,
             contentColor = White,
-            onClick = {},
+            onClick = {
+                val isValid =
+                    foodNameState.isNotEmpty() && fnbTypeState.isNotEmpty() && foodCalorieState.isNotEmpty()
+
+                val body = CalorieLogRequest(
+                    foodName = foodNameState,
+                    fnbType = fnbTypeState,
+                    foodCalories = foodCalorieStateTotal.toInt(),
+                    mealTime = selectedMealTimeIndex
+                )
+
+                if (isValid) {
+                    viewModel.setCalorieLogData(body)
+                    viewModel.uploadCalorieLog(userId).observe(lifecycleOwner) { result ->
+                        when (result) {
+                            is Result.Success -> {
+                                onBerandaClick()
+                                photoBitmap = null
+                            }
+
+                            is Result.Error -> {
+                                Toast.makeText(
+                                    context,
+                                    result.error,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                            is Result.Loading -> {
+                                Log.d("CalorieLog", "Loading")
+                            }
+                        }
+                    }
+                }
+            },
         )
         Spacer(modifier = Modifier.height(16.dp))
         CustomButton2(
@@ -195,10 +272,5 @@ fun ScanLogScreen(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun ScanLogPreview() {
-    CalorifyTheme {
-        ScanLogScreen {}
-    }
-}
+private fun foodCalorieTotal(foodCalorieState: String, foodPortionState: String) =
+    (foodCalorieState.toIntOrNull()?.times(foodPortionState.toIntOrNull()!!)).toString()
