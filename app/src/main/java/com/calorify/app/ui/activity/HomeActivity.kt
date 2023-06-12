@@ -3,6 +3,7 @@ package com.calorify.app.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -45,6 +46,7 @@ import com.calorify.app.ui.screen.profile.SelfAssessmentScreen
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.AssessmentResultViewModel
 import com.calorify.app.viewmodel.ListLogViewModel
+import com.calorify.app.viewmodel.ProfileViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -75,6 +77,10 @@ class HomeActivity : ComponentActivity() {
     }
 
     private val listLogViewModel by viewModels<ListLogViewModel> {
+        ViewModelFactory.getInstance(application)
+    }
+
+    private val profileViewModel by viewModels<ProfileViewModel> {
         ViewModelFactory.getInstance(application)
     }
 
@@ -173,6 +179,7 @@ class HomeActivity : ComponentActivity() {
                 composable(Screen.Home.route) {
                     HomeScreen(
                         firstName = userData.fullName!!.substringBefore(" "),
+                        photoURL = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         listLogViewModel = listLogViewModel,
                         calorieNeeded = userData.userCalorieIntake!!,
                         navigateToDetail = { logId ->
@@ -190,7 +197,7 @@ class HomeActivity : ComponentActivity() {
                 composable(Screen.Profile.route) {
                     ProfileScreen(
                         name = userData.fullName!!,
-                        photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
+                        photoUrl = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         email = currentUser.email!!,
                         onMyProfileClick = { navController.navigate(Screen.MyProfile.route)},
                         onChangePasswordClick = { navController.navigate(Screen.ChangePassword.route)},
@@ -211,7 +218,7 @@ class HomeActivity : ComponentActivity() {
                 composable(Screen.MyProfile.route) {
                     MyProfileScreen(
                         name = userData.fullName!!,
-                        photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
+                        photoUrl = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         email = currentUser.email!!,
                         birthDate = userData.birthDate!!,
                         age = calculateAge(userData.birthDate!!),
@@ -221,7 +228,7 @@ class HomeActivity : ComponentActivity() {
                 }
                 composable(Screen.EditProfile.route) {
                     EditProfileScreen(
-                        photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
+                        photoUrl = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         name = userData.fullName!!,
                         gender = userData.gender!!,
                         birthDate = userData.birthDate!!
@@ -243,7 +250,26 @@ class HomeActivity : ComponentActivity() {
                     )
                 }
                 composable(Screen.SelfAssessment.route) {
-                    SelfAssessmentScreen()
+                    SelfAssessmentScreen(
+                        getString = {resId ->
+                            getStr(resId)
+                        },
+                        getStringArr = {resId ->
+                            getStringArr(resId)
+                        },
+                        arrAdapter = {resId, arr ->
+                            arrAdapter(resId, arr)
+                        },
+                        lifecycleOwner = this@HomeActivity,
+                        userId = userId,
+                        profileViewModel = profileViewModel,
+                        onSuccess = {dataUser ->
+                            updateUserData(dataUser)
+                        },
+                        moveToResult = {
+                            navController.popBackStack()
+                        }
+                    )
                 }
                 composable(Screen.PremiumSubscription.route) {
                     PremiumSubscriptionScreen()
@@ -291,6 +317,22 @@ class HomeActivity : ComponentActivity() {
         } catch (err: Error){
             "Ubah Kata Sandi Gagal"
         }
+    }
+
+    private fun getStringArr(resID: Int): Array<String>{
+        return resources.getStringArray(resID)
+    }
+
+    private fun getStr(resID: Int): String{
+        return resources.getString(resID)
+    }
+
+    private fun arrAdapter(resID: Int, arr: Array<String>) : ArrayAdapter<String> {
+        return ArrayAdapter(this, resID, arr)
+    }
+
+    private fun updateUserData(dataUser: DataUser) {
+        this.userData = dataUser
     }
 }
 

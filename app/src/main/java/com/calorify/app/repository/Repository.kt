@@ -3,8 +3,10 @@ package com.calorify.app.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.calorify.app.data.remote.request.AssessmentRequest
+import com.calorify.app.data.remote.request.AssessmentUpdateRequest
 import com.calorify.app.data.remote.response.AssessmentResponse
 import com.calorify.app.data.remote.response.AssessmentResultResponse
+import com.calorify.app.data.remote.response.AssessmentUpdateResponse
 import com.calorify.app.data.remote.response.DailyCalorieResponse
 import com.calorify.app.data.remote.response.MonthlyCalorieResponse
 import com.calorify.app.data.remote.retrofit.ApiService
@@ -54,6 +56,25 @@ class Repository(private val apiService: ApiService) {
         emit(Result.Loading)
         try {
             val response = apiService.getMonthlyCalorieLog(userId, month)
+            if (response.error == true) {
+                emit(Result.Error("Data not found"))
+            } else {
+                emit(Result.Success(response))
+            }
+        } catch (e: Exception) {
+            val message = e.message.toString()
+            if (message == "") {
+                emit(Result.Error("Snap, There is something wrong"))
+            } else {
+                emit(Result.Error(message))
+            }
+        }
+    }
+
+    fun updateAssessment(userId: String, body: AssessmentUpdateRequest): LiveData<Result<AssessmentUpdateResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.uploadUpdatedAssessment(body, userId)
             if (response.error == true) {
                 emit(Result.Error("Data not found"))
             } else {
