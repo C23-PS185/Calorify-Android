@@ -32,8 +32,8 @@ import com.calorify.app.ui.navigation.Screen
 import com.calorify.app.ui.screen.DetailScreen
 import com.calorify.app.ui.screen.HistoryLogScreen
 import com.calorify.app.ui.screen.HomeScreen
+import com.calorify.app.ui.screen.scan.ScanCalorieScreen
 import com.calorify.app.ui.screen.LoadingScreen
-import com.calorify.app.ui.screen.ScanCalorieScreen
 import com.calorify.app.ui.screen.profile.ChangePasswordScreen
 import com.calorify.app.ui.screen.profile.EditProfileScreen
 import com.calorify.app.ui.screen.profile.MyProfileScreen
@@ -41,6 +41,8 @@ import com.calorify.app.ui.screen.profile.PremiumSubscriptionScreen
 import com.calorify.app.ui.screen.profile.ProfileScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentResultScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentScreen
+import com.calorify.app.ui.screen.scan.ScanLogScreen
+import com.calorify.app.ui.screen.scan.ScanResultScreen
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.AssessmentResultViewModel
 import com.calorify.app.viewmodel.ListLogViewModel
@@ -152,7 +154,7 @@ class HomeActivity : ComponentActivity() {
             topBar = {
                 if (currentRoute in childPage) {
                     TopBar(
-                        onBackClick = {navController.navigateUp()}
+                        onBackClick = { navController.navigateUp() }
                     )
                 }
             },
@@ -183,7 +185,17 @@ class HomeActivity : ComponentActivity() {
                     })
                 }
                 composable(Screen.Scan.route) {
-                    ScanCalorieScreen()
+                    ScanCalorieScreen(
+                        this@HomeActivity,
+                        onScanResultClick = { navController.navigate(Screen.ScanResult.route) })
+                }
+                composable(Screen.ScanResult.route) {
+                    ScanResultScreen(
+                        onBerandaClick = { navController.navigate(Screen.Home.route) },
+                        onScanLogClick = { navController.navigate(Screen.ScanLogResult.route) })
+                }
+                composable(Screen.ScanLogResult.route) {
+                    ScanLogScreen(onBerandaClick = { navController.navigate(Screen.Home.route) })
                 }
                 composable(Screen.Profile.route) {
                     ProfileScreen(
