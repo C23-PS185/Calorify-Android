@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageNoConnection"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:contentDescription="@string/desc_onboard_img_1"
+            android:src="@drawable/website_down"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <TextView
+            android:id="@+id/titleNoConnection"
+            style="@style/TextContent.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_bold"
+            android:gravity="center_horizontal"
+            android:text="@string/title_no_connection"
+            app:layout_constraintEnd_toEndOf="@+id/imageNoConnection"
+            app:layout_constraintStart_toStartOf="@+id/imageNoConnection"
+            app:layout_constraintTop_toBottomOf="@+id/imageNoConnection"
+            tools:ignore="VisualLintOverlap" />
+
+        <TextView
+            android:id="@+id/descNoConnection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_regular"
+            android:gravity="center_horizontal"
+            android:text="@string/desc_no_connection"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/titleNoConnection"
+            app:layout_constraintStart_toStartOf="@+id/titleNoConnection"
+            app:layout_constraintTop_toBottomOf="@+id/titleNoConnection"
+            tools:ignore="VisualLintOverlap" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

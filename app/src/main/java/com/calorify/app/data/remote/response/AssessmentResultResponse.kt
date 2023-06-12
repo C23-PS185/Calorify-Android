@@ -32,7 +32,7 @@ data class DataUser(
     val weightGoal: Int? = null,
 
     @field:SerializedName("userBMI")
-    val userBMI: Int? = null,
+    val userBMI: Float? = null,
 
     @field:SerializedName("birthDate")
     val birthDate: String? = null,
