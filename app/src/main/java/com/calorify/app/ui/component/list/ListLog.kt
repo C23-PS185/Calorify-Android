@@ -52,6 +52,7 @@ fun ListLog(
     modifier: Modifier = Modifier,
     listLogViewModel: ListLogViewModel,
     navigateToDetail: (String) -> Unit,
+    onMonthSelect: (String) -> Unit = {},
 ) {
 
     val groupedLogEatTime by listLogViewModel.groupedEatTimeLogKalori.collectAsState()
@@ -67,6 +68,7 @@ fun ListLog(
     } else {
         groupedLogEatTime
     }
+
 
 
     Box(modifier = modifier) {
@@ -85,7 +87,7 @@ fun ListLog(
         ) {
             item {
                 if (groupedBy == "date"){
-                    HistoryLogHeader(groupedLog.isNullOrEmpty(), month, monthlyCalorieFulfilled, viewModel = listLogViewModel)
+                    HistoryLogHeader(groupedLog.isNullOrEmpty(), month, monthlyCalorieFulfilled, viewModel = listLogViewModel, onMonthSelected = onMonthSelect)
                 } else {
                     HomeHeader(calorieNeeded = calorieNeeded, calorieFulfilled = calorieFulfilled)
                 }

@@ -24,8 +24,11 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
 import com.calorify.app.data.local.PieChartData
 import com.calorify.app.ui.theme.Blue200
+import com.calorify.app.ui.theme.Blue500
 import com.calorify.app.ui.theme.Blue700
 import com.calorify.app.ui.theme.CalorifyTheme
+import com.calorify.app.ui.theme.Green200
+import com.calorify.app.ui.theme.Green700
 import com.calorify.app.ui.theme.Orange200
 import com.calorify.app.ui.theme.Orange700
 import com.github.mikephil.charting.charts.PieChart
@@ -34,6 +37,7 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
+import kotlin.math.abs
 
 // Reference: https://www.geeksforgeeks.org/pie-chart-in-android-using-jetpack-compose/
 @Composable
@@ -66,13 +70,20 @@ fun PieChart(calorieNeeded: Int, calorieFulfilled: Int) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                val dataNeeded = PieChartData("Kalori Dibutuhkan", calorieNeeded)
+                val otherCalorie = calorieNeeded-calorieFulfilled
+                val otherStatus =
+                    if (otherCalorie >= 0) {
+                        "Kalori Dibutuhkan"
+                    } else {
+                        "Kalori Berlebih"
+                    }
+                val otherData = PieChartData(otherStatus, abs(otherCalorie))
                 val dataFulfilled = PieChartData("Kalori Terpenuhi", calorieFulfilled)
                 Crossfade(targetState =
                 if (calorieFulfilled == 0) {
-                    listOf(dataNeeded)
+                    listOf(otherData)
                 } else {
-                    listOf(dataFulfilled, dataNeeded)
+                    listOf(dataFulfilled, otherData)
                 }
                 ) { pieChartData ->
                     AndroidView(factory = { context ->
@@ -126,13 +137,23 @@ fun updatePieChartWithData(
         ds.setValueTextColors(listOf(
             Blue700.toArgb(),
         ))
-    } else {
+    } else if (data[0].status == "Kalori Berlebih" || data[1].status == "Kalori Berlebih") {
         ds.colors = arrayListOf(
+            Blue200.toArgb(),
             Orange200.toArgb(),
+        )
+        ds.setValueTextColors(listOf(
+            Blue700.toArgb(),
+            Orange700.toArgb(),
+        ))
+    }
+    else {
+        ds.colors = arrayListOf(
+            Green200.toArgb(),
             Blue200.toArgb(),
         )
         ds.setValueTextColors(listOf(
-            Orange700.toArgb(),
+            Green700.toArgb(),
             Blue700.toArgb(),
         ))
     }
