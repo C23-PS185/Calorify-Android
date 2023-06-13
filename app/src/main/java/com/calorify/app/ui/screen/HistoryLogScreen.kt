@@ -7,18 +7,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.calorify.app.ui.component.list.ListLog
+import com.calorify.app.viewmodel.ListLogViewModel
 
 @Composable
 fun HistoryLogScreen(
-    navigateToDetail: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    month: String,
+    navigateToDetail: (String) -> Unit,
+    listLogViewModel: ListLogViewModel,
+    modifier: Modifier = Modifier,
+    onMonthSelect: (String) -> Unit,
 ){
     Column (modifier = modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding()
         ){
-            ListLog("date", navigateToDetail = navigateToDetail)
+            ListLog(month, groupedBy = "date", listLogViewModel = listLogViewModel, navigateToDetail = navigateToDetail, onMonthSelect = onMonthSelect)
         }
     }
 }

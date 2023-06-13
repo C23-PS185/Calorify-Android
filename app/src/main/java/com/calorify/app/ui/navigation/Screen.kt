@@ -3,6 +3,8 @@ package com.calorify.app.ui.navigation
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object Scan : Screen("scan")
+    object ScanResult : Screen("scanResult")
+    object ScanLogResult : Screen("scanLogResult")
     object History : Screen("history")
     object Profile : Screen("profile")
     object MyProfile : Screen("myProfile")
@@ -12,6 +14,6 @@ sealed class Screen(val route: String) {
     object SelfAssessmentResult : Screen("selfAssessmentResult")
     object PremiumSubscription : Screen("premiumSubscription")
     object DetailLog : Screen("home/{logId}") {
-        fun createRoute(logId: Int) = "home/$logId"
+        fun createRoute(logId: String) = "home/$logId"
     }
 }

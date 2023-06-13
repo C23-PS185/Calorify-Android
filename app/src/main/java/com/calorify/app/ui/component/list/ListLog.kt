@@ -28,49 +28,47 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.calorify.app.R
-import com.calorify.app.repository.LogRepository
+import com.calorify.app.data.local.FoodDict
 import com.calorify.app.ui.component.button.ScrollToTopButton
 import com.calorify.app.ui.component.header.HistoryLogHeader
 import com.calorify.app.ui.component.header.HomeHeader
 import com.calorify.app.ui.component.header.LogHeader
-import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.ListLogViewModel
-import com.calorify.app.viewmodel.ViewModelFactory2
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ListLog(
+    month: String = "",
+    calorieNeeded: Int = 0,
     groupedBy: String,
     modifier: Modifier = Modifier,
-    viewModel: ListLogViewModel = viewModel(
-        factory = ViewModelFactory2(
-            LogRepository(
-                LocalContext.current
-            )
-        )
-    ),
-    navigateToDetail: (Int) -> Unit,
+    listLogViewModel: ListLogViewModel,
+    navigateToDetail: (String) -> Unit,
+    onMonthSelect: (String) -> Unit = {},
 ) {
-    val groupedLogEatTime by viewModel.groupedEatTimeLogKalori.collectAsState()
 
-    val groupedLogDate by viewModel.groupedDateLogKalori.collectAsState()
+    val groupedLogEatTime by listLogViewModel.groupedEatTimeLogKalori.collectAsState()
+
+    val groupedLogDate by listLogViewModel.groupedDateLogKalori.collectAsState()
+
+    val calorieFulfilled by listLogViewModel.calorieFulfilled.collectAsState()
+
+    val monthlyCalorieFulfilled by listLogViewModel.monthlyCalorieFullfiled.collectAsState()
 
     var groupedLog = if (groupedBy == "date") {
         groupedLogDate
     } else {
         groupedLogEatTime
     }
+
 
 
     Box(modifier = modifier) {
@@ -89,9 +87,9 @@ fun ListLog(
         ) {
             item {
                 if (groupedBy == "date"){
-                    HistoryLogHeader()
+                    HistoryLogHeader(groupedLog.isNullOrEmpty(), month, monthlyCalorieFulfilled, viewModel = listLogViewModel, onMonthSelected = onMonthSelect)
                 } else {
-                    HomeHeader()
+                    HomeHeader(calorieNeeded = calorieNeeded, calorieFulfilled = calorieFulfilled)
                 }
                 if (groupedLog.isNullOrEmpty()) {
                     AsyncImage(
@@ -120,10 +118,10 @@ fun ListLog(
                 }
                 items(logs, key = { it.logId }) { log ->
                     LogListItem(
-                        title = log.title,
-                        photoUrl = log.photo,
-                        calorie = log.totalCalories,
-                        time = log.createdAtTime,
+                        title = FoodDict.wordMap[log.foodName!!] ?: log.foodName,
+                        photoUrl = log.imageUrl!!,
+                        calorie = log.foodCalories!!,
+                        time = log.createdAtTime!!,
                         modifier = Modifier
                             .fillMaxWidth()
                             .animateItemPlacement(tween(durationMillis = 100))
@@ -151,13 +149,5 @@ fun ListLog(
                 }
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ListLogPreview() {
-    CalorifyTheme {
-        ListLog("date", navigateToDetail = {})
     }
 }

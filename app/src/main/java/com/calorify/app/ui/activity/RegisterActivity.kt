@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
 import com.calorify.app.databinding.ActivityRegisterBinding
+import com.calorify.app.helper.NetworkManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -28,34 +29,41 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivityRegisterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        if(NetworkManager.isConnectedToNetwork(this)){
+            super.onCreate(savedInstanceState)
+            _binding = ActivityRegisterBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        //Button Click Listener
-        binding.registerButton.setOnClickListener {
-            authentication()
-        }
+            //Button Click Listener
+            binding.registerButton.setOnClickListener {
+                authentication()
+            }
 
-        binding.registerButtonGmail.setOnClickListener {
-            signIn()
-        }
+            binding.registerButtonGmail.setOnClickListener {
+                signIn()
+            }
 
-        binding.tvLogin.setOnClickListener{
-            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-            startActivity(intent)
+            binding.tvLogin.setOnClickListener{
+                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            // Configure Google Sign In
+            val gso = GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+            googleSignInClient = GoogleSignIn.getClient(this, gso)
+            // Initialize Firebase Auth
+            auth = Firebase.auth
+        } else {
+            val i = Intent(this, NoConnectionActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(i)
             finish()
         }
-
-        // Configure Google Sign In
-        val gso = GoogleSignInOptions
-            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-        // Initialize Firebase Auth
-        auth = Firebase.auth
     }
 
     private fun authentication() {

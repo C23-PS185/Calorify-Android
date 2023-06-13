@@ -5,10 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class AssessmentResultResponse(
 
     @field:SerializedName("data")
-    val data: DataUser,
+    val data: DataUser? = null,
 
     @field:SerializedName("error")
-    val error: Boolean
+    val error: Boolean,
+
+    @field:SerializedName("message")
+    val message: String? = null
 )
 
 data class DataUser(
@@ -20,7 +23,7 @@ data class DataUser(
     val userHeight: String? = null,
 
     @field:SerializedName("gender")
-    val gender: String? = null,
+    var gender: String? = null,
 
     @field:SerializedName("createdAt")
     val createdAt: String? = null,
@@ -32,11 +35,17 @@ data class DataUser(
     val weightGoal: Int? = null,
 
     @field:SerializedName("userBMI")
-    val userBMI: Int? = null,
+    val userBMI: Float? = null,
 
     @field:SerializedName("birthDate")
-    val birthDate: String? = null,
+    var birthDate: String? = null,
 
     @field:SerializedName("fullName")
-    val fullName: String? = null
+    var fullName: String? = null,
+
+    @field:SerializedName("photoURL")
+    var photoURL: String? = null,
+
+    @field:SerializedName("age")
+    var age: Int? = null
 )

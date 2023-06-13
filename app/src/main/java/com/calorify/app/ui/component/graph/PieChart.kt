@@ -23,10 +23,12 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
 import com.calorify.app.data.local.PieChartData
-import com.calorify.app.data.local.getPieChartData
 import com.calorify.app.ui.theme.Blue200
+import com.calorify.app.ui.theme.Blue500
 import com.calorify.app.ui.theme.Blue700
 import com.calorify.app.ui.theme.CalorifyTheme
+import com.calorify.app.ui.theme.Green200
+import com.calorify.app.ui.theme.Green700
 import com.calorify.app.ui.theme.Orange200
 import com.calorify.app.ui.theme.Orange700
 import com.github.mikephil.charting.charts.PieChart
@@ -35,10 +37,11 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
+import kotlin.math.abs
 
 // Reference: https://www.geeksforgeeks.org/pie-chart-in-android-using-jetpack-compose/
 @Composable
-fun PieChart() {
+fun PieChart(calorieNeeded: Int, calorieFulfilled: Int) {
     Column() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -52,7 +55,7 @@ fun PieChart() {
                 fontSize = 16.sp
             )
             Text(
-                text = "Kebutuhan kalori total: 1288 kal",
+                text = "Kebutuhan kalori total: $calorieNeeded kal",
                 fontFamily = FontFamily(
                     Font(resId = R.font.inter_regular),
                 ),
@@ -67,7 +70,22 @@ fun PieChart() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Crossfade(targetState = getPieChartData) { pieChartData ->
+                val otherCalorie = calorieNeeded-calorieFulfilled
+                val otherStatus =
+                    if (otherCalorie >= 0) {
+                        "Kalori Dibutuhkan"
+                    } else {
+                        "Kalori Berlebih"
+                    }
+                val otherData = PieChartData(otherStatus, abs(otherCalorie))
+                val dataFulfilled = PieChartData("Kalori Terpenuhi", calorieFulfilled)
+                Crossfade(targetState =
+                if (calorieFulfilled == 0) {
+                    listOf(otherData)
+                } else {
+                    listOf(dataFulfilled, otherData)
+                }
+                ) { pieChartData ->
                     AndroidView(factory = { context ->
                         PieChart(context).apply {
                             layoutParams = LinearLayout.LayoutParams(
@@ -105,34 +123,50 @@ fun updatePieChartWithData(
 
     for (i in data.indices) {
         val item = data[i]
-        entries.add(PieEntry(item.value ?: 0.toFloat(), item.status ?: ""))
+        entries.add(PieEntry(item.value!!.toFloat() ?: 0.toFloat(), item.status ?: ""))
     }
 
 
     val ds = PieDataSet(entries, "")
 
 
-    ds.colors = arrayListOf(
-        Orange200.toArgb(),
-        Blue200.toArgb(),
-    )
+    if (data.size == 1){
+        ds.colors = arrayListOf(
+            Blue200.toArgb(),
+        )
+        ds.setValueTextColors(listOf(
+            Blue700.toArgb(),
+        ))
+    } else if (data[0].status == "Kalori Berlebih" || data[1].status == "Kalori Berlebih") {
+        ds.colors = arrayListOf(
+            Blue200.toArgb(),
+            Orange200.toArgb(),
+        )
+        ds.setValueTextColors(listOf(
+            Blue700.toArgb(),
+            Orange700.toArgb(),
+        ))
+    }
+    else {
+        ds.colors = arrayListOf(
+            Green200.toArgb(),
+            Blue200.toArgb(),
+        )
+        ds.setValueTextColors(listOf(
+            Green700.toArgb(),
+            Blue700.toArgb(),
+        ))
+    }
 
     ds.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-
     ds.xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-
     ds.sliceSpace = 2f
 
     ds.valueTextSize = 20f
 
     ds.valueTypeface = Typeface.DEFAULT_BOLD
 
-    val colors = listOf(
-        Orange700.toArgb(),
-        Blue700.toArgb(),
-    )
-    
-    ds.setValueTextColors(colors)
+
     ds.valueFormatter = object : ValueFormatter() {
         override fun getFormattedValue(value: Float): String {
             return "${value.toInt()} kal"
@@ -151,12 +185,4 @@ fun updatePieChartWithData(
 
 
     chart.invalidate()
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PieChatPreview() {
-    CalorifyTheme {
-        PieChart()
-    }
 }

@@ -20,6 +20,7 @@
             android:layout_marginEnd="16dp"
             android:text="Lupa kata sandi?"
             android:textColor="@color/blue_500"
+            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -189,23 +190,35 @@
                 android:src="@drawable/ic_line"/>
         </LinearLayout>
 
-        <com.google.android.gms.common.SignInButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButtonGmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:textAlignment="center"
+            android:fontFamily="@font/inter_regular"
+            android:text="Masuk Dengan Google"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="12dp"
+            app:iconTint="@null"
+            app:icon="@drawable/google"
+            app:iconGravity="textStart"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout1"/>
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -223,10 +236,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:text="Daftar sekarang"
-                android:textColor="@color/blue_500"
                 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"
+                android:text="Daftar sekarang"
+                android:textColor="@color/blue_500" />
         </LinearLayout>
 
         <ProgressBar

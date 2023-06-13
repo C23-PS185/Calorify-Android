@@ -66,8 +66,8 @@ fun HomeStickyHeader(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
+                    .size(72.dp)
                     .padding(16.dp)
-                    .size(48.dp)
                     .clip(CircleShape)
             )
         }

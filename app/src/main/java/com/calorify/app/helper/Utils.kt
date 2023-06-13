@@ -1,11 +1,16 @@
 package com.calorify.app.helper
 
+import android.Manifest
 import android.content.ContentResolver
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
+import android.util.Log
+import androidx.core.content.ContextCompat
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -82,4 +87,26 @@ fun bitmapToFile(bitmap: Bitmap, file: File): File {
         e.printStackTrace()
     }
     return file
+}
+
+object Commons {
+    private const val TAG = "CameraXCompose"
+    fun showLog(log: String) {
+        Log.d(TAG, log)
+    }
+
+    val REQUIRED_PERMISSIONS =
+        mutableListOf(
+            Manifest.permission.CAMERA,
+        ).apply {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        }.toTypedArray()
+
+    fun allPermissionsGranted(ctx: Context) =
+        REQUIRED_PERMISSIONS.all {
+            ContextCompat.checkSelfPermission(ctx, it) ==
+                    PackageManager.PERMISSION_GRANTED
+        }
 }

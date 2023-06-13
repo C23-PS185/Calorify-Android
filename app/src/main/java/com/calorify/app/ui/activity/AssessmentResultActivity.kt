@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.databinding.ActivityAssessmentResultBinding
+import com.calorify.app.helper.NetworkManager
 import com.calorify.app.helper.Result
 import com.calorify.app.viewmodel.AssessmentResultViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
@@ -23,17 +24,28 @@ class AssessmentResultActivity : AppCompatActivity() {
 
     private lateinit var userID: String
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivityAssessmentResultBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        
-        userID = intent.getStringExtra(EXTRA_USER_ID).toString()
+        if(NetworkManager.isConnectedToNetwork(this)){
+            super.onCreate(savedInstanceState)
+            _binding = ActivityAssessmentResultBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        showAssessmentResult()
+            userID = intent.getStringExtra(EXTRA_USER_ID).toString()
 
-        binding.buttonBeranda.setOnClickListener{
-            intent = Intent(this@AssessmentResultActivity, HomeActivity::class.java)
-            startActivity(intent)
+            showAssessmentResult()
+
+            binding.buttonUpgrade.setOnClickListener{
+                Toast.makeText(this@AssessmentResultActivity, "Tunggu fitur ini pada pengembangan selanjutnya", Toast.LENGTH_SHORT).show()
+            }
+
+            binding.buttonBeranda.setOnClickListener{
+                intent = Intent(this@AssessmentResultActivity, HomeActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            val i = Intent(this, NoConnectionActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(i)
+            finish()
         }
     }
 
@@ -64,12 +76,12 @@ class AssessmentResultActivity : AppCompatActivity() {
     private fun setAssessmentResult(result: AssessmentResultResponse) {
         val statusKesehatanValue = resources.getStringArray(R.array.tujuan_kesehatan)
         binding.apply {
-            tvWeightValue.text =  getString(R.string.weight_value, result.data.userWeight.toString())
-            tvHeightValue.text = getString(R.string.height_value, result.data.userHeight.toString())
-            tvIndexBmiValue.text = result.data.userBMI.toString()
-            tvCaloryValue.text = result.data.userCalorieIntake.toString()
+            tvWeightValue.text =  getString(R.string.weight_value, result.data?.userWeight.toString())
+            tvHeightValue.text = getString(R.string.height_value, result.data?.userHeight.toString())
+            tvIndexBmiValue.text = result.data?.userBMI.toString()
+            tvCaloryValue.text = result.data?.userCalorieIntake.toString()
 
-            when(result.data.weightGoal) {
+            when(result.data?.weightGoal) {
                 0 -> tvTujuanValue.text = statusKesehatanValue[0]
                 1 -> tvTujuanValue.text = statusKesehatanValue[1]
                 2 -> tvTujuanValue.text = statusKesehatanValue[2]
@@ -77,7 +89,7 @@ class AssessmentResultActivity : AppCompatActivity() {
                 4 -> tvTujuanValue.text = statusKesehatanValue[4]
             }
 
-            when(result.data.userBMI!!.toFloat()) {
+            when(result.data?.userBMI!!.toFloat()) {
                 in Float.MIN_VALUE..18.4f -> indicatorUnderweight.visibility = View.VISIBLE
                 in 18.5f..24.9f-> indicatorNormal.visibility = View.VISIBLE
                 in 25.0f..29.9f -> indicatorOverweight.visibility = View.VISIBLE

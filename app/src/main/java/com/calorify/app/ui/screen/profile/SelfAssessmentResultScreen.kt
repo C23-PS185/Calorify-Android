@@ -1,6 +1,7 @@
 package com.calorify.app.ui.screen.profile
 
 import android.view.LayoutInflater
+import android.view.View
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -13,6 +14,11 @@ import com.calorify.app.ui.theme.CalorifyTheme
 
 @Composable
 fun SelfAssessmentResultScreen(
+    weight: String,
+    height: String,
+    indexBmi: Float,
+    weightGoal: String,
+    calorie: Int,
     onDoAssessmentClick: () -> Unit,
 ) {
     AndroidView(
@@ -22,11 +28,20 @@ fun SelfAssessmentResultScreen(
         factory = { context ->
         val binding = AssessmentResultScreenBinding.inflate(LayoutInflater.from(context))
 
-            binding.tvWeightValue.text = "60 kg"
-            binding.tvHeightValue.text = "162 cm"
-            binding.tvIndexBmiValue.text = "20.2"
-            binding.tvTujuanValue.text = "Mempertahankan berat badan"
-            binding.tvCaloryValue.text = "2455"
+            binding.tvWeightValue.text = "$weight kg"
+            binding.tvHeightValue.text = "$height cm"
+            binding.tvIndexBmiValue.text = indexBmi.toString()
+            binding.tvTujuanValue.text = weightGoal
+            binding.tvCaloryValue.text = calorie.toString()
+
+            when(indexBmi) {
+                in Float.MIN_VALUE..18.4f -> binding.indicatorUnderweight.visibility = View.VISIBLE
+                in 18.5f..24.9f-> binding.indicatorNormal.visibility = View.VISIBLE
+                in 25.0f..29.9f -> binding.indicatorOverweight.visibility = View.VISIBLE
+                in 30.0f..Float.MAX_VALUE -> binding.indicatorObesitas.visibility = View.VISIBLE
+                else -> binding.indicatorObesitas.visibility = View.VISIBLE
+            }
+
             binding.buttonDoAssessment.setOnClickListener{
                 onDoAssessmentClick()
             }
@@ -34,12 +49,4 @@ fun SelfAssessmentResultScreen(
 
         binding.root
     })
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SelfAssessmentResultScreenPreview() {
-    CalorifyTheme {
-        SelfAssessmentResultScreen {}
-    }
 }

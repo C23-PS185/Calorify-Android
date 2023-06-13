@@ -27,11 +27,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.calorify.app.R
+import com.calorify.app.data.local.MonthDict
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.Neutral500
 
 @Composable
-fun MonthSelection() {
+fun MonthSelection(
+    monthSelected: String,
+    onMonthSelected: (String) -> Unit,
+) {
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
     ) {
@@ -44,12 +48,12 @@ fun MonthSelection() {
         )
 
         var expanded by remember { mutableStateOf(false) }
-        var selectedMonth by remember { mutableStateOf("Mei") }
+        var selectedMonth by remember { mutableStateOf(MonthDict.numMapToMonth[monthSelected]!!) }
         val months = listOf("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember") // Add other months
 
         OutlinedTextField(
             value = selectedMonth,
-            onValueChange = { selectedMonth = it },
+            onValueChange = {onMonthSelected(selectedMonth)},
             modifier = Modifier.fillMaxWidth(),
             leadingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
             trailingIcon = {
@@ -73,6 +77,7 @@ fun MonthSelection() {
                         DropdownMenuItem(
                             onClick = {
                                 selectedMonth = month
+                                onMonthSelected(month)
                                 expanded = false
                             }
                         ) {
@@ -88,13 +93,5 @@ fun MonthSelection() {
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MonthSelectionPreview() {
-    CalorifyTheme {
-        MonthSelection()
     }
 }

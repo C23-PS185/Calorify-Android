@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
 import com.calorify.app.data.remote.request.AssessmentRequest
 import com.calorify.app.databinding.ActivityAssessmentBinding
+import com.calorify.app.helper.NetworkManager
 import com.calorify.app.helper.Result
 import com.calorify.app.viewmodel.AssessmentViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
@@ -40,21 +41,28 @@ class AssessmentActivity : AppCompatActivity() {
     private var weightIndex: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivityAssessmentBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        if(NetworkManager.isConnectedToNetwork(this)){
+            super.onCreate(savedInstanceState)
+            _binding = ActivityAssessmentBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        auth = Firebase.auth
-        currentUser = auth.currentUser!!
-        userid = currentUser.uid
+            auth = Firebase.auth
+            currentUser = auth.currentUser!!
+            userid = currentUser.uid
 
-        editTextCalendar()
+            editTextCalendar()
 
-        dropDownActivity()
-        dropDownStressor()
-        dropDownKesehatan()
+            dropDownActivity()
+            dropDownStressor()
+            dropDownKesehatan()
 
-        uploadAssessment()
+            uploadAssessment()
+        } else {
+            val i = Intent(this, NoConnectionActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(i)
+            finish()
+        }
     }
 
     private fun uploadAssessment() {
@@ -69,7 +77,7 @@ class AssessmentActivity : AppCompatActivity() {
                 val dropDownStressor = stressorIndex
                 val dropDownKesehatan = weightIndex
                 val isValid =
-                    binding.etBirth.error == null && binding.etBirth.error == null && binding.etWeight.error == null && binding.etHeight.error == null && binding.dropDownActivity.error == null && binding.dropDownStressor.error == null && binding.dropDownKesehatan.error == null
+                    binding.etName.error == null && binding.etBirth.error == null && binding.etWeight.error == null && binding.etHeight.error == null && binding.dropDownActivity.error == null && binding.dropDownStressor.error == null && binding.dropDownKesehatan.error == null
 
                 when {
                     etName.isEmpty() -> {

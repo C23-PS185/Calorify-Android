@@ -9,10 +9,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
 import com.calorify.app.databinding.ActivityLoginBinding
+import com.calorify.app.helper.NetworkManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -27,33 +29,44 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        if(NetworkManager.isConnectedToNetwork(this)){
+            super.onCreate(savedInstanceState)
+            _binding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(binding.root)
 
-        binding.loginButtonGmail.setOnClickListener {
-            signIn()
-        }
+            binding.tvForgotPass.setOnClickListener{
+                forgotPassword()
+            }
 
-        binding.loginButton.setOnClickListener {
-            authentication()
-        }
+            binding.loginButtonGmail.setOnClickListener {
+                signIn()
+            }
 
-        binding.tvRegister.setOnClickListener{
-            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-            startActivity(intent)
+            binding.loginButton.setOnClickListener {
+                authentication()
+            }
+
+            binding.tvRegister.setOnClickListener{
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            // Configure Google Sign In
+            val gso = GoogleSignInOptions
+                .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+            googleSignInClient = GoogleSignIn.getClient(this, gso)
+            // Initialize Firebase Auth
+            auth = Firebase.auth
+        } else {
+            val i = Intent(this, NoConnectionActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(i)
             finish()
         }
-
-        // Configure Google Sign In
-        val gso = GoogleSignInOptions
-            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-        // Initialize Firebase Auth
-        auth = Firebase.auth
     }
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
@@ -130,6 +143,24 @@ class LoginActivity : AppCompatActivity() {
                         }
                 }
             }
+        }
+    }
+
+    private fun forgotPassword(){
+        binding.apply {
+            val etEmail = emailEditTextLayout.editText?.text.toString()
+            val isValid = emailEditTextLayout.error == null
+
+            when{
+                etEmail.isEmpty() -> {
+                    emailEditTextLayout.error = resources.getString(R.string.email_empty)
+                }
+                isValid -> {
+                    auth.sendPasswordResetEmail(etEmail)
+                    Toast.makeText(this@LoginActivity, "Petunjuk untuk mengatur ulang kata sandi telah dikirimkan ke emailmu.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
     }
 
