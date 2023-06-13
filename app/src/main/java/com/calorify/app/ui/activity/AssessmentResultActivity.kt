@@ -33,6 +33,10 @@ class AssessmentResultActivity : AppCompatActivity() {
 
             showAssessmentResult()
 
+            binding.buttonUpgrade.setOnClickListener{
+                Toast.makeText(this@AssessmentResultActivity, "Tunggu fitur ini pada pengembangan selanjutnya", Toast.LENGTH_SHORT).show()
+            }
+
             binding.buttonBeranda.setOnClickListener{
                 intent = Intent(this@AssessmentResultActivity, HomeActivity::class.java)
                 startActivity(intent)
