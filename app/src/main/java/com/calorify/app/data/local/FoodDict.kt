@@ -30,5 +30,4 @@ object FoodDict {
         "ayam_goreng" to "Ayam Goreng",
         "daging_rendang" to "Daging Rendang",
     )
-    val wordMapReverse: Map<String, String> = wordMap.entries.associate { (key, value) -> value to key }
 }

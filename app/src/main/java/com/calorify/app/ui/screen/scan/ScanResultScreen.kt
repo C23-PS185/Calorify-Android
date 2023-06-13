@@ -13,18 +13,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
+import com.calorify.app.data.local.CalorieDict
+import com.calorify.app.data.local.FoodDict
 import com.calorify.app.databinding.ScanResultScreenBinding
 import com.calorify.app.helper.TensorFLowHelper
 import com.calorify.app.helper.TensorFLowHelper.imageSize
 
-var foodName by mutableStateOf<String?>(null)
+var foodName by mutableStateOf("")
+var foodCalorie by mutableStateOf("")
+
 @Composable
 fun ScanResultScreen(
     onBerandaClick: () -> Unit,
     onScanLogClick: () -> Unit
 ) {
-    photoBitmap?.let {
-        val scaledBeatmap = Bitmap.createScaledBitmap(it, imageSize, imageSize, false)
+    photoBitmap?.let { bitmap ->
+        val scaledBeatmap = Bitmap.createScaledBitmap(bitmap, imageSize, imageSize, false)
         TensorFLowHelper.ClassifyImage(scaledBeatmap) {
             foodName = it
         }
@@ -48,10 +52,14 @@ fun ScanResultScreen(
         update = { view ->
             // update view
             val imageViewResult = view.findViewById<ImageView>(R.id.imageScanResult)
-            val textViewResult = view.findViewById<TextView>(R.id.tv_ads)
+            val textViewFoodResult = view.findViewById<TextView>(R.id.tv_ads)
+            val textViewCalorieResult = view.findViewById<TextView>(R.id.tv_food_kal)
+
             if (photoBitmap != null) {
+                foodCalorie = CalorieDict.foodToKal[foodName].toString()
                 imageViewResult.setImageBitmap(photoBitmap)
-                textViewResult.text = foodName
+                textViewFoodResult.text = FoodDict.wordMap[foodName]
+                textViewCalorieResult.text = "$foodCalorie kal"
             }
             Log.d("photoBitmap", "ScanCalorieScreen: $photoBitmap")
         }

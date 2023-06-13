@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.calorify.app.R
-import com.calorify.app.data.local.FoodDict.wordMapReverse
+import com.calorify.app.data.local.FoodDict
 import com.calorify.app.helper.Result
 import com.calorify.app.data.remote.request.CalorieLogRequest
 import com.calorify.app.ui.component.button.CustomButton2
@@ -63,12 +63,12 @@ fun ScanLogScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
 
-    var foodNameState by remember { mutableStateOf("Fried Rice") }
+    val foodNameState by remember { mutableStateOf(foodName) }
     var fnbTypeState by remember { mutableStateOf("Makanan") }
     var selectedMealTime by remember { mutableStateOf("Sarapan") }
     var selectedMealTimeIndex by remember { mutableStateOf(0) }
     var foodPortionState by remember { mutableStateOf("1") }
-    var foodCalorieState by remember { mutableStateOf("200") }
+    val foodCalorieState by remember { mutableStateOf(foodCalorie) }
     var foodCalorieStateTotal by remember { mutableStateOf(foodCalorieState) }
 
     selectedMealTimeIndex = when (selectedMealTime) {
@@ -114,8 +114,8 @@ fun ScanLogScreen(
                 .align(Alignment.Start)
         )
         TextField(
-            value = foodNameState,
-            onValueChange = { foodNameState = it },
+            value = FoodDict.wordMap[foodNameState]!!,
+            onValueChange = {  },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface,
                 disabledIndicatorColor = Color.Transparent,
@@ -228,7 +228,7 @@ fun ScanLogScreen(
                     foodNameState.isNotEmpty() && fnbTypeState.isNotEmpty() && foodCalorieState.isNotEmpty()
 
                 val body = CalorieLogRequest(
-                    foodName = wordMapReverse[foodNameState],
+                    foodName = foodNameState,
                     fnbType = fnbTypeState,
                     foodCalories = foodCalorieStateTotal.toInt(),
                     mealTime = selectedMealTimeIndex

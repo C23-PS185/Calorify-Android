@@ -77,10 +77,7 @@ object TensorFLowHelper {
         )
         callback.invoke(classes[maxPos])
 
-
         // Releases model resources if no longer used.
         model.close()
-
     }
-
 }
