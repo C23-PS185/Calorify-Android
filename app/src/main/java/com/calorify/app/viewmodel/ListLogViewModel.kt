@@ -51,9 +51,8 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun changeMonth(newMonth: String) {
-//        Log.d("MONTH", "changeMonth: $newMonth")
+        Log.d("MONTH", "changeMonth: $newMonth")
         val numOfMonth = MonthDict.monthMapToNum[newMonth]
-        Log.d("MONTH2", "changeMonth: $numOfMonth")
         fetchMonthlyData(false, lifecycleOwner, userId, month=numOfMonth!!, date=date, year=year)
     }
 

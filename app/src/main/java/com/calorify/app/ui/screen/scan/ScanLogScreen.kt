@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.calorify.app.R
+import com.calorify.app.data.local.FoodDict.wordMapReverse
 import com.calorify.app.helper.Result
 import com.calorify.app.data.remote.request.CalorieLogRequest
 import com.calorify.app.ui.component.button.CustomButton2
@@ -62,7 +63,7 @@ fun ScanLogScreen(
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
 
-    var foodNameState by remember { mutableStateOf("Nasi Goreng") }
+    var foodNameState by remember { mutableStateOf("Fried Rice") }
     var fnbTypeState by remember { mutableStateOf("Makanan") }
     var selectedMealTime by remember { mutableStateOf("Sarapan") }
     var selectedMealTimeIndex by remember { mutableStateOf(0) }
@@ -227,7 +228,7 @@ fun ScanLogScreen(
                     foodNameState.isNotEmpty() && fnbTypeState.isNotEmpty() && foodCalorieState.isNotEmpty()
 
                 val body = CalorieLogRequest(
-                    foodName = foodNameState,
+                    foodName = wordMapReverse[foodNameState],
                     fnbType = fnbTypeState,
                     foodCalories = foodCalorieStateTotal.toInt(),
                     mealTime = selectedMealTimeIndex
