@@ -79,6 +79,7 @@
 
     <string name="weight_value">%s kg</string>
     <string name="height_value">%s cm</string>
+    <string name="kal_value">%s kal</string>
     <string name="tv_thank_assessment">Terima kasih telah mengisi Asesmen Diri!</string>
     <string name="tv_base_answer">Berdasarkan jawaban yang kamu berikan,</string>
     <string name="tv_weight">Berat Badan</string>

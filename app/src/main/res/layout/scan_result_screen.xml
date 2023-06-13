@@ -69,9 +69,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semibold"
                 android:gravity="center"
-                android:text="200 kal"
                 android:textColor="@color/neutral_500"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:text="200 kal"/>
 
             <TextView
                 android:id="@+id/tv_porsi"
@@ -112,6 +112,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             android:backgroundTint="@color/primary_50"
             android:fontFamily="@font/inter_medium"
             android:text="Kembali ke Beranda"
