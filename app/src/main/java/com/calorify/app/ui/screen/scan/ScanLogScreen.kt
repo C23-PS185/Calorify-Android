@@ -57,6 +57,7 @@ import com.calorify.app.viewmodel.AddCalorieLogViewModel
 @Composable
 fun ScanLogScreen(
     onBerandaClick: () -> Unit,
+    onSuccess: () -> Unit,
     viewModel: AddCalorieLogViewModel,
     userId: String
 ) {
@@ -239,6 +240,7 @@ fun ScanLogScreen(
                     viewModel.uploadCalorieLog(userId).observe(lifecycleOwner) { result ->
                         when (result) {
                             is Result.Success -> {
+                                onSuccess()
                                 onBerandaClick()
                                 photoBitmap = null
                             }
