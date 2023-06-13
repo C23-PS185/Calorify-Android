@@ -24,6 +24,9 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(ProfileViewModel::class.java) ->
                 ProfileViewModel(repository) as T
 
+            modelClass.isAssignableFrom(AddCalorieLogViewModel::class.java) ->
+                AddCalorieLogViewModel(repository) as T
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

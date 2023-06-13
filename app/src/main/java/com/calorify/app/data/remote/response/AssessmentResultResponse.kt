@@ -5,10 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class AssessmentResultResponse(
 
     @field:SerializedName("data")
-    val data: DataUser,
+    val data: DataUser? = null,
 
     @field:SerializedName("error")
-    val error: Boolean
+    val error: Boolean,
+
+    @field:SerializedName("message")
+    val message: String? = null
 )
 
 data class DataUser(

@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.calorify.app.data.remote.request.AssessmentRequest
 import com.calorify.app.data.remote.request.AssessmentUpdateRequest
+import com.calorify.app.data.remote.request.CalorieLogRequest
 import com.calorify.app.data.remote.response.AssessmentResponse
 import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.data.remote.response.AssessmentUpdateResponse
+import com.calorify.app.data.remote.response.CalorieLogResponse
 import com.calorify.app.data.remote.response.DailyCalorieResponse
 import com.calorify.app.data.remote.response.MonthlyCalorieResponse
 import com.calorify.app.data.remote.response.ProfileUpdateResponse
@@ -37,16 +39,37 @@ class Repository(private val apiService: ApiService) {
         }
     }
 
+    fun uploadCalorieLog(userId: String, body: CalorieLogRequest): LiveData<Result<CalorieLogResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.uploadCalorieLog(userId,body)
+            if (response.error) {
+                emit(Result.Error(response.message))
+            } else {
+                emit(Result.Success(response))
+            }
+        } catch (e: Exception) {
+            val message = e.message.toString()
+            if (message == "") {
+                emit(Result.Error("Snap, There is something wrong"))
+            } else {
+                emit(Result.Error(message))
+            }
+        }
+    }
+
     fun getUserResult(userId: String): LiveData<Result<AssessmentResultResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getUserResult(userId)
             if (response.error) {
-                emit(Result.Error("Data not found"))
+                Log.d("MASUK", "getUserResult: ${response.message}")
+                emit(Result.Error(response.message!!))
             } else {
                 emit(Result.Success(response))
             }
         } catch (e: Exception) {
+            Log.d("EX", "getUserResult: ${e.message.toString()}")
             val message = e.message.toString()
             if (message == "") {
                 emit(Result.Error("Snap, There is something wrong"))
@@ -61,7 +84,7 @@ class Repository(private val apiService: ApiService) {
         try {
             val response = apiService.getMonthlyCalorieLog(userId, month)
             if (response.error == true) {
-                emit(Result.Error("Data not found"))
+                emit(Result.Error(response.message!!))
             } else {
                 emit(Result.Success(response))
             }

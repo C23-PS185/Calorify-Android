@@ -11,7 +11,10 @@ data class MonthlyCalorieResponse(
 	val monthlyLog: List<DailyCalorie?>? = null,
 
 	@field:SerializedName("totalMonthlyCalories")
-	val totalMonthlyCalories: Int? = null
+	val totalMonthlyCalories: Int? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null
 )
 
 data class DailyCalorie(

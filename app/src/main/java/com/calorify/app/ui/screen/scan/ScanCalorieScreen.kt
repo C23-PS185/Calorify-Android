@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 import com.calorify.app.R
 import com.calorify.app.databinding.ScanCalorieScreenBinding
 import com.calorify.app.helper.Commons.REQUIRED_PERMISSIONS
+import com.calorify.app.helper.TensorFLowHelper
 import com.calorify.app.helper.createCustomTempFile
 import com.calorify.app.helper.uriToFile
 import com.calorify.app.ui.navigation.Screen

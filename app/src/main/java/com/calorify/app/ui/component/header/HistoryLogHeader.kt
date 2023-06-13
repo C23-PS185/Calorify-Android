@@ -1,5 +1,6 @@
 package com.calorify.app.ui.component.header
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -49,6 +50,7 @@ fun HistoryLogHeader(
             MonthSelection(selectedMonth) { newMonth ->
                 viewModel.changeMonth(newMonth)
                 selectedMonth = newMonth
+                Log.d("HistoryLogHeader", "selectedMonth: $selectedMonth")
             }
             if (!isListEmpty) {
                 LineGraph(monthlyCalorieFulfilled)
