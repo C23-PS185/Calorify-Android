@@ -2,6 +2,8 @@ package com.calorify.app.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,6 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.calorify.app.R
 import com.calorify.app.data.remote.response.DataUser
+import com.calorify.app.data.remote.response.Profil
 import com.calorify.app.helper.NetworkManager
 import com.calorify.app.helper.Result
 import com.calorify.app.ui.component.bar.BottomBar
@@ -32,6 +35,7 @@ import com.calorify.app.ui.navigation.Screen
 import com.calorify.app.ui.screen.DetailScreen
 import com.calorify.app.ui.screen.HistoryLogScreen
 import com.calorify.app.ui.screen.HomeScreen
+import com.calorify.app.ui.screen.scan.ScanCalorieScreen
 import com.calorify.app.ui.screen.LoadingScreen
 import com.calorify.app.ui.screen.profile.ChangePasswordScreen
 import com.calorify.app.ui.screen.profile.EditProfileScreen
@@ -40,14 +44,15 @@ import com.calorify.app.ui.screen.profile.PremiumSubscriptionScreen
 import com.calorify.app.ui.screen.profile.ProfileScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentResultScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentScreen
-import com.calorify.app.ui.screen.scan.ScanCalorieScreen
 import com.calorify.app.ui.screen.scan.ScanLogScreen
 import com.calorify.app.ui.screen.scan.ScanResultScreen
 import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.viewmodel.AddCalorieLogViewModel
 import com.calorify.app.viewmodel.AssessmentResultViewModel
 import com.calorify.app.viewmodel.ListLogViewModel
+import com.calorify.app.viewmodel.ProfileViewModel
 import com.calorify.app.viewmodel.ViewModelFactory
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -79,30 +84,27 @@ class HomeActivity : ComponentActivity() {
         ViewModelFactory.getInstance(application)
     }
 
+    private val profileViewModel by viewModels<ProfileViewModel> {
+        ViewModelFactory.getInstance(application)
+    }
+
     private val calorieLogViewModel by viewModels<AddCalorieLogViewModel> {
         ViewModelFactory.getInstance(application)
     }
 
     val dateMonthYear = formatDate(LocalDate.now())
-    val date = dateMonthYear.subSequence(0, 2).toString()
+    val date = dateMonthYear.subSequence(0,2).toString()
     val monthYear = dateMonthYear.subSequence(3, dateMonthYear.length).toString()
-    val month = monthYear.substring(0, 2)
-    val year = monthYear.substring(3, 7)
+    val month = monthYear.substring(0,2)
+    val year = monthYear.substring(3,7)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (NetworkManager.isConnectedToNetwork(this)) {
+        if(NetworkManager.isConnectedToNetwork(this)){
             auth = Firebase.auth
             currentUser = auth.currentUser!!
             userId = currentUser.uid
-            listLogViewModel.fetchMonthlyData(
-                true,
-                this,
-                userId,
-                month = month,
-                year = year,
-                date = date
-            )
+            listLogViewModel.fetchMonthlyData(true, this, userId, month=month, year=year, date=date)
             addUserData()
         } else {
             val i = Intent(this, NoConnectionActivity::class.java)
@@ -112,7 +114,7 @@ class HomeActivity : ComponentActivity() {
         }
     }
 
-    private fun addUserData() {
+    private fun addUserData(){
         assessmentResultViewModel.getUserResult(userId).observe(this@HomeActivity) { result ->
             if (result != null) {
                 when (result) {
@@ -144,11 +146,7 @@ class HomeActivity : ComponentActivity() {
                             startActivity(Intent(this, AssessmentActivity::class.java))
                             finish()
                         } else {
-                            Toast.makeText(
-                                this,
-                                "Pengambilan data gagal. Harap cek koneksimu!",
-                                Toast.LENGTH_SHORT
-                            )
+                            Toast.makeText(this, "Pengambilan data gagal. Harap cek koneksimu!", Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
@@ -165,15 +163,7 @@ class HomeActivity : ComponentActivity() {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 
-        val childPage = listOf(
-            Screen.DetailLog.route,
-            Screen.MyProfile.route,
-            Screen.EditProfile.route,
-            Screen.ChangePassword.route,
-            Screen.SelfAssessment.route,
-            Screen.SelfAssessmentResult.route,
-            Screen.PremiumSubscription.route
-        )
+        val childPage = listOf(Screen.DetailLog.route, Screen.MyProfile.route, Screen.EditProfile.route, Screen.ChangePassword.route, Screen.SelfAssessment.route, Screen.SelfAssessmentResult.route, Screen.PremiumSubscription.route)
         Scaffold(
             topBar = {
                 if (currentRoute in childPage) {
@@ -197,19 +187,17 @@ class HomeActivity : ComponentActivity() {
                 composable(Screen.Home.route) {
                     HomeScreen(
                         firstName = userData.fullName!!.substringBefore(" "),
+                        photoURL = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         listLogViewModel = listLogViewModel,
                         calorieNeeded = userData.userCalorieIntake!!,
                         navigateToDetail = { logId ->
-                            navController.navigate(Screen.DetailLog.createRoute(logId))
-                        })
+                        navController.navigate(Screen.DetailLog.createRoute(logId))
+                    })
                 }
                 composable(Screen.History.route) {
-                    HistoryLogScreen(
-                        month = month,
-                        listLogViewModel = listLogViewModel,
-                        navigateToDetail = { logId ->
-                            navController.navigate(Screen.DetailLog.createRoute(logId))
-                        })
+                    HistoryLogScreen( month = month, listLogViewModel = listLogViewModel, navigateToDetail = { logId ->
+                        navController.navigate(Screen.DetailLog.createRoute(logId))
+                    })
                 }
                 composable(Screen.Scan.route) {
                     ScanCalorieScreen(
@@ -231,12 +219,12 @@ class HomeActivity : ComponentActivity() {
                 composable(Screen.Profile.route) {
                     ProfileScreen(
                         name = userData.fullName!!,
-                        photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
+                        photoUrl = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         email = currentUser.email!!,
-                        onMyProfileClick = { navController.navigate(Screen.MyProfile.route) },
-                        onChangePasswordClick = { navController.navigate(Screen.ChangePassword.route) },
-                        onSelfAssessmentResultClick = { navController.navigate(Screen.SelfAssessmentResult.route) },
-                        onPremiumSubscriptionClick = { navController.navigate(Screen.PremiumSubscription.route) },
+                        onMyProfileClick = { navController.navigate(Screen.MyProfile.route)},
+                        onChangePasswordClick = { navController.navigate(Screen.ChangePassword.route)},
+                        onSelfAssessmentResultClick = { navController.navigate(Screen.SelfAssessmentResult.route)},
+                        onPremiumSubscriptionClick = { navController.navigate(Screen.PremiumSubscription.route)},
                         onSignOut = { signOut() })
                 }
                 composable(
@@ -252,24 +240,39 @@ class HomeActivity : ComponentActivity() {
                 composable(Screen.MyProfile.route) {
                     MyProfileScreen(
                         name = userData.fullName!!,
-                        photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
+                        photoUrl = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         email = currentUser.email!!,
                         birthDate = userData.birthDate!!,
-                        age = calculateAge(userData.birthDate!!),
+                        age = userData.age ?: 0,
                         gender = userData.gender!!,
-                        onButtonClick = { navController.navigate(Screen.EditProfile.route) }
+                        onButtonClick = { navController.navigate(Screen.EditProfile.route)}
                     )
                 }
                 composable(Screen.EditProfile.route) {
                     EditProfileScreen(
-                        photoUrl = "https://media.licdn.com/dms/image/C4E03AQHzTBTfofQsig/profile-displayphoto-shrink_800_800/0/1616565306427?e=1690416000&v=beta&t=z7qPZl4pHH1o5220VLLO0ZofQ2Nj4W-dYBY2vyADeBY",
+                        photoUrl = userData.photoURL ?: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQP3lC0SfgqCcTGipFh64hddM6xgBYQj90wOA&usqp=CAU",
                         name = userData.fullName!!,
                         gender = userData.gender!!,
-                        birthDate = userData.birthDate!!
+                        birthDate = userData.birthDate!!,
+                        getString = {resId ->
+                            getStr(resId)
+                        },
+                        lifecycleOwner = this@HomeActivity,
+                        userId = userId,
+                        profileViewModel = profileViewModel,
+                        onSuccess = {profile ->
+                            updateUserProfile(profile)
+                        },
+                        moveToProfile = {
+                            navController.popBackStack()
+                        },
+                        context = this@HomeActivity,
                     )
                 }
                 composable(Screen.ChangePassword.route) {
-                    ChangePasswordScreen()
+                    ChangePasswordScreen { newPass, oldPass ->
+                        changePassword(newPass, oldPass)
+                    }
                 }
                 composable(Screen.SelfAssessmentResult.route) {
                     SelfAssessmentResultScreen(
@@ -278,11 +281,30 @@ class HomeActivity : ComponentActivity() {
                         calorie = userData.userCalorieIntake!!,
                         weightGoal = convertStatusKesehatan(userData.weightGoal!!),
                         indexBmi = userData.userBMI!!,
-                        onDoAssessmentClick = { navController.navigate(Screen.SelfAssessment.route) }
+                        onDoAssessmentClick = { navController.navigate(Screen.SelfAssessment.route)}
                     )
                 }
                 composable(Screen.SelfAssessment.route) {
-                    SelfAssessmentScreen()
+                    SelfAssessmentScreen(
+                        getString = {resId ->
+                            getStr(resId)
+                        },
+                        getStringArr = {resId ->
+                            getStringArr(resId)
+                        },
+                        arrAdapter = {resId, arr ->
+                            arrAdapter(resId, arr)
+                        },
+                        lifecycleOwner = this@HomeActivity,
+                        userId = userId,
+                        profileViewModel = profileViewModel,
+                        onSuccess = {dataUser ->
+                            updateUserData(dataUser)
+                        },
+                        moveToResult = {
+                            navController.popBackStack()
+                        }
+                    )
                 }
                 composable(Screen.PremiumSubscription.route) {
                     PremiumSubscriptionScreen()
@@ -297,20 +319,7 @@ class HomeActivity : ComponentActivity() {
         finish()
     }
 
-    private fun calculateAge(birthDate: String): Int {
-        val format = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val dateOfBirth = format.parse(birthDate)
-
-        val today = Calendar.getInstance().time
-        val diffInMillis = today.time - dateOfBirth.time
-
-        val ageInMillis = TimeUnit.MILLISECONDS.toDays(diffInMillis)
-        val age = (ageInMillis / 365).toInt()
-
-        return age
-    }
-
-    private fun convertStatusKesehatan(id: Int): String {
+    private fun convertStatusKesehatan(id: Int) : String {
         val statusKesehatanValue = resources.getStringArray(R.array.tujuan_kesehatan)
         return statusKesehatanValue[id]
     }
@@ -319,6 +328,43 @@ class HomeActivity : ComponentActivity() {
 
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         return date.format(formatter)
+    }
+
+    private fun changePassword(newPass: String, oldPass: String) : String {
+        return try {
+            val credential = EmailAuthProvider.getCredential(currentUser.email!!, oldPass)
+            currentUser.reauthenticate(credential)
+            currentUser.updatePassword(newPass)
+            "Ubah Kata Sandi Berhasil"
+        } catch (err: Error){
+            "Ubah Kata Sandi Gagal"
+        }
+    }
+
+    private fun getStringArr(resID: Int): Array<String>{
+        return resources.getStringArray(resID)
+    }
+
+    private fun getStr(resID: Int): String{
+        return resources.getString(resID)
+    }
+
+    private fun arrAdapter(resID: Int, arr: Array<String>) : ArrayAdapter<String> {
+        return ArrayAdapter(this, resID, arr)
+    }
+
+    private fun updateUserData(dataUser: DataUser) {
+        this.userData = dataUser
+    }
+
+    private fun updateUserProfile(profile: Profil) {
+        this.userData.fullName = profile.fullName
+        this.userData.gender = profile.gender
+        if (profile.photoURL != null){
+            this.userData.photoURL = profile.photoURL
+        }
+        this.userData.birthDate = profile.birthDate
+        this.userData.age = profile.age
     }
 }
 

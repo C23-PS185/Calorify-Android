@@ -14,6 +14,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -32,6 +33,10 @@ class LoginActivity : AppCompatActivity() {
             super.onCreate(savedInstanceState)
             _binding = ActivityLoginBinding.inflate(layoutInflater)
             setContentView(binding.root)
+
+            binding.tvForgotPass.setOnClickListener{
+                forgotPassword()
+            }
 
             binding.loginButtonGmail.setOnClickListener {
                 signIn()
@@ -138,6 +143,24 @@ class LoginActivity : AppCompatActivity() {
                         }
                 }
             }
+        }
+    }
+
+    private fun forgotPassword(){
+        binding.apply {
+            val etEmail = emailEditTextLayout.editText?.text.toString()
+            val isValid = emailEditTextLayout.error == null
+
+            when{
+                etEmail.isEmpty() -> {
+                    emailEditTextLayout.error = resources.getString(R.string.email_empty)
+                }
+                isValid -> {
+                    auth.sendPasswordResetEmail(etEmail)
+                    Toast.makeText(this@LoginActivity, "Petunjuk untuk mengatur ulang kata sandi telah dikirimkan ke emailmu.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
     }
 
