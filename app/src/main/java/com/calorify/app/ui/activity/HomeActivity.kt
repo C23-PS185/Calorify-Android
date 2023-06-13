@@ -104,7 +104,6 @@ class HomeActivity : ComponentActivity() {
             auth = Firebase.auth
             currentUser = auth.currentUser!!
             userId = currentUser.uid
-            listLogViewModel.fetchMonthlyData(true, this, userId, month=month, year=year, date=date)
             addUserData()
         } else {
             val i = Intent(this, NoConnectionActivity::class.java)
@@ -127,7 +126,8 @@ class HomeActivity : ComponentActivity() {
                     }
 
                     is Result.Success -> {
-                        userData = result.data.data
+                        userData = result.data.data!!
+                        listLogViewModel.fetchMonthlyData(true, this, userId, month=month, year=year, date=date)
                         setContent {
                             CalorifyTheme {
                                 // A surface container using the 'background' color from the theme
@@ -142,7 +142,8 @@ class HomeActivity : ComponentActivity() {
                     }
 
                     is Result.Error -> {
-                        if (result.error == "Data not found") {
+                        Log.d("TES", "addUserData: ${result.error} ")
+                        if (result.error == "Data does not exist") {
                             startActivity(Intent(this, AssessmentActivity::class.java))
                             finish()
                         } else {

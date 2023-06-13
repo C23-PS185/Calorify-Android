@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.calorify.app.databinding.ActivityOnboardingBinding
 import com.calorify.app.helper.NetworkManager
 import com.google.firebase.auth.FirebaseAuth
@@ -14,7 +15,7 @@ class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         if(NetworkManager.isConnectedToNetwork(this)){
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null) {

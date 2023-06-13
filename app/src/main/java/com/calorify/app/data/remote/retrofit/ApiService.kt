@@ -24,7 +24,7 @@ import retrofit2.http.Path
 interface ApiService {
 
     @Headers("Content-Type: application/json")
-    @POST("add-user-data")
+    @POST("user-data")
     suspend fun uploadAssessment(@Body body: AssessmentRequest) : AssessmentResponse
 
     @Headers("Content-Type: application/json")

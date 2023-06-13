@@ -72,12 +72,12 @@ class AssessmentResultActivity : AppCompatActivity() {
     private fun setAssessmentResult(result: AssessmentResultResponse) {
         val statusKesehatanValue = resources.getStringArray(R.array.tujuan_kesehatan)
         binding.apply {
-            tvWeightValue.text =  getString(R.string.weight_value, result.data.userWeight.toString())
-            tvHeightValue.text = getString(R.string.height_value, result.data.userHeight.toString())
-            tvIndexBmiValue.text = result.data.userBMI.toString()
-            tvCaloryValue.text = result.data.userCalorieIntake.toString()
+            tvWeightValue.text =  getString(R.string.weight_value, result.data?.userWeight.toString())
+            tvHeightValue.text = getString(R.string.height_value, result.data?.userHeight.toString())
+            tvIndexBmiValue.text = result.data?.userBMI.toString()
+            tvCaloryValue.text = result.data?.userCalorieIntake.toString()
 
-            when(result.data.weightGoal) {
+            when(result.data?.weightGoal) {
                 0 -> tvTujuanValue.text = statusKesehatanValue[0]
                 1 -> tvTujuanValue.text = statusKesehatanValue[1]
                 2 -> tvTujuanValue.text = statusKesehatanValue[2]
@@ -85,7 +85,7 @@ class AssessmentResultActivity : AppCompatActivity() {
                 4 -> tvTujuanValue.text = statusKesehatanValue[4]
             }
 
-            when(result.data.userBMI!!.toFloat()) {
+            when(result.data?.userBMI!!.toFloat()) {
                 in Float.MIN_VALUE..18.4f -> indicatorUnderweight.visibility = View.VISIBLE
                 in 18.5f..24.9f-> indicatorNormal.visibility = View.VISIBLE
                 in 25.0f..29.9f -> indicatorOverweight.visibility = View.VISIBLE

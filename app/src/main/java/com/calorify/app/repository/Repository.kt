@@ -63,11 +63,13 @@ class Repository(private val apiService: ApiService) {
         try {
             val response = apiService.getUserResult(userId)
             if (response.error) {
-                emit(Result.Error("Data not found"))
+                Log.d("MASUK", "getUserResult: ${response.message}")
+                emit(Result.Error(response.message!!))
             } else {
                 emit(Result.Success(response))
             }
         } catch (e: Exception) {
+            Log.d("EX", "getUserResult: ${e.message.toString()}")
             val message = e.message.toString()
             if (message == "") {
                 emit(Result.Error("Snap, There is something wrong"))
@@ -82,7 +84,7 @@ class Repository(private val apiService: ApiService) {
         try {
             val response = apiService.getMonthlyCalorieLog(userId, month)
             if (response.error == true) {
-                emit(Result.Error("Data not found"))
+                emit(Result.Error(response.message!!))
             } else {
                 emit(Result.Success(response))
             }
