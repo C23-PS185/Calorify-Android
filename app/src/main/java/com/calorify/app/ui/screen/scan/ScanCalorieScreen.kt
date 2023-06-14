@@ -30,11 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.exifinterface.media.ExifInterface
 import androidx.navigation.NavController
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils
 import com.calorify.app.R
 import com.calorify.app.databinding.ScanCalorieScreenBinding
 import com.calorify.app.helper.Commons.REQUIRED_PERMISSIONS
 import com.calorify.app.helper.TensorFLowHelper
+import com.calorify.app.helper.bitmapToFile
 import com.calorify.app.helper.createCustomTempFile
 import com.calorify.app.helper.uriToFile
 import com.calorify.app.ui.navigation.Screen
@@ -72,11 +75,38 @@ fun ScanCalorieScreen(
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val myFile = File(currentPhotoPath)
+            val exif = android.media.ExifInterface(myFile.path)
+            val orientation: Int = exif.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_UNDEFINED
+            )
 
-            myFile.let { file ->
-                getFile = file
-                photoBitmap = BitmapFactory.decodeFile(file.path)
+            val bitmap = BitmapFactory.decodeFile(myFile.path)
+
+            val rotatedBitmap = when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> TransformationUtils.rotateImage(
+                    bitmap,
+                    90
+                )
+
+                ExifInterface.ORIENTATION_ROTATE_180 -> TransformationUtils.rotateImage(
+                    bitmap,
+                    180
+                )
+
+                ExifInterface.ORIENTATION_ROTATE_270 -> TransformationUtils.rotateImage(
+                    bitmap,
+                    270
+                )
+
+                ExifInterface.ORIENTATION_NORMAL -> bitmap
+                else -> bitmap
             }
+
+            val rotatedFile = File(myFile.parent, "rotated_${myFile.name}")
+            val file = bitmapToFile(rotatedBitmap, rotatedFile)
+            getFile = file
+            photoBitmap = rotatedBitmap
         }
     }
 
@@ -85,11 +115,38 @@ fun ScanCalorieScreen(
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val selectedImg = result.data?.data as Uri
-            selectedImg.let { uri ->
-                val myFile = uriToFile(uri, context)
-                getFile = myFile
-                photoBitmap = BitmapFactory.decodeFile(myFile.path)
+            val myFile = uriToFile(selectedImg, context)
+            val exif = android.media.ExifInterface(myFile.path)
+            val orientation: Int = exif.getAttributeInt(
+                ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_UNDEFINED
+            )
+            val bitmap = BitmapFactory.decodeFile(myFile.path)
+
+            val rotatedBitmap = when (orientation) {
+                ExifInterface.ORIENTATION_ROTATE_90 -> TransformationUtils.rotateImage(
+                    bitmap,
+                    90
+                )
+
+                ExifInterface.ORIENTATION_ROTATE_180 -> TransformationUtils.rotateImage(
+                    bitmap,
+                    180
+                )
+
+                ExifInterface.ORIENTATION_ROTATE_270 -> TransformationUtils.rotateImage(
+                    bitmap,
+                    270
+                )
+
+                ExifInterface.ORIENTATION_NORMAL -> bitmap
+                else -> bitmap
             }
+
+            val rotatedFile = File(myFile.parent, "rotated_${myFile.name}")
+            val file = bitmapToFile(rotatedBitmap, rotatedFile)
+            getFile = file
+            photoBitmap = rotatedBitmap
         }
     }
 
