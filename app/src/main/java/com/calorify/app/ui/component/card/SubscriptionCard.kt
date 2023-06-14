@@ -30,7 +30,7 @@ fun SubscriptionCard(
     price: String,
     selectedCard: Int,
     onCardSelected: (Int) -> Unit
-){
+) {
     val isSelected = selectedCard == numberOfMonth
 
     val borderColor = if (isSelected) Blue500 else Color.Transparent
@@ -40,10 +40,10 @@ fun SubscriptionCard(
         modifier = Modifier
             .padding(vertical = 8.dp)
             .clickable { onCardSelected(numberOfMonth) }
-    ){
+    ) {
         Box(
             modifier = Modifier
-                .padding(top = 24.dp, bottom = 8.dp, start = 8.dp, end=8.dp)
+                .padding(top = 24.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
                 .border(1.dp, borderColor, shape = Shapes.medium)
         ) {
             Surface(

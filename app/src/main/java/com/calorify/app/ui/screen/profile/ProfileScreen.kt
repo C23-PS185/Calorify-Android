@@ -36,7 +36,7 @@ import com.calorify.app.ui.theme.Shapes
 
 @Composable
 fun ProfileScreen(
-    photoUrl : String,
+    photoUrl: String,
     name: String,
     email: String,
     onMyProfileClick: () -> Unit,
@@ -83,11 +83,36 @@ fun ProfileScreen(
                 modifier = Modifier
                     .padding(bottom = 16.dp)
             )
-            ProfileMenu(icon = R.drawable.ic_people, description = "Icon profile", text = "Profil Saya", onClick = onMyProfileClick)
-            ProfileMenu(icon = R.drawable.ic_confirm_lock, description = "Icon password", text = "Ubah Kata Sandi", onClick = onChangePasswordClick)
-            ProfileMenu(icon = R.drawable.ic_weight, description = "Icon Weight", text = "Hasil Asesmen Diri", onClick = onSelfAssessmentResultClick)
-            ProfileMenu(icon = R.drawable.ic_grey_star, description = "Icon Subsription", text = "Berlangganan Premium", onClick = onPremiumSubscriptionClick)
-            ProfileMenu(icon = R.drawable.ic_logout, description = "Icon Logout", text = "Keluar", onClick = onSignOut)
+            ProfileMenu(
+                icon = R.drawable.ic_people,
+                description = "Icon profile",
+                text = "Profil Saya",
+                onClick = onMyProfileClick
+            )
+            ProfileMenu(
+                icon = R.drawable.ic_confirm_lock,
+                description = "Icon password",
+                text = "Ubah Kata Sandi",
+                onClick = onChangePasswordClick
+            )
+            ProfileMenu(
+                icon = R.drawable.ic_weight,
+                description = "Icon Weight",
+                text = "Hasil Asesmen Diri",
+                onClick = onSelfAssessmentResultClick
+            )
+            ProfileMenu(
+                icon = R.drawable.ic_grey_star,
+                description = "Icon Subsription",
+                text = "Berlangganan Premium",
+                onClick = onPremiumSubscriptionClick
+            )
+            ProfileMenu(
+                icon = R.drawable.ic_logout,
+                description = "Icon Logout",
+                text = "Keluar",
+                onClick = onSignOut
+            )
 
         }
     }
@@ -104,10 +129,10 @@ fun ProfileMenu(
 ) {
     Surface(
         color = Blue50,
-        modifier = modifier.padding(top=16.dp),
+        modifier = modifier.padding(top = 16.dp),
         shape = Shapes.medium,
         onClick = onClick
-    ){
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -115,7 +140,7 @@ fun ProfileMenu(
                 .fillMaxWidth()
                 .height(60.dp)
                 .padding(horizontal = 16.dp)
-        ){
+        ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween

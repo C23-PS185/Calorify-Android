@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(NetworkManager.isConnectedToNetwork(this)){
+        if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             _binding = ActivityRegisterBinding.inflate(layoutInflater)
             setContentView(binding.root)
@@ -43,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
                 signIn()
             }
 
-            binding.tvLogin.setOnClickListener{
+            binding.tvLogin.setOnClickListener {
                 val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -70,7 +70,8 @@ class RegisterActivity : AppCompatActivity() {
         val etEmail = binding.etEmail.text.toString()
         val etPass = binding.etPass.text.toString()
         val etConfirmPass = binding.etConfirmPass.text.toString()
-        val isValid = binding.etEmail.error == null && binding.etPass.error == null && binding.etConfirmPass.error == null
+        val isValid =
+            binding.etEmail.error == null && binding.etPass.error == null && binding.etConfirmPass.error == null
 
         when {
             etEmail.isEmpty() -> {
@@ -100,7 +101,11 @@ class RegisterActivity : AppCompatActivity() {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmailAndPassword:failure", task.exception)
-                            Toast.makeText(this@RegisterActivity, "Login Gagal. Harap gunakan email dan password yang sesuai.", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                this@RegisterActivity,
+                                "Login Gagal. Harap gunakan email dan password yang sesuai.",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
@@ -112,6 +117,7 @@ class RegisterActivity : AppCompatActivity() {
         val signInIntent = googleSignInClient.signInIntent
         resultLauncher.launch(signInIntent)
     }
+
     private var resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -128,6 +134,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -144,8 +151,9 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
+
     private fun updateUI(currentUser: FirebaseUser?) {
-        if (currentUser != null){
+        if (currentUser != null) {
             val intent = Intent(this@RegisterActivity, VerificationActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)

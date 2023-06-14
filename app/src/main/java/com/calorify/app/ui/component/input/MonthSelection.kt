@@ -23,12 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.calorify.app.R
 import com.calorify.app.data.local.MonthDict
-import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.Neutral500
 
 @Composable
@@ -49,11 +47,24 @@ fun MonthSelection(
 
         var expanded by remember { mutableStateOf(false) }
         var selectedMonth by remember { mutableStateOf(MonthDict.numMapToMonth[monthSelected]!!) }
-        val months = listOf("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember") // Add other months
+        val months = listOf(
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Agustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember"
+        ) // Add other months
 
         OutlinedTextField(
             value = selectedMonth,
-            onValueChange = {onMonthSelected(selectedMonth)},
+            onValueChange = { onMonthSelected(selectedMonth) },
             modifier = Modifier.fillMaxWidth(),
             leadingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
             trailingIcon = {
