@@ -6,9 +6,13 @@ This repository contains an Android app that is implemented using XML layout and
 - [Tech Used](#tech-used)
 - [Steps to Replicate](#steps-to-replicate)
 - [Dependencies](#dependencies)
+- [Download APK Link](#download-apk-link)
 
 ## Introduction
 Calorify is a personalized calorie tracking app aimed at promoting healthy eating habits and preventing non-communicable diseases (NCDs). 
+
+## Download APK Link
+https://drive.google.com/file/d/1UaNuiwRLovJOkfCtqV1rWdwMpfGVJWf5/view?usp=sharing
 
 ## Tech Used
 Calorify android app developed with:
