@@ -20,7 +20,11 @@ class CustomEditText : AppCompatEditText {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
@@ -30,7 +34,7 @@ class CustomEditText : AppCompatEditText {
     }
 
     private fun init() {
-        addTextChangedListener(object: TextWatcher {
+        addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // Do nothing
@@ -51,18 +55,18 @@ class CustomEditText : AppCompatEditText {
         })
     }
 
-    private fun validateEmail(text: String){
-        error = if(!android.util.Patterns.EMAIL_ADDRESS.matcher(text).matches()){
+    private fun validateEmail(text: String) {
+        error = if (!android.util.Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
             context.getString(R.string.email_et_invalid)
-        }else{
+        } else {
             null
         }
     }
 
-    private fun validatePass(text: String){
-        error = if(text.length < 8){
+    private fun validatePass(text: String) {
+        error = if (text.length < 8) {
             context.getString(R.string.pass_et_invalid)
-        }else{
+        } else {
             null
         }
     }

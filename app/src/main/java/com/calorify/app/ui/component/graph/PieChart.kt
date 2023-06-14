@@ -17,16 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
 import com.calorify.app.data.local.PieChartData
 import com.calorify.app.ui.theme.Blue200
-import com.calorify.app.ui.theme.Blue500
 import com.calorify.app.ui.theme.Blue700
-import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.Green200
 import com.calorify.app.ui.theme.Green700
 import com.calorify.app.ui.theme.Orange200
@@ -70,21 +67,25 @@ fun PieChart(calorieNeeded: Int, calorieFulfilled: Int) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                val otherCalorie = calorieNeeded-calorieFulfilled
-                val otherStatus =
-                    if (otherCalorie >= 0) {
-                        "Kalori Dibutuhkan"
-                    } else {
-                        "Kalori Berlebih"
-                    }
-                val otherData = PieChartData(otherStatus, abs(otherCalorie))
-                val dataFulfilled = PieChartData("Kalori Terpenuhi", calorieFulfilled)
-                Crossfade(targetState =
-                if (calorieFulfilled == 0) {
-                    listOf(otherData)
+                val otherCalorie = calorieNeeded - calorieFulfilled
+                var otherStatus = ""
+                var newCalorieFulfilled = calorieFulfilled
+
+                if (otherCalorie >= 0) {
+                    otherStatus = "Kalori Dibutuhkan"
                 } else {
-                    listOf(dataFulfilled, otherData)
+                    otherStatus = "Kalori Berlebih"
+                    newCalorieFulfilled = calorieFulfilled + 2 * otherCalorie
                 }
+                val otherData = PieChartData(otherStatus, abs(otherCalorie))
+                val dataFulfilled = PieChartData("Kalori Terpenuhi", newCalorieFulfilled)
+                Crossfade(
+                    targetState =
+                    if (calorieFulfilled == 0) {
+                        listOf(otherData)
+                    } else {
+                        listOf(dataFulfilled, otherData)
+                    }
                 ) { pieChartData ->
                     AndroidView(factory = { context ->
                         PieChart(context).apply {
@@ -130,32 +131,37 @@ fun updatePieChartWithData(
     val ds = PieDataSet(entries, "")
 
 
-    if (data.size == 1){
+    if (data.size == 1) {
         ds.colors = arrayListOf(
             Blue200.toArgb(),
         )
-        ds.setValueTextColors(listOf(
-            Blue700.toArgb(),
-        ))
+        ds.setValueTextColors(
+            listOf(
+                Blue700.toArgb(),
+            )
+        )
     } else if (data[0].status == "Kalori Berlebih" || data[1].status == "Kalori Berlebih") {
         ds.colors = arrayListOf(
             Blue200.toArgb(),
             Orange200.toArgb(),
         )
-        ds.setValueTextColors(listOf(
-            Blue700.toArgb(),
-            Orange700.toArgb(),
-        ))
-    }
-    else {
+        ds.setValueTextColors(
+            listOf(
+                Blue700.toArgb(),
+                Orange700.toArgb(),
+            )
+        )
+    } else {
         ds.colors = arrayListOf(
             Green200.toArgb(),
             Blue200.toArgb(),
         )
-        ds.setValueTextColors(listOf(
-            Green700.toArgb(),
-            Blue700.toArgb(),
-        ))
+        ds.setValueTextColors(
+            listOf(
+                Green700.toArgb(),
+                Blue700.toArgb(),
+            )
+        )
     }
 
     ds.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,12 +17,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_medium"
             android:gravity="center"
             android:text="@string/asesmen_diri"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:fontFamily="@font/inter_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,11 +34,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_medium"
             android:gravity="center"
             android:text="@string/jargon_asesmen"
-            android:textSize="14sp"
             android:textColor="@color/neutral_500"
-            android:fontFamily="@font/inter_medium"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -51,10 +50,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/nama_lengkap"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="@string/nama_lengkap"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -76,12 +75,12 @@
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:autofillHints="Isi nama lengkap"
                 android:fontFamily="@font/inter_medium"
                 android:hint="@string/name_et_hint"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvName"
-                android:autofillHints="Isi nama lengkap" />
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -91,10 +90,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/tanggal_lahir"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="@string/tanggal_lahir"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout" />
@@ -114,15 +113,15 @@
 
             <EditText
                 android:id="@+id/etBirth"
-                android:inputType="datetime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:autofillHints="Isi tanggal lahir"
                 android:fontFamily="@font/inter_medium"
                 android:hint="@string/birth_et_hint"
+                android:inputType="datetime"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvBirth"
-                android:autofillHints="Isi tanggal lahir" />
+                app:layout_constraintTop_toBottomOf="@id/tvBirth" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -132,10 +131,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/jenis_kelamin"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="@string/jenis_kelamin"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/birthEditTextLayout" />
@@ -156,8 +155,8 @@
                 android:id="@+id/radio_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onRadioButtonClicked"
                 android:buttonTint="@color/blue_500"
+                android:onClick="onRadioButtonClicked"
                 android:paddingEnd="19dp"
                 android:text="@string/perempuan" />
 
@@ -177,10 +176,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/berat_badan"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="@string/berat_badan"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
@@ -202,14 +201,14 @@
                 android:id="@+id/etWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
                 android:hint="@string/weight_et_hint"
+                android:inputType="number"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvWeight" />
         </com.google.android.material.textfield.TextInputLayout>
-        
+
         <TextView
             android:id="@+id/tvHeight"
             android:layout_width="match_parent"
@@ -217,10 +216,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/tinggi_badan"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="@string/tinggi_badan"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/weightEditTextLayout" />
@@ -242,13 +241,13 @@
                 android:id="@+id/etHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:autofillHints="Isi tinggi badan"
                 android:fontFamily="@font/inter_medium"
-                android:inputType="number"
                 android:hint="@string/height_et_hint"
+                android:inputType="number"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvHeight"
-                android:autofillHints="Isi tinggi badan" />
+                app:layout_constraintTop_toBottomOf="@id/tvHeight" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -258,10 +257,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Status Aktivitas Fisik"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="Status Aktivitas Fisik"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heightEditTextLayout" />
@@ -281,13 +280,13 @@
 
             <AutoCompleteTextView
                 android:id="@+id/dropDownActivity"
-                android:inputType="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
+                android:inputType="none"
+                android:text="@string/activity_dd_hint"
                 android:textColor="@color/gray"
-                android:text="@string/activity_dd_hint"/>
+                android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -297,10 +296,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Status Stressor"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="Status Stressor"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dropDownLayoutHeight" />
@@ -320,13 +319,13 @@
 
             <AutoCompleteTextView
                 android:id="@+id/dropDownStressor"
-                android:inputType="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
+                android:inputType="none"
+                android:text="@string/stressor_ed_hint"
                 android:textColor="@color/gray"
-                android:text="@string/stressor_ed_hint"/>
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -337,10 +336,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Tujuan Kesehatan"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="Tujuan Kesehatan"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dropDownLayoutStressor" />
@@ -360,13 +359,13 @@
 
             <AutoCompleteTextView
                 android:id="@+id/dropDownKesehatan"
-                android:inputType="none"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:fontFamily="@font/inter_medium"
+                android:inputType="none"
+                android:text="@string/health_dd_hint"
                 android:textColor="@color/gray"
-                android:text="@string/health_dd_hint"/>
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

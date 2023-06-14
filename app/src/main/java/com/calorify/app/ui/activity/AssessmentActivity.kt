@@ -41,7 +41,7 @@ class AssessmentActivity : AppCompatActivity() {
     private var weightIndex: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(NetworkManager.isConnectedToNetwork(this)){
+        if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             _binding = ActivityAssessmentBinding.inflate(layoutInflater)
             setContentView(binding.root)
@@ -151,8 +151,14 @@ class AssessmentActivity : AppCompatActivity() {
                                             Toast.LENGTH_SHORT
                                         ).show()
 
-                                        intent = Intent(this@AssessmentActivity, AssessmentResultActivity::class.java)
-                                        intent.putExtra(AssessmentResultActivity.EXTRA_USER_ID, userid)
+                                        intent = Intent(
+                                            this@AssessmentActivity,
+                                            AssessmentResultActivity::class.java
+                                        )
+                                        intent.putExtra(
+                                            AssessmentResultActivity.EXTRA_USER_ID,
+                                            userid
+                                        )
                                         startActivity(intent)
                                         finish()
                                     }

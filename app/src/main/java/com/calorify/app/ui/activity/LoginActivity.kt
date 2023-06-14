@@ -14,7 +14,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -29,12 +28,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(NetworkManager.isConnectedToNetwork(this)){
+        if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             _binding = ActivityLoginBinding.inflate(layoutInflater)
             setContentView(binding.root)
 
-            binding.tvForgotPass.setOnClickListener{
+            binding.tvForgotPass.setOnClickListener {
                 forgotPassword()
             }
 
@@ -46,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                 authentication()
             }
 
-            binding.tvRegister.setOnClickListener{
+            binding.tvRegister.setOnClickListener {
                 val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -68,10 +67,12 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
+
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         resultLauncher.launch(signInIntent)
     }
+
     private var resultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -88,6 +89,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -104,8 +106,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+
     private fun updateUI(currentUser: FirebaseUser?) {
-        if (currentUser != null){
+        if (currentUser != null) {
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
@@ -117,15 +120,18 @@ class LoginActivity : AppCompatActivity() {
         binding.apply {
             val etEmail = emailEditTextLayout.editText?.text.toString()
             val etPassword = passEditTextLayout.editText?.text.toString()
-            val isValid = emailEditTextLayout.error == null && binding.passEditTextLayout.error == null
+            val isValid =
+                emailEditTextLayout.error == null && binding.passEditTextLayout.error == null
 
             when {
                 etEmail.isEmpty() -> {
                     emailEditTextLayout.error = resources.getString(R.string.email_empty)
                 }
+
                 etPassword.isEmpty() -> {
                     passEditTextLayout.error = resources.getString(R.string.password_empty)
                 }
+
                 isValid -> {
                     auth.signInWithEmailAndPassword(etEmail, etPassword)
                         .addOnCompleteListener(this@LoginActivity) { task ->
@@ -137,7 +143,11 @@ class LoginActivity : AppCompatActivity() {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmailAndPassword:failure", task.exception)
-                                Toast.makeText(this@LoginActivity, "Login Gagal. Harap gunakan email dan password yang sesuai.", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "Login Gagal. Harap gunakan email dan password yang sesuai.",
+                                    Toast.LENGTH_SHORT
+                                )
                                     .show()
                             }
                         }
@@ -146,18 +156,23 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun forgotPassword(){
+    private fun forgotPassword() {
         binding.apply {
             val etEmail = emailEditTextLayout.editText?.text.toString()
             val isValid = emailEditTextLayout.error == null
 
-            when{
+            when {
                 etEmail.isEmpty() -> {
                     emailEditTextLayout.error = resources.getString(R.string.email_empty)
                 }
+
                 isValid -> {
                     auth.sendPasswordResetEmail(etEmail)
-                    Toast.makeText(this@LoginActivity, "Petunjuk untuk mengatur ulang kata sandi telah dikirimkan ke emailmu.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Petunjuk untuk mengatur ulang kata sandi telah dikirimkan ke emailmu.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

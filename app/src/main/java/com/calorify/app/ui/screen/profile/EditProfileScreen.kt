@@ -10,7 +10,6 @@ import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
@@ -44,24 +43,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 import coil.compose.AsyncImage
 import com.calorify.app.R
-import com.calorify.app.data.remote.request.AssessmentRequest
-import com.calorify.app.data.remote.response.DataUser
 import com.calorify.app.data.remote.response.Profil
 import com.calorify.app.databinding.EditProfileScreenBinding
 import com.calorify.app.helper.Result
 import com.calorify.app.helper.reduceFileImage
 import com.calorify.app.helper.uriToFile
-import com.calorify.app.ui.activity.AssessmentResultActivity
-import com.calorify.app.ui.screen.scan.photoBitmap
 import com.calorify.app.ui.theme.Black
-import com.calorify.app.ui.theme.CalorifyTheme
 import com.calorify.app.ui.theme.White
 import com.calorify.app.viewmodel.ProfileViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -71,9 +64,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.File
 import java.util.Calendar
 
@@ -89,7 +79,7 @@ fun EditProfileScreen(
     getString: (Int) -> String,
     onSuccess: (Profil) -> Unit,
     moveToProfile: () -> Unit,
-    photoUrl : String,
+    photoUrl: String,
     name: String,
     birthDate: String,
     gender: String,
@@ -132,7 +122,7 @@ fun EditProfileScreen(
                     openGallery = true
                 }
         ) {
-            if (photoBitmap != null){
+            if (photoBitmap != null) {
                 Image(
                     photoBitmap!!.asImageBitmap(),
                     stringResource(R.string.my_photo),

@@ -1,7 +1,7 @@
 package com.calorify.app.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.calorify.app.R
 
 class NoConnectionActivity : AppCompatActivity() {

@@ -36,11 +36,11 @@ fun MyProfileScreen(
     age: Int,
     gender: String,
     onButtonClick: () -> Unit,
-){
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.padding(16.dp)
-    ){
+    ) {
         Text(
             text = "Profil Saya",
             fontFamily = FontFamily(
@@ -63,8 +63,8 @@ fun MyProfileScreen(
             color = White,
             shape = Shapes.medium,
             modifier = Modifier.padding(16.dp)
-        ){
-            Column(Modifier.padding(vertical=8.dp)){
+        ) {
+            Column(Modifier.padding(vertical = 8.dp)) {
                 ProfileRow(title = "Nama Lengkap", value = name)
                 ProfileRow(title = "Email", value = email)
                 ProfileRow(title = "Tanggal Lahir", value = birthDate)
@@ -80,14 +80,14 @@ fun MyProfileScreen(
 fun ProfileRow(
     title: String,
     value: String,
-){
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-    ){
+    ) {
         Text(
             text = title,
             fontSize = 14.sp,
@@ -109,6 +109,13 @@ fun ProfileRow(
 @Composable
 fun MyProfileScreenPreview() {
     CalorifyTheme {
-        MyProfileScreen("", "Melati Eka Putri", "melati@gmail.com",  "25 Maret 2002", 21, "Perempuan", {})
+        MyProfileScreen(
+            "",
+            "Melati Eka Putri",
+            "melati@gmail.com",
+            "25 Maret 2002",
+            21,
+            "Perempuan",
+            {})
     }
 }

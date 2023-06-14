@@ -40,8 +40,8 @@ fun HomeStickyHeader(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Column(modifier = Modifier.padding(16.dp)){
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
                 Text(
                     text = "Halo $name,",
                     fontSize = 24.sp,

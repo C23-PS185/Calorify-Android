@@ -24,7 +24,7 @@ class AssessmentResultActivity : AppCompatActivity() {
 
     private lateinit var userID: String
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(NetworkManager.isConnectedToNetwork(this)){
+        if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             _binding = ActivityAssessmentResultBinding.inflate(layoutInflater)
             setContentView(binding.root)
@@ -33,11 +33,15 @@ class AssessmentResultActivity : AppCompatActivity() {
 
             showAssessmentResult()
 
-            binding.buttonUpgrade.setOnClickListener{
-                Toast.makeText(this@AssessmentResultActivity, "Tunggu fitur ini pada pengembangan selanjutnya", Toast.LENGTH_SHORT).show()
+            binding.buttonUpgrade.setOnClickListener {
+                Toast.makeText(
+                    this@AssessmentResultActivity,
+                    "Tunggu fitur ini pada pengembangan selanjutnya",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
-            binding.buttonBeranda.setOnClickListener{
+            binding.buttonBeranda.setOnClickListener {
                 intent = Intent(this@AssessmentResultActivity, HomeActivity::class.java)
                 startActivity(intent)
             }
@@ -50,38 +54,45 @@ class AssessmentResultActivity : AppCompatActivity() {
     }
 
     private fun showAssessmentResult() {
-        assessmentResultViewModel.getUserResult(userID).observe(this@AssessmentResultActivity) { result ->
-            binding.apply {
-                if (result != null) {
-                    when (result) {
-                        is Result.Loading -> {
-                            progressBar.visibility = View.VISIBLE
-                        }
+        assessmentResultViewModel.getUserResult(userID)
+            .observe(this@AssessmentResultActivity) { result ->
+                binding.apply {
+                    if (result != null) {
+                        when (result) {
+                            is Result.Loading -> {
+                                progressBar.visibility = View.VISIBLE
+                            }
 
-                        is Result.Success -> {
-                            progressBar.visibility = View.GONE
-                            setAssessmentResult(result.data)
-                        }
+                            is Result.Success -> {
+                                progressBar.visibility = View.GONE
+                                setAssessmentResult(result.data)
+                            }
 
-                        is Result.Error -> {
-                            progressBar.visibility = View.GONE
-                            Toast.makeText(this@AssessmentResultActivity, "Error", Toast.LENGTH_SHORT).show()
+                            is Result.Error -> {
+                                progressBar.visibility = View.GONE
+                                Toast.makeText(
+                                    this@AssessmentResultActivity,
+                                    "Error",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }
             }
-        }
     }
 
     private fun setAssessmentResult(result: AssessmentResultResponse) {
         val statusKesehatanValue = resources.getStringArray(R.array.tujuan_kesehatan)
         binding.apply {
-            tvWeightValue.text =  getString(R.string.weight_value, result.data?.userWeight.toString())
-            tvHeightValue.text = getString(R.string.height_value, result.data?.userHeight.toString())
+            tvWeightValue.text =
+                getString(R.string.weight_value, result.data?.userWeight.toString())
+            tvHeightValue.text =
+                getString(R.string.height_value, result.data?.userHeight.toString())
             tvIndexBmiValue.text = result.data?.userBMI.toString()
             tvCaloryValue.text = result.data?.userCalorieIntake.toString()
 
-            when(result.data?.weightGoal) {
+            when (result.data?.weightGoal) {
                 0 -> tvTujuanValue.text = statusKesehatanValue[0]
                 1 -> tvTujuanValue.text = statusKesehatanValue[1]
                 2 -> tvTujuanValue.text = statusKesehatanValue[2]
@@ -89,9 +100,9 @@ class AssessmentResultActivity : AppCompatActivity() {
                 4 -> tvTujuanValue.text = statusKesehatanValue[4]
             }
 
-            when(result.data?.userBMI!!.toFloat()) {
+            when (result.data?.userBMI!!.toFloat()) {
                 in Float.MIN_VALUE..18.4f -> indicatorUnderweight.visibility = View.VISIBLE
-                in 18.5f..24.9f-> indicatorNormal.visibility = View.VISIBLE
+                in 18.5f..24.9f -> indicatorNormal.visibility = View.VISIBLE
                 in 25.0f..29.9f -> indicatorOverweight.visibility = View.VISIBLE
                 in 30.0f..Float.MAX_VALUE -> indicatorObesitas.visibility = View.VISIBLE
                 else -> indicatorObesitas.visibility = View.VISIBLE
