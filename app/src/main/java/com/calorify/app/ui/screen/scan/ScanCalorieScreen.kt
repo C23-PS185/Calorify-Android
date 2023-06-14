@@ -11,14 +11,10 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,17 +27,12 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
-import androidx.navigation.NavController
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils
-import com.calorify.app.R
 import com.calorify.app.databinding.ScanCalorieScreenBinding
 import com.calorify.app.helper.Commons.REQUIRED_PERMISSIONS
-import com.calorify.app.helper.TensorFLowHelper
 import com.calorify.app.helper.bitmapToFile
 import com.calorify.app.helper.createCustomTempFile
 import com.calorify.app.helper.uriToFile
-import com.calorify.app.ui.navigation.Screen
-import kotlinx.coroutines.delay
 import java.io.File
 import java.io.IOException
 

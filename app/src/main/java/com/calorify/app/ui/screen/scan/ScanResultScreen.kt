@@ -30,8 +30,8 @@ fun ScanResultScreen(
     onScanLogClick: () -> Unit
 ) {
     photoBitmap?.let { bitmap ->
-        val scaledBeatmap = Bitmap.createScaledBitmap(bitmap, imageSize, imageSize, false)
-        TensorFLowHelper.ClassifyImage(scaledBeatmap) {
+        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, imageSize, imageSize, false)
+        TensorFLowHelper.ClassifyImage(scaledBitmap) {
             foodName = it
         }
     }
