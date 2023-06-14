@@ -14,14 +14,15 @@ fun HistoryLogScreen(
     month: String,
     navigateToDetail: (String) -> Unit,
     listLogViewModel: ListLogViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onMonthSelect: (String) -> Unit,
 ){
     Column (modifier = modifier) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding()
         ){
-            ListLog(month, groupedBy = "date", listLogViewModel = listLogViewModel, navigateToDetail = navigateToDetail)
+            ListLog(month, groupedBy = "date", listLogViewModel = listLogViewModel, navigateToDetail = navigateToDetail, onMonthSelect = onMonthSelect)
         }
     }
 }

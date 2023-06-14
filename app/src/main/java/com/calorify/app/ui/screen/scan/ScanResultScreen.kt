@@ -15,12 +15,14 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
 import com.calorify.app.data.local.CalorieDict
 import com.calorify.app.data.local.FoodDict
+import com.calorify.app.data.local.ServingDict
 import com.calorify.app.databinding.ScanResultScreenBinding
 import com.calorify.app.helper.TensorFLowHelper
 import com.calorify.app.helper.TensorFLowHelper.imageSize
 
 var foodName by mutableStateOf("")
 var foodCalorie by mutableStateOf("")
+var servingCalorie by mutableStateOf("")
 
 @Composable
 fun ScanResultScreen(
@@ -54,12 +56,16 @@ fun ScanResultScreen(
             val imageViewResult = view.findViewById<ImageView>(R.id.imageScanResult)
             val textViewFoodResult = view.findViewById<TextView>(R.id.tv_ads)
             val textViewCalorieResult = view.findViewById<TextView>(R.id.tv_food_kal)
+            val textViewServingResult = view.findViewById<TextView>(R.id.tv_porsi_value)
 
             if (photoBitmap != null) {
                 foodCalorie = CalorieDict.foodToKal[foodName].toString()
+                servingCalorie = ServingDict.foodToServing[foodName].toString()
+
                 imageViewResult.setImageBitmap(photoBitmap)
                 textViewFoodResult.text = FoodDict.wordMap[foodName]
                 textViewCalorieResult.text = "$foodCalorie kal"
+                textViewServingResult.text = "($servingCalorie g)"
             }
             Log.d("photoBitmap", "ScanCalorieScreen: $photoBitmap")
         }

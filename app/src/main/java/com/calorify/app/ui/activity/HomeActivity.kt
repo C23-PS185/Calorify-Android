@@ -16,6 +16,9 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -25,6 +28,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.calorify.app.R
+import com.calorify.app.data.local.MonthDict
 import com.calorify.app.data.remote.response.DataUser
 import com.calorify.app.data.remote.response.Profil
 import com.calorify.app.helper.NetworkManager
@@ -99,6 +103,8 @@ class HomeActivity : ComponentActivity() {
     val month = monthYear.substring(0, 2)
     val year = monthYear.substring(3, 7)
 
+    private var selectedMonth by mutableStateOf(month)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (NetworkManager.isConnectedToNetwork(this)) {
@@ -128,7 +134,7 @@ class HomeActivity : ComponentActivity() {
 
                     is Result.Success -> {
                         userData = result.data.data!!
-                        listLogViewModel.fetchMonthlyData(true, this, userId, month=month, year=year, date=date)
+                        updateListLog()
                         setContent {
                             CalorifyTheme {
                                 // A surface container using the 'background' color from the theme
@@ -166,6 +172,7 @@ class HomeActivity : ComponentActivity() {
         modifier: Modifier = Modifier,
         navController: NavHostController = rememberNavController(),
     ) {
+        var selectedMonth by remember { mutableStateOf(month) }
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 
@@ -208,6 +215,7 @@ class HomeActivity : ComponentActivity() {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Screen.Home.route) {
+//                    updateListLog()
                     HomeScreen(
                         firstName = userData.fullName!!.substringBefore(" "),
                         photoURL = userData.photoURL
@@ -219,12 +227,17 @@ class HomeActivity : ComponentActivity() {
                         })
                 }
                 composable(Screen.History.route) {
+                    Log.d("MONTH", "CalorifyNavigation: $selectedMonth")
                     HistoryLogScreen(
-                        month = month,
+                        month = selectedMonth,
                         listLogViewModel = listLogViewModel,
                         navigateToDetail = { logId ->
                             navController.navigate(Screen.DetailLog.createRoute(logId))
-                        })
+                        },
+                        onMonthSelect = {newMonth ->
+                            selectedMonth = MonthDict.monthMapToNum[newMonth]!!
+                        }
+                    )
                 }
                 composable(Screen.Scan.route) {
                     ScanCalorieScreen(
@@ -240,7 +253,8 @@ class HomeActivity : ComponentActivity() {
                     ScanLogScreen(
                         viewModel = calorieLogViewModel,
                         onBerandaClick = { navController.navigate(Screen.Home.route) },
-                        userId = userId
+                        userId = userId,
+                        onSuccess = { updateListLog() },
                     )
                 }
                 composable(Screen.Profile.route) {
@@ -395,6 +409,10 @@ class HomeActivity : ComponentActivity() {
         }
         this.userData.birthDate = profile.birthDate
         this.userData.age = profile.age
+    }
+
+    private fun updateListLog() {
+        listLogViewModel.fetchMonthlyData(this, userId, month=month, year=year, date=date, monthNow = month)
     }
 }
 

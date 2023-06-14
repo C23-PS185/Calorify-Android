@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +30,7 @@ fun HistoryLogHeader(
     monthlyCalorieFulfilled: Map<String, Int>,
     modifier: Modifier = Modifier,
     viewModel: ListLogViewModel,
+    onMonthSelected: (String) -> Unit,
 ){
     val query by viewModel.query
 
@@ -48,6 +50,7 @@ fun HistoryLogHeader(
                 modifier = Modifier.padding(8.dp)
             )
             MonthSelection(selectedMonth) { newMonth ->
+                onMonthSelected(newMonth)
                 viewModel.changeMonth(newMonth)
                 selectedMonth = newMonth
                 Log.d("HistoryLogHeader", "selectedMonth: $selectedMonth")
