@@ -42,8 +42,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.calorify.app.R
 import com.calorify.app.data.local.FoodDict
-import com.calorify.app.helper.Result
 import com.calorify.app.data.remote.request.CalorieLogRequest
+import com.calorify.app.helper.Result
 import com.calorify.app.ui.component.button.CustomButton2
 import com.calorify.app.ui.component.input.MealTimeSelection
 import com.calorify.app.ui.component.input.RadioButtonType
@@ -116,7 +116,7 @@ fun ScanLogScreen(
         )
         TextField(
             value = FoodDict.wordMap[foodNameState]!!,
-            onValueChange = {  },
+            onValueChange = { },
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = MaterialTheme.colors.surface,
                 disabledIndicatorColor = Color.Transparent,

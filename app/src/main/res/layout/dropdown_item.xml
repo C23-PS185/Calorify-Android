@@ -1,11 +1,9 @@
-<TextView
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:text="TextView"
-    android:padding="14dp"
-    android:textSize="14sp"
-    android:textColor="@color/gray"
     android:fontFamily="@font/inter_regular"
-    />
+    android:padding="14dp"
+    android:text="TextView"
+    android:textColor="@color/gray"
+    android:textSize="14sp" />

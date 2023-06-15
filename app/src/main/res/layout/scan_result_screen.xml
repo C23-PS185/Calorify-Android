@@ -1,5 +1,4 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,12 +14,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_medium"
             android:gravity="center"
             android:text="Hasil Scan Kalori"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:fontFamily="@font/inter_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -69,9 +68,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semibold"
                 android:gravity="center"
+                android:text="200 kal"
                 android:textColor="@color/neutral_500"
-                android:textSize="18sp"
-                android:text="200 kal"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_porsi"

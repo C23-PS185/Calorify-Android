@@ -73,21 +73,39 @@ fun PremiumSubscriptionScreen() {
             fontSize = 14.sp,
             modifier = Modifier.padding(8.dp)
         )
-        Row(){
-            SubscriptionCard(discountValue = 50, numberOfMonth = 12, price = "Rp50.000,00", selectedCard = selectedCard, onCardSelected = { card ->
-                selectedCard = card
-            })
-            SubscriptionCard(discountValue = 25, numberOfMonth = 3, price = "Rp75.000,00", selectedCard = selectedCard, onCardSelected = { card ->
-                selectedCard = card
-            })
-            SubscriptionCard(numberOfMonth = 1, price = "Rp100.000,00", selectedCard = selectedCard, onCardSelected = { card ->
-                selectedCard = card
-            })
+        Row() {
+            SubscriptionCard(
+                discountValue = 50,
+                numberOfMonth = 12,
+                price = "Rp50.000,00",
+                selectedCard = selectedCard,
+                onCardSelected = { card ->
+                    selectedCard = card
+                })
+            SubscriptionCard(
+                discountValue = 25,
+                numberOfMonth = 3,
+                price = "Rp75.000,00",
+                selectedCard = selectedCard,
+                onCardSelected = { card ->
+                    selectedCard = card
+                })
+            SubscriptionCard(
+                numberOfMonth = 1,
+                price = "Rp100.000,00",
+                selectedCard = selectedCard,
+                onCardSelected = { card ->
+                    selectedCard = card
+                })
         }
         CustomButton(icon = R.drawable.ic_star, text = "Berlangganan Sekarang", onClick = {
             CoroutineScope(Dispatchers.Main).launch {
                 // Show the toast message
-                Toast.makeText(context, "Tunggu fitur ini pada pengembangan selanjutnya", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "Tunggu fitur ini pada pengembangan selanjutnya",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }

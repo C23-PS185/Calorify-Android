@@ -1,8 +1,6 @@
 package com.calorify.app.ui.activity
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -16,7 +14,7 @@ class OnboardingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOnboardingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        if(NetworkManager.isConnectedToNetwork(this)){
+        if (NetworkManager.isConnectedToNetwork(this)) {
             val user = FirebaseAuth.getInstance().currentUser
             if (user != null) {
                 // User is signed in
@@ -38,7 +36,7 @@ class OnboardingActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button.setOnClickListener{
+        binding.button.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
     }

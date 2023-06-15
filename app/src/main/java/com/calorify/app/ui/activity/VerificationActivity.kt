@@ -18,7 +18,7 @@ class VerificationActivity : AppCompatActivity() {
     private lateinit var currentUser: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if(NetworkManager.isConnectedToNetwork(this)){
+        if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             binding = ActivityVerificationBinding.inflate(layoutInflater)
             setContentView(binding.root)
@@ -36,10 +36,12 @@ class VerificationActivity : AppCompatActivity() {
                             startActivity(Intent(this, MainActivity::class.java))
                             finish()
                         } else {
-                            Toast.makeText(this, "Emailmu belum terverifikasi.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Emailmu belum terverifikasi.", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     } else {
-                        Toast.makeText(this, "Gagal mengambil data pengguna.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Gagal mengambil data pengguna.", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
             }

@@ -7,7 +7,6 @@ import com.calorify.app.data.remote.response.AssessmentResponse
 import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.data.remote.response.AssessmentUpdateResponse
 import com.calorify.app.data.remote.response.CalorieLogResponse
-import com.calorify.app.data.remote.response.DailyCalorieResponse
 import com.calorify.app.data.remote.response.MonthlyCalorieResponse
 import com.calorify.app.data.remote.response.ProfileUpdateResponse
 import okhttp3.MultipartBody
@@ -25,21 +24,30 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("user-data")
-    suspend fun uploadAssessment(@Body body: AssessmentRequest) : AssessmentResponse
+    suspend fun uploadAssessment(@Body body: AssessmentRequest): AssessmentResponse
 
     @Headers("Content-Type: application/json")
     @POST("calorielog/{userId}")
-    suspend fun uploadCalorieLog(@Path("userId") userId: String, @Body body: CalorieLogRequest) : CalorieLogResponse
+    suspend fun uploadCalorieLog(
+        @Path("userId") userId: String,
+        @Body body: CalorieLogRequest
+    ): CalorieLogResponse
 
     @GET("user-data/{userId}")
-    suspend fun getUserResult(@Path("userId") userId: String) : AssessmentResultResponse
+    suspend fun getUserResult(@Path("userId") userId: String): AssessmentResultResponse
 
     @GET("monthly-calorielog/{userId}/{month}")
-    suspend fun getMonthlyCalorieLog(@Path("userId") userId: String, @Path("month") month: String) : MonthlyCalorieResponse
+    suspend fun getMonthlyCalorieLog(
+        @Path("userId") userId: String,
+        @Path("month") month: String
+    ): MonthlyCalorieResponse
 
     @Headers("Content-Type: application/json")
     @PUT("update-user-assessment/{userId}")
-    suspend fun uploadUpdatedAssessment(@Body body: AssessmentUpdateRequest, @Path("userId") userId: String) : AssessmentUpdateResponse
+    suspend fun uploadUpdatedAssessment(
+        @Body body: AssessmentUpdateRequest,
+        @Path("userId") userId: String
+    ): AssessmentUpdateResponse
 
     @Multipart
     @PUT("user-data/{userId}")

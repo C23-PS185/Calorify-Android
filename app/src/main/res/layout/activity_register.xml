@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,12 +18,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_medium"
             android:gravity="center"
             android:text="Daftar"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:fontFamily="@font/inter_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,11 +35,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/inter_medium"
             android:gravity="center"
             android:text="Masukkan detail akunmu di bawah ini untuk mulai hidup sehat yang seru bersama Calorify!"
-            android:textSize="14sp"
             android:textColor="@color/neutral_500"
-            android:fontFamily="@font/inter_medium"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -52,10 +51,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Email"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="Email"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -77,9 +76,9 @@
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
                 android:fontFamily="@font/inter_medium"
                 android:hint="Masukkan email kamu"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvEmail" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -91,10 +90,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
-            android:text="Kata Sandi"
-            android:textSize="14sp"
-            android:textColor="@color/neutral_700"
             android:fontFamily="@font/inter_medium"
+            android:text="Kata Sandi"
+            android:textColor="@color/neutral_700"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout" />
@@ -107,23 +106,23 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
-            app:passwordToggleEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPassword"
+            app:passwordToggleEnabled="true"
             app:startIconDrawable="@drawable/ic_lock">
 
             <com.calorify.app.customview.CustomEditText
                 android:id="@+id/etPass"
-                app:passwordToggleEnabled="true"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
                 android:fontFamily="@font/inter_medium"
                 android:hint="Masukkan kata sandi"
+                android:inputType="textPassword"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPassword" />
+                app:layout_constraintTop_toBottomOf="@id/tvPassword"
+                app:passwordToggleEnabled="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -149,23 +148,23 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
-            app:passwordToggleEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvConfirmPassword"
+            app:passwordToggleEnabled="true"
             app:startIconDrawable="@drawable/ic_confirm_lock">
 
             <com.calorify.app.customview.CustomEditText
                 android:id="@+id/etConfirmPass"
-                app:passwordToggleEnabled="true"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
                 android:fontFamily="@font/inter_medium"
                 android:hint="Masukan konfirmasi kata sandi"
+                android:inputType="textPassword"
+                android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvConfirmPassword" />
+                app:layout_constraintTop_toBottomOf="@id/tvConfirmPassword"
+                app:passwordToggleEnabled="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -176,11 +175,11 @@
             android:layout_marginTop="46dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/blue_500"
-            android:text="Daftar"
             android:fontFamily="@font/inter_medium"
-            android:textStyle="bold"
+            android:text="Daftar"
             android:textAllCaps="false"
             android:textSize="14sp"
+            android:textStyle="bold"
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -190,8 +189,8 @@
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/registerButton">
@@ -199,19 +198,19 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_line"/>
+                android:src="@drawable/ic_line" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Atau"/>
+                android:text="Atau" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_line"/>
+                android:src="@drawable/ic_line" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -221,21 +220,21 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/white"
             android:fontFamily="@font/inter_regular"
             android:text="Masuk Dengan Google"
             android:textAllCaps="false"
-            android:textSize="16sp"
             android:textColor="@color/black"
-            android:backgroundTint="@color/white"
+            android:textSize="16sp"
             app:cornerRadius="12dp"
-            app:iconTint="@null"
             app:icon="@drawable/google"
             app:iconGravity="textStart"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/gray"
+            app:iconTint="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
+            app:strokeColor="@color/gray"
+            app:strokeWidth="1dp" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"

@@ -10,7 +10,6 @@ import com.calorify.app.data.remote.response.AssessmentResponse
 import com.calorify.app.data.remote.response.AssessmentResultResponse
 import com.calorify.app.data.remote.response.AssessmentUpdateResponse
 import com.calorify.app.data.remote.response.CalorieLogResponse
-import com.calorify.app.data.remote.response.DailyCalorieResponse
 import com.calorify.app.data.remote.response.MonthlyCalorieResponse
 import com.calorify.app.data.remote.response.ProfileUpdateResponse
 import com.calorify.app.data.remote.retrofit.ApiService
@@ -39,10 +38,13 @@ class Repository(private val apiService: ApiService) {
         }
     }
 
-    fun uploadCalorieLog(userId: String, body: CalorieLogRequest): LiveData<Result<CalorieLogResponse>> = liveData {
+    fun uploadCalorieLog(
+        userId: String,
+        body: CalorieLogRequest
+    ): LiveData<Result<CalorieLogResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.uploadCalorieLog(userId,body)
+            val response = apiService.uploadCalorieLog(userId, body)
             if (response.error) {
                 emit(Result.Error(response.message))
             } else {
@@ -79,26 +81,30 @@ class Repository(private val apiService: ApiService) {
         }
     }
 
-    fun getMonthlyCalorie(userId: String, month: String): LiveData<Result<MonthlyCalorieResponse>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getMonthlyCalorieLog(userId, month)
-            if (response.error == true) {
-                emit(Result.Error(response.message!!))
-            } else {
-                emit(Result.Success(response))
-            }
-        } catch (e: Exception) {
-            val message = e.message.toString()
-            if (message == "") {
-                emit(Result.Error("Snap, There is something wrong"))
-            } else {
-                emit(Result.Error(message))
+    fun getMonthlyCalorie(userId: String, month: String): LiveData<Result<MonthlyCalorieResponse>> =
+        liveData {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getMonthlyCalorieLog(userId, month)
+                if (response.error == true) {
+                    emit(Result.Error(response.message!!))
+                } else {
+                    emit(Result.Success(response))
+                }
+            } catch (e: Exception) {
+                val message = e.message.toString()
+                if (message == "") {
+                    emit(Result.Error("Snap, There is something wrong"))
+                } else {
+                    emit(Result.Error(message))
+                }
             }
         }
-    }
 
-    fun updateAssessment(userId: String, body: AssessmentUpdateRequest): LiveData<Result<AssessmentUpdateResponse>> = liveData {
+    fun updateAssessment(
+        userId: String,
+        body: AssessmentUpdateRequest
+    ): LiveData<Result<AssessmentUpdateResponse>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.uploadUpdatedAssessment(body, userId)
@@ -117,7 +123,13 @@ class Repository(private val apiService: ApiService) {
         }
     }
 
-    fun updateProfile(userId: String, fullname: RequestBody, birthDate: RequestBody, gender: RequestBody, image: MultipartBody.Part?): LiveData<Result<ProfileUpdateResponse>> = liveData {
+    fun updateProfile(
+        userId: String,
+        fullname: RequestBody,
+        birthDate: RequestBody,
+        gender: RequestBody,
+        image: MultipartBody.Part?
+    ): LiveData<Result<ProfileUpdateResponse>> = liveData {
         Log.d("REPO", "updateProfile: $fullname, $birthDate, $gender, $image")
         emit(Result.Loading)
         try {

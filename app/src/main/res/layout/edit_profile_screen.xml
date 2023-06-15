@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,10 +12,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/nama_lengkap"
-        android:textSize="14sp"
-        android:textColor="@color/neutral_700"
         android:fontFamily="@font/inter_medium"
+        android:text="@string/nama_lengkap"
+        android:textColor="@color/neutral_700"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,11 +37,11 @@
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:autofillHints="Isi nama lengkap"
             android:fontFamily="@font/inter_medium"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"
-            android:autofillHints="Isi nama lengkap" />
+            app:layout_constraintTop_toBottomOf="@id/tvName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -52,10 +51,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/tanggal_lahir"
-        android:textSize="14sp"
-        android:textColor="@color/neutral_700"
         android:fontFamily="@font/inter_medium"
+        android:text="@string/tanggal_lahir"
+        android:textColor="@color/neutral_700"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout" />
@@ -75,14 +74,14 @@
 
         <EditText
             android:id="@+id/etBirth"
-            android:inputType="datetime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:autofillHints="Isi tanggal lahir"
             android:fontFamily="@font/inter_medium"
+            android:inputType="datetime"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvBirth"
-            android:autofillHints="Isi tanggal lahir" />
+            app:layout_constraintTop_toBottomOf="@id/tvBirth" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -92,10 +91,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/jenis_kelamin"
-        android:textSize="14sp"
-        android:textColor="@color/neutral_700"
         android:fontFamily="@font/inter_medium"
+        android:text="@string/jenis_kelamin"
+        android:textColor="@color/neutral_700"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/birthEditTextLayout" />
@@ -116,8 +115,8 @@
             android:id="@+id/radio_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
             android:buttonTint="@color/blue_500"
+            android:onClick="onRadioButtonClicked"
             android:paddingEnd="19dp"
             android:text="@string/perempuan" />
 

@@ -110,8 +110,8 @@ fun TextGroup(
     title: String,
     content: String,
     modifier: Modifier = Modifier
-){
-    Column(modifier = modifier.padding(vertical = 8.dp)){
+) {
+    Column(modifier = modifier.padding(vertical = 8.dp)) {
         Text(
             text = title,
             fontSize = 14.sp,

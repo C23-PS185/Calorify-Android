@@ -7,17 +7,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.calorify.app.data.local.MonthDict
-import com.calorify.app.data.remote.response.DailyCalorieResponse
 import com.calorify.app.data.remote.response.Data
 import com.calorify.app.data.remote.response.LogItem
 import com.calorify.app.data.remote.response.MonthlyCalorieResponse
+import com.calorify.app.helper.Result
+import com.calorify.app.repository.Repository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import com.calorify.app.helper.Result
-import com.calorify.app.repository.Repository
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.forEach
 
 class ListLogViewModel(private val repository: Repository) : ViewModel() {
     private val _groupedEatTimeLogKalori = MutableStateFlow<Map<String, List<LogItem>>>(emptyMap())
@@ -40,12 +37,16 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
     fun search(newQuery: String) {
         _groupedDateLogKalori.value = _allLogKalori.value
         _query.value = newQuery
-        if(_query.value != ""){
-            val filteredGroupedDateLogKalori = _groupedDateLogKalori.value.mapValues { (_, logItems) ->
-                logItems.filter {
-                    it.foodName!!.contains(newQuery, ignoreCase = true) or it.createdAtDate!!.contains(newQuery, ignoreCase = true)
+        if (_query.value != "") {
+            val filteredGroupedDateLogKalori =
+                _groupedDateLogKalori.value.mapValues { (_, logItems) ->
+                    logItems.filter {
+                        it.foodName!!.contains(
+                            newQuery,
+                            ignoreCase = true
+                        ) or it.createdAtDate!!.contains(newQuery, ignoreCase = true)
+                    }
                 }
-            }
             _groupedDateLogKalori.value = filteredGroupedDateLogKalori
         }
     }
@@ -53,16 +54,30 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
     fun changeMonth(newMonth: String) {
         Log.d("MONTH", "changeMonth: $newMonth")
         val numOfMonth = MonthDict.monthMapToNum[newMonth]
-        fetchMonthlyData(lifecycleOwner, userId, month=numOfMonth!!, date=date, year=year, monthNow = monthNow)
+        fetchMonthlyData(
+            lifecycleOwner,
+            userId,
+            month = numOfMonth!!,
+            date = date,
+            year = year,
+            monthNow = monthNow
+        )
     }
 
-    private lateinit var lifecycleOwner : LifecycleOwner
+    private lateinit var lifecycleOwner: LifecycleOwner
     var userId = ""
     var date = ""
     var year = ""
     var monthNow = ""
 
-    fun fetchMonthlyData(lifecycleOwner: LifecycleOwner, userId: String, year: String, month: String, date: String, monthNow: String) {
+    fun fetchMonthlyData(
+        lifecycleOwner: LifecycleOwner,
+        userId: String,
+        year: String,
+        month: String,
+        date: String,
+        monthNow: String
+    ) {
         this.lifecycleOwner = lifecycleOwner
         this.userId = userId
         this.date = date
@@ -85,7 +100,12 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
                                 emitErrorState("Data not found")
                             } else {
                                 Log.d("DATA", "fetchMonthlyData: $monthlyCalorieResponse")
-                                updateGroupedDateLogKalori(monthlyCalorieResponse, monthYear, date, month == monthNow)
+                                updateGroupedDateLogKalori(
+                                    monthlyCalorieResponse,
+                                    monthYear,
+                                    date,
+                                    month == monthNow
+                                )
                             }
                         } else if (result is Result.Error) {
                             emitErrorState(
@@ -157,15 +177,19 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
         _groupedEatTimeLogKalori.value = groupedEatTimeLog
     }
 
-    private fun updateGroupedDateLogKalori(data: MonthlyCalorieResponse, monthYear: String, date: String, isUpdateEatTime: Boolean) {
-
+    private fun updateGroupedDateLogKalori(
+        data: MonthlyCalorieResponse,
+        monthYear: String,
+        date: String,
+        isUpdateEatTime: Boolean
+    ) {
         val groupedDateLog = mutableMapOf<String, List<LogItem>>()
         val monthlyCalorie = mutableMapOf<String, Int>()
 
-        data.monthlyLog.let {dailyCalorieList ->
-            dailyCalorieList?.forEach {dailyCalorie ->
+        data.monthlyLog.let { dailyCalorieList ->
+            dailyCalorieList?.forEach { dailyCalorie ->
                 Log.d("DATE", "isUpdate: $date, ${dailyCalorie?.date}, $isUpdateEatTime")
-                if (dailyCalorie?.date == date && isUpdateEatTime){
+                if (dailyCalorie?.date == date && isUpdateEatTime) {
                     Log.d("SAMEDAY", "${dailyCalorie.data!!}")
                     updateGroupedEatTimeLogKalori(dailyCalorie.data)
                 }

@@ -17,10 +17,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.calorify.app.R
-import com.calorify.app.data.local.MonthDict
-import com.calorify.app.ui.component.input.SearchBar
 import com.calorify.app.ui.component.graph.LineGraph
 import com.calorify.app.ui.component.input.MonthSelection
+import com.calorify.app.ui.component.input.SearchBar
 import com.calorify.app.viewmodel.ListLogViewModel
 
 @Composable
@@ -31,16 +30,16 @@ fun HistoryLogHeader(
     modifier: Modifier = Modifier,
     viewModel: ListLogViewModel,
     onMonthSelected: (String) -> Unit,
-){
+) {
     val query by viewModel.query
 
     var selectedMonth by remember { mutableStateOf(month) }
 
-    Column () {
+    Column() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(16.dp)
-        ){
+        ) {
             Text(
                 text = "Riwayat Log",
                 fontFamily = FontFamily(

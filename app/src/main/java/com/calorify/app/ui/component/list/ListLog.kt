@@ -86,8 +86,14 @@ fun ListLog(
                 .fillMaxWidth()
         ) {
             item {
-                if (groupedBy == "date"){
-                    HistoryLogHeader(groupedLog.isNullOrEmpty(), month, monthlyCalorieFulfilled, viewModel = listLogViewModel, onMonthSelected = onMonthSelect)
+                if (groupedBy == "date") {
+                    HistoryLogHeader(
+                        groupedLog.isNullOrEmpty(),
+                        month,
+                        monthlyCalorieFulfilled,
+                        viewModel = listLogViewModel,
+                        onMonthSelected = onMonthSelect
+                    )
                 } else {
                     HomeHeader(calorieNeeded = calorieNeeded, calorieFulfilled = calorieFulfilled)
                 }

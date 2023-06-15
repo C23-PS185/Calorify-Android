@@ -1,9 +1,5 @@
 package com.calorify.app.ui.screen.profile
 
-import android.app.DatePickerDialog
-import android.content.Intent
-import android.opengl.Visibility
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
@@ -11,30 +7,23 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.LifecycleOwner
 import com.calorify.app.R
-import com.calorify.app.data.remote.request.AssessmentRequest
 import com.calorify.app.data.remote.request.AssessmentUpdateRequest
 import com.calorify.app.data.remote.response.DataUser
 import com.calorify.app.databinding.AssessmentScreenBinding
 import com.calorify.app.helper.Result
-import com.calorify.app.ui.activity.AssessmentResultActivity
-import com.calorify.app.ui.theme.CalorifyTheme
-import com.calorify.app.viewmodel.AssessmentViewModel
 import com.calorify.app.viewmodel.ProfileViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Calendar
 
 @Composable
 fun SelfAssessmentScreen(
@@ -114,7 +103,8 @@ fun SelfAssessmentScreen(
                     val dropDownHeight = activityIndex
                     val dropDownStressor = stressorIndex
                     val dropDownKesehatan = weightIndex
-                    val isValid = binding.etWeight.error == null && binding.etHeight.error == null && binding.dropDownActivity.error == null && binding.dropDownStressor.error == null && binding.dropDownKesehatan.error == null
+                    val isValid =
+                        binding.etWeight.error == null && binding.etHeight.error == null && binding.dropDownActivity.error == null && binding.dropDownStressor.error == null && binding.dropDownKesehatan.error == null
 
                     when {
                         etWeight.isEmpty() -> {
@@ -170,7 +160,11 @@ fun SelfAssessmentScreen(
                                             buttonConfirm.isEnabled = true
                                             CoroutineScope(Dispatchers.Main).launch {
                                                 // Show the toast message
-                                                Toast.makeText(context, result.error, Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(
+                                                    context,
+                                                    result.error,
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
                                             }
                                         }
                                     }

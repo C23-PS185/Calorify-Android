@@ -16,14 +16,20 @@ fun HomeScreen(
     calorieNeeded: Int,
     listLogViewModel: ListLogViewModel,
     navigateToDetail: (String) -> Unit,
-    modifier: Modifier = Modifier){
-    Column (modifier = modifier) {
+    modifier: Modifier = Modifier
+) {
+    Column(modifier = modifier) {
         HomeStickyHeader(name = firstName, photo = photoURL)
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding()
-        ){
-            ListLog(calorieNeeded = calorieNeeded, groupedBy =  "eat time", navigateToDetail = navigateToDetail, listLogViewModel = listLogViewModel)
+        ) {
+            ListLog(
+                calorieNeeded = calorieNeeded,
+                groupedBy = "eat time",
+                navigateToDetail = navigateToDetail,
+                listLogViewModel = listLogViewModel
+            )
         }
     }
 }

@@ -1,4 +1,5 @@
 package com.calorify.app.ui.theme
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors

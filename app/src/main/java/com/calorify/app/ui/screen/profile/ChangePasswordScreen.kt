@@ -1,8 +1,6 @@
 package com.calorify.app.ui.screen.profile
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,10 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.calorify.app.R
-import com.calorify.app.databinding.AssessmentResultScreenBinding
 import com.calorify.app.databinding.ChangePasswordScreenBinding
-import com.calorify.app.ui.activity.RegisterActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,23 +27,26 @@ fun ChangePasswordScreen(
     var confirmPass by remember { mutableStateOf("") }
 
     AndroidView(
-        modifier = Modifier.padding(8.dp).fillMaxSize(),
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxSize(),
         factory = { context ->
             val binding = ChangePasswordScreenBinding.inflate(LayoutInflater.from(context))
 
-            binding.saveButton.setOnClickListener{
+            binding.saveButton.setOnClickListener {
                 oldPass = binding.etOldPass.text.toString()
                 newPass = binding.etNewPass.text.toString()
                 confirmPass = binding.etConfirmPass.text.toString()
-                val isValid = binding.etOldPass.error == null && binding.etNewPass.error == null && binding.etConfirmPass.error == null
+                val isValid =
+                    binding.etOldPass.error == null && binding.etNewPass.error == null && binding.etConfirmPass.error == null
 
                 when {
 
-                    oldPass == ""-> {
+                    oldPass == "" -> {
                         binding.etOldPass.error = "Tolong masukkan password baru"
                     }
 
-                    newPass == ""-> {
+                    newPass == "" -> {
                         binding.etNewPass.error = "Tolong masukkan password baru"
                     }
 

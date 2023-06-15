@@ -16,6 +16,7 @@ object MonthDict {
         "12" to "Desember"
     )
 
-    val monthMapToNum: Map<String, String> = numMapToMonth.entries.associate { (key, value) -> value to key }
+    val monthMapToNum: Map<String, String> =
+        numMapToMonth.entries.associate { (key, value) -> value to key }
 
 }

@@ -9,12 +9,12 @@ import androidx.compose.ui.unit.dp
 import com.calorify.app.ui.component.graph.PieChart
 
 @Composable
-fun HomeHeader(calorieNeeded: Int, calorieFulfilled: Int){
-    Column () {
+fun HomeHeader(calorieNeeded: Int, calorieFulfilled: Int) {
+    Column() {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(16.dp)
-        ){
+        ) {
             PieChart(calorieNeeded, calorieFulfilled)
         }
     }

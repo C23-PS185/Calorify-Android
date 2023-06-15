@@ -14,7 +14,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -39,7 +38,6 @@ import com.calorify.app.ui.navigation.Screen
 import com.calorify.app.ui.screen.DetailScreen
 import com.calorify.app.ui.screen.HistoryLogScreen
 import com.calorify.app.ui.screen.HomeScreen
-import com.calorify.app.ui.screen.scan.ScanCalorieScreen
 import com.calorify.app.ui.screen.LoadingScreen
 import com.calorify.app.ui.screen.profile.ChangePasswordScreen
 import com.calorify.app.ui.screen.profile.EditProfileScreen
@@ -48,6 +46,7 @@ import com.calorify.app.ui.screen.profile.PremiumSubscriptionScreen
 import com.calorify.app.ui.screen.profile.ProfileScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentResultScreen
 import com.calorify.app.ui.screen.profile.SelfAssessmentScreen
+import com.calorify.app.ui.screen.scan.ScanCalorieScreen
 import com.calorify.app.ui.screen.scan.ScanLogScreen
 import com.calorify.app.ui.screen.scan.ScanResultScreen
 import com.calorify.app.ui.screen.scan.photoBitmap
@@ -62,16 +61,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Calendar
-import java.util.Locale
-import java.util.concurrent.TimeUnit
 
 
 class HomeActivity : ComponentActivity() {
@@ -234,7 +225,7 @@ class HomeActivity : ComponentActivity() {
                         navigateToDetail = { logId ->
                             navController.navigate(Screen.DetailLog.createRoute(logId))
                         },
-                        onMonthSelect = {newMonth ->
+                        onMonthSelect = { newMonth ->
                             selectedMonth = MonthDict.monthMapToNum[newMonth]!!
                         }
                     )
@@ -412,7 +403,14 @@ class HomeActivity : ComponentActivity() {
     }
 
     private fun updateListLog() {
-        listLogViewModel.fetchMonthlyData(this, userId, month=month, year=year, date=date, monthNow = month)
+        listLogViewModel.fetchMonthlyData(
+            this,
+            userId,
+            month = month,
+            year = year,
+            date = date,
+            monthNow = month
+        )
     }
 }
 
