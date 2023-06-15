@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.calorify.app.R
 import com.calorify.app.databinding.ActivityLoginBinding
 import com.calorify.app.helper.NetworkManager
@@ -28,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             _binding = ActivityLoginBinding.inflate(layoutInflater)

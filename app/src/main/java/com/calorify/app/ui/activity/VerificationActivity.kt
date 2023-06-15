@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.calorify.app.databinding.ActivityVerificationBinding
 import com.calorify.app.helper.NetworkManager
 import com.google.firebase.auth.FirebaseAuth
@@ -18,6 +19,7 @@ class VerificationActivity : AppCompatActivity() {
     private lateinit var currentUser: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             binding = ActivityVerificationBinding.inflate(layoutInflater)

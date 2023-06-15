@@ -3,6 +3,7 @@ package com.calorify.app.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.calorify.app.databinding.ActivityMainBinding
 import com.calorify.app.helper.NetworkManager
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             _binding = ActivityMainBinding.inflate(layoutInflater)

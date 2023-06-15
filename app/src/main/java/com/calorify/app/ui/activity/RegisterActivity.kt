@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.calorify.app.R
 import com.calorify.app.databinding.ActivityRegisterBinding
 import com.calorify.app.helper.NetworkManager
@@ -29,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             _binding = ActivityRegisterBinding.inflate(layoutInflater)

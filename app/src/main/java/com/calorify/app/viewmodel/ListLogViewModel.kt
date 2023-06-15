@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.calorify.app.data.local.FoodDict
 import com.calorify.app.data.local.MonthDict
 import com.calorify.app.data.remote.response.Data
 import com.calorify.app.data.remote.response.LogItem
@@ -41,7 +42,7 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
             val filteredGroupedDateLogKalori =
                 _groupedDateLogKalori.value.mapValues { (_, logItems) ->
                     logItems.filter {
-                        it.foodName!!.contains(
+                        FoodDict.wordMap[it.foodName!!]!!.contains(
                             newQuery,
                             ignoreCase = true
                         ) or it.createdAtDate!!.contains(newQuery, ignoreCase = true)

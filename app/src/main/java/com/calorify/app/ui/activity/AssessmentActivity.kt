@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.calorify.app.R
 import com.calorify.app.data.remote.request.AssessmentRequest
 import com.calorify.app.databinding.ActivityAssessmentBinding
@@ -41,6 +42,7 @@ class AssessmentActivity : AppCompatActivity() {
     private var weightIndex: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         if (NetworkManager.isConnectedToNetwork(this)) {
             super.onCreate(savedInstanceState)
             _binding = ActivityAssessmentBinding.inflate(layoutInflater)
