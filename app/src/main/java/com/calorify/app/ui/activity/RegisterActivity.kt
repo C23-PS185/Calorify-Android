@@ -103,7 +103,7 @@ class RegisterActivity : AppCompatActivity() {
                             Log.w(TAG, "signInWithEmailAndPassword:failure", task.exception)
                             Toast.makeText(
                                 this@RegisterActivity,
-                                "Login Gagal. Harap gunakan email dan password yang sesuai.",
+                                "Registrasi akun gagal karena email sudah dipakai sebelumnya. Harap coba lagi dengan email yang lain.",
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
