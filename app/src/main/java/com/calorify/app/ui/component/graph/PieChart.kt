@@ -23,6 +23,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.calorify.app.R
 import com.calorify.app.data.local.PieChartData
 import com.calorify.app.ui.theme.Blue200
+import com.calorify.app.ui.theme.Blue500
 import com.calorify.app.ui.theme.Blue700
 import com.calorify.app.ui.theme.Green200
 import com.calorify.app.ui.theme.Green700
@@ -155,7 +156,9 @@ fun updatePieChartWithData(
         ds.colors = arrayListOf(
             Green200.toArgb(),
             Blue200.toArgb(),
+            Orange200.toArgb(),
         )
+
         ds.setValueTextColors(
             listOf(
                 Green700.toArgb(),

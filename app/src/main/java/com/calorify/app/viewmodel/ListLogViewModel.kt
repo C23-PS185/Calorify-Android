@@ -183,7 +183,6 @@ class ListLogViewModel(private val repository: Repository) : ViewModel() {
         date: String,
         isUpdateEatTime: Boolean
     ) {
-
         val groupedDateLog = mutableMapOf<String, List<LogItem>>()
         val monthlyCalorie = mutableMapOf<String, Int>()
 
